@@ -1,7 +1,7 @@
 import { dialog, ipcMain, shell, type BrowserWindow } from 'electron'
 import { z } from 'zod'
 import { BUILT_IN_TEMPLATES } from '../shared/templates'
-import type { AppSettings, LayerOrderAction, OutputMode, SearchFilters, SourceRemovalMode, TemplateDefinition } from '../shared/types'
+import type { AppSettings, LayerOrderAction, OutputMode, Page, SearchFilters, SourceRemovalMode, TemplateDefinition } from '../shared/types'
 import type { BackupService } from './backup'
 import type { AppDatabase } from './database'
 import type { WorkExporter } from './exporter'
@@ -148,6 +148,7 @@ export function registerIpcHandlers(context: IpcContext): () => void {
   })
   handle('works:remove', (_event, workId: string) => context.db.deleteWork(workId))
   handle('works:create-page', (_event, workId: string, position: number, background: string) => context.db.createPage(workId, position, background))
+  handle('works:update-page', (_event, pageId: string, changes: Pick<Page, 'background'>) => context.db.updatePage(z.string().uuid().parse(pageId), { background: z.string().regex(/^#[0-9a-f]{6}$/i).parse(changes.background) }))
   handle('works:delete-page', (_event, pageId: string) => context.db.deletePage(pageId))
   handle('works:create-image-layer', (_event, pageId: string, input: Record<string, unknown>) => context.db.createImageLayer(pageId, input as unknown as Parameters<AppDatabase['createImageLayer']>[1]))
   handle('works:create-text-layer', (_event, pageId: string, input: Record<string, unknown>) => context.db.createTextLayer(pageId, input as unknown as Parameters<AppDatabase['createTextLayer']>[1]))

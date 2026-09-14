@@ -23,6 +23,7 @@ export default function Editor(props: EditorProps) {
   const [exportOpen, setExportOpen] = useState(false)
   const [templateDialogOpen, setTemplateDialogOpen] = useState(false)
   const [textFocusToken, setTextFocusToken] = useState(0)
+  const [editingText, setEditingText] = useState<{ id: string; original: string } | null>(null)
   const [loading, setLoading] = useState(true)
 
   const load = useCallback(async () => {
@@ -60,22 +61,34 @@ export default function Editor(props: EditorProps) {
     try { await window.albumApi.works.updateLayer(layerId, patch as Record<string, unknown>) } catch (error) { props.onToast({ kind: 'error', text: errorMessage(error) }); await load() }
   }
 
-  const updateText = async (layerId: string, text: string, style: Record<string, unknown>) => {
+  const previewText = (layerId: string, text: string) => {
     setDocument((current) => current ? ({
       ...current,
-      pages: current.pages.map((page) => ({ ...page, layers: page.layers.map((layer) => layer.id === layerId ? { ...layer, text, style: { ...layer.style, ...style } } : layer) }))
+      pages: current.pages.map((page) => ({ ...page, layers: page.layers.map((layer) => layer.id === layerId ? { ...layer, text } : layer) }))
     }) : current)
+  }
+
+  const updateText = async (layerId: string, text: string, style: Record<string, unknown>) => {
+    previewText(layerId, text)
     try { await window.albumApi.works.updateTextLayer(layerId, text, style) } catch (error) { props.onToast({ kind: 'error', text: errorMessage(error) }); await load() }
   }
 
-  const reorderSelected = async (action: LayerOrderAction) => {
-    if (!document || !activePage || selectedLayerIds.length === 0) return
+  const updatePageBackground = async (background: string) => {
+    if (!activePage) return
+    setDocument((current) => current ? ({ ...current, pages: current.pages.map((page) => page.id === activePage.id ? { ...page, background } : page) }) : current)
+    try { await window.albumApi.works.updatePage(activePage.id, { background }) } catch (error) { props.onToast({ kind: 'error', text: errorMessage(error) }); await load() }
+  }
+
+  const reorderLayers = async (layerIds: string[], action: LayerOrderAction) => {
+    if (!document || !activePage || layerIds.length === 0) return
     try {
-      const reordered = await window.albumApi.works.reorderLayers(activePage.id, selectedLayerIds, action)
+      const reordered = await window.albumApi.works.reorderLayers(activePage.id, layerIds, action)
       const indexes = new Map(reordered.map((layer) => [layer.id, layer.zIndex]))
       setDocument({ ...document, pages: document.pages.map((page) => page.id === activePage.id ? { ...page, layers: page.layers.map((layer) => ({ ...layer, zIndex: indexes.get(layer.id) ?? layer.zIndex })) } : page) })
     } catch (error) { props.onToast({ kind: 'error', text: errorMessage(error) }) }
   }
+
+  const reorderSelected = async (action: LayerOrderAction) => reorderLayers(selectedLayerIds, action)
 
   const addImage = async (assetId: string) => {
     if (!activePage) return
@@ -98,6 +111,13 @@ export default function Editor(props: EditorProps) {
       setPickerOpen(false)
     } catch (error) { props.onToast({ kind: 'error', text: errorMessage(error) }) }
   }
+  const beginInlineTextEditing = (layerId: string) => {
+    const layer = activePage?.layers.find((item) => item.id === layerId)
+    if (!layer || layer.type !== 'text') return
+    setSelectedLayerIds([layerId])
+    setEditingText({ id: layerId, original: layer.text ?? '' })
+  }
+
   const addText = async () => {
     if (!activePage) return
     try {
@@ -160,9 +180,9 @@ export default function Editor(props: EditorProps) {
     <div className="editor-shell">
       <header className="editor-header"><button className="back-button" onClick={() => void props.onBack()}>← 返回相册</button><div className="editor-title"><strong>{document.work.name}</strong><span>{document.work.canvasWidth} × {document.work.canvasHeight} · {document.work.outputMode === 'long_image' ? '长图' : '多页'}</span></div><div className="header-actions"><button className="button secondary" onClick={() => setTemplateDialogOpen(true)}>存为模板</button><button className="button primary" onClick={() => setExportOpen(true)}>导出作品</button></div></header>
       <div className="editor-workspace">
-        <aside className="editor-left"><div className="panel-heading"><h3>页面</h3><button onClick={() => void addPage()} title="新增页面">＋</button></div><div className="page-list">{document.pages.map((page, index) => <button className={page.id === activePage?.id ? 'active' : ''} key={page.id} onClick={() => { setActivePageId(page.id); setSelectedLayerIds([]) }}><b>{String(index + 1).padStart(2, '0')}</b><span>第 {index + 1} 页</span></button>)}</div>{document.pages.length > 1 && <button className="text-button danger" onClick={() => void deletePage()}>删除当前页面</button>}<div className="panel-heading layer-heading"><h3>图层</h3><span>{activePage?.layers.length ?? 0}</span></div><div className="layer-list">{[...(activePage?.layers ?? [])].sort((a, b) => b.zIndex - a.zIndex).map((layer) => <button key={layer.id} className={selectedLayerIds.includes(layer.id) ? 'active' : ''} onClick={(event) => setSelectedLayerIds((current) => event.ctrlKey || event.metaKey ? (current.includes(layer.id) ? current.filter((id) => id !== layer.id) : [...current, layer.id]) : [layer.id])}><i>{layer.type === 'image' ? '▧' : 'T'}</i><span>{layer.type === 'image' ? fileNameFromLayer(layer, albumAssets) : layer.text || '文字'}</span></button>)}</div><div className="editor-add-row"><button onClick={() => setPickerOpen(true)}>＋ 图片</button><button onClick={() => void addText()}>＋ 文字</button></div></aside>
-        <main className="canvas-area"><Canvas document={document} pageId={activePage?.id ?? null} selectedLayerIds={selectedLayerIds} onSelect={(layerId, additive) => setSelectedLayerIds((current) => layerId == null ? [] : additive ? (current.includes(layerId) ? current.filter((id) => id !== layerId) : [...current, layerId]) : [layerId])} onEdit={(layerId) => { setSelectedLayerIds([layerId]); setTextFocusToken((current) => current + 1) }} onChange={updateLayer} /></main>
-        <aside className="editor-right">{selectedLayers.length > 1 ? <MultiSelectionPanel count={selectedLayers.length} onReorder={(action) => void reorderSelected(action)} onDelete={() => void deleteLayers()} onClear={() => setSelectedLayerIds([])} /> : selectedLayer ? <LayerInspector work={document.work} layer={selectedLayer} asset={albumAssets.find((asset) => asset.id === selectedLayer.assetId)} focusToken={textFocusToken} onReorder={(action) => void reorderSelected(action)} onUpdate={(patch) => void updateLayer(selectedLayer.id, patch)} onUpdateText={(text, style) => void updateText(selectedLayer.id, text, style)} onReplace={() => { setReplaceTargetId(selectedLayer.id); setPickerOpen(true) }} onDelete={() => void deleteLayers()} /> : <InspectorEmpty onAddText={() => void addText()} onAddImage={() => { setReplaceTargetId(null); setPickerOpen(true) }} />}</aside>
+        <aside className="editor-left"><div className="panel-heading"><h3>页面</h3><button onClick={() => void addPage()} title="新增页面">＋</button></div><div className="page-list">{document.pages.map((page, index) => <button className={page.id === activePage?.id ? 'active' : ''} key={page.id} onClick={() => { setActivePageId(page.id); setSelectedLayerIds([]) }}><b>{String(index + 1).padStart(2, '0')}</b><span>第 {index + 1} 页</span></button>)}</div>{document.pages.length > 1 && <button className="text-button danger" onClick={() => void deletePage()}>删除当前页面</button>}<div className="panel-heading layer-heading"><h3>图层</h3><span>{activePage?.layers.length ?? 0}</span></div><div className="layer-list">{[...(activePage?.layers ?? [])].sort((a, b) => b.zIndex - a.zIndex).map((layer) => { const active = selectedLayerIds.includes(layer.id); return <div className={`layer-row ${active ? 'active' : ''}`} key={layer.id}><button className="layer-select" onClick={(event) => setSelectedLayerIds((current) => event.ctrlKey || event.metaKey ? (current.includes(layer.id) ? current.filter((id) => id !== layer.id) : [...current, layer.id]) : [layer.id])}><i>{layer.type === 'image' ? '▧' : 'T'}</i><span>{layer.type === 'image' ? fileNameFromLayer(layer, albumAssets) : layer.text || '文字'}</span></button><div className="layer-quick-actions"><button title="置顶" onClick={(event) => { event.stopPropagation(); setSelectedLayerIds([layer.id]); void reorderLayers([layer.id], 'top') }}>⇈</button><button title="置底" onClick={(event) => { event.stopPropagation(); setSelectedLayerIds([layer.id]); void reorderLayers([layer.id], 'bottom') }}>⇊</button></div></div> })}</div><div className="editor-add-row"><button onClick={() => setPickerOpen(true)}>＋ 图片</button><button onClick={() => void addText()}>＋ 文字</button></div></aside>
+        <main className="canvas-area"><Canvas document={document} pageId={activePage?.id ?? null} selectedLayerIds={selectedLayerIds} editingTextId={editingText?.id ?? null} onSelect={(layerId, additive) => setSelectedLayerIds((current) => layerId == null ? [] : additive ? (current.includes(layerId) ? current.filter((id) => id !== layerId) : [...current, layerId]) : [layerId])} onEdit={beginInlineTextEditing} onTextPreview={previewText} onTextCommit={(layerId, value) => { setEditingText(null); void updateText(layerId, value, {}) }} onTextCancel={() => { if (editingText) previewText(editingText.id, editingText.original); setEditingText(null) }} onChange={updateLayer} /></main>
+        <aside className="editor-right"><PageSettings background={activePage?.background ?? document.work.background} onChange={(background) => void updatePageBackground(background)} />{selectedLayers.length > 1 ? <MultiSelectionPanel count={selectedLayers.length} onReorder={(action) => void reorderSelected(action)} onDelete={() => void deleteLayers()} onClear={() => setSelectedLayerIds([])} /> : selectedLayer ? <LayerInspector work={document.work} layer={selectedLayer} asset={albumAssets.find((asset) => asset.id === selectedLayer.assetId)} focusToken={textFocusToken} onPreviewText={previewText} onReorder={(action) => void reorderSelected(action)} onUpdate={(patch) => void updateLayer(selectedLayer.id, patch)} onUpdateText={(text, style) => void updateText(selectedLayer.id, text, style)} onReplace={() => { setReplaceTargetId(selectedLayer.id); setPickerOpen(true) }} onDelete={() => void deleteLayers()} /> : <InspectorEmpty onAddText={() => void addText()} onAddImage={() => { setReplaceTargetId(null); setPickerOpen(true) }} />}</aside>
       </div>
       {pickerOpen && <ImagePicker title={replaceTargetId ? '更换图片' : '添加图片'} assets={albumAssets} onClose={() => { setPickerOpen(false); setReplaceTargetId(null) }} onSelect={(assetId) => void (replaceTargetId ? replaceImage(assetId) : addImage(assetId))} />}
       {exportOpen && <ExportDialog work={document} onClose={() => setExportOpen(false)} onToast={props.onToast} />}
@@ -171,17 +191,29 @@ export default function Editor(props: EditorProps) {
   )
 }
 
-function Canvas(props: { document: WorkDocument; pageId: string | null; selectedLayerIds: string[]; onSelect: (layerId: string | null, additive: boolean) => void; onEdit: (layerId: string) => void; onChange: (layerId: string, patch: LayerPatch) => Promise<void> }) {
+function Canvas(props: {
+  document: WorkDocument
+  pageId: string | null
+  selectedLayerIds: string[]
+  editingTextId: string | null
+  onSelect: (layerId: string | null, additive: boolean) => void
+  onEdit: (layerId: string) => void
+  onTextPreview: (layerId: string, text: string) => void
+  onTextCommit: (layerId: string, text: string) => void
+  onTextCancel: () => void
+  onChange: (layerId: string, patch: LayerPatch) => Promise<void>
+}) {
   const page = props.document.pages.find((item) => item.id === props.pageId)
   const scale = Math.min(820 / props.document.work.canvasWidth, 640 / props.document.work.canvasHeight)
   const width = Math.round(props.document.work.canvasWidth * scale)
   const height = Math.round(props.document.work.canvasHeight * scale)
   const nodeRefs = useRef(new Map<string, Konva.Node>())
   const transformerRef = useRef<Konva.Transformer>(null)
-  const selectionKey = props.selectedLayerIds.join('|')
+  const selectionKey = `${props.selectedLayerIds.join('|')}|${props.editingTextId ?? ''}`
+  const editingLayer = page?.layers.find((layer) => layer.id === props.editingTextId && layer.type === 'text') ?? null
 
   useEffect(() => {
-    const nodes = props.selectedLayerIds.map((id) => nodeRefs.current.get(id)).filter((node): node is Konva.Node => Boolean(node))
+    const nodes = props.selectedLayerIds.filter((id) => id !== props.editingTextId).map((id) => nodeRefs.current.get(id)).filter((node): node is Konva.Node => Boolean(node))
     transformerRef.current?.nodes(nodes)
     transformerRef.current?.getLayer()?.batchDraw()
   }, [selectionKey, page])
@@ -203,10 +235,48 @@ function Canvas(props: { document: WorkDocument; pageId: string | null; selected
     }
   }
 
-  return <div className="canvas-frame">{page ? <Stage width={width} height={height} onMouseDown={(event) => { if (event.target === event.target.getStage()) props.onSelect(null, false) }}><KonvaLayer><Rect width={width} height={height} fill={page.background || props.document.work.background} listening={false} /></KonvaLayer><KonvaLayer>{[...page.layers].sort((a, b) => a.zIndex - b.zIndex).map((layer) => <EditableNode key={layer.id} layer={layer} stageWidth={width} stageHeight={height} scale={scale} selected={props.selectedLayerIds.includes(layer.id)} onSelect={(additive) => props.onSelect(layer.id, additive)} onChange={(patch) => props.onChange(layer.id, patch)} onEdit={() => props.onEdit(layer.id)} registerNode={registerNode} />)}<Transformer ref={transformerRef} rotateEnabled enabledAnchors={['top-left', 'top-center', 'top-right', 'middle-left', 'middle-right', 'bottom-left', 'bottom-center', 'bottom-right']} borderStroke="#c6653f" anchorStroke="#c6653f" anchorFill="#fffaf2" anchorSize={8} keepRatio={false} onTransformEnd={commitSelected} /></KonvaLayer></Stage> : <div className="canvas-empty">这个作品没有页面</div>}</div>
+  if (!page) return <div className="canvas-frame"><div className="canvas-empty">这个作品没有页面</div></div>
+  return <div className="canvas-frame">
+    <div className="canvas-stage-wrap" style={{ width, height }}>
+      <Stage width={width} height={height} onMouseDown={(event) => { if (event.target === event.target.getStage()) { props.onTextCancel(); props.onSelect(null, false) } }}>
+        <KonvaLayer><Rect width={width} height={height} fill={page.background || props.document.work.background} listening={false} /></KonvaLayer>
+        <KonvaLayer>
+          {[...page.layers].sort((a, b) => a.zIndex - b.zIndex).map((layer) => <EditableNode key={layer.id} layer={layer} stageWidth={width} stageHeight={height} scale={scale} selected={props.selectedLayerIds.includes(layer.id) && layer.id !== props.editingTextId} editing={layer.id === props.editingTextId} onSelect={(additive) => props.onSelect(layer.id, additive)} onChange={(patch) => props.onChange(layer.id, patch)} onEdit={() => props.onEdit(layer.id)} registerNode={registerNode} />)}
+          <Transformer ref={transformerRef} rotateEnabled enabledAnchors={['top-left', 'top-center', 'top-right', 'middle-left', 'middle-right', 'bottom-left', 'bottom-center', 'bottom-right']} borderStroke="#c6653f" anchorStroke="#c6653f" anchorFill="#fffaf2" anchorSize={8} keepRatio={false} onTransformEnd={commitSelected} />
+        </KonvaLayer>
+      </Stage>
+      {editingLayer && <textarea
+        key={editingLayer.id}
+        className="inline-text-editor"
+        autoFocus
+        value={editingLayer.text ?? ''}
+        onChange={(event) => props.onTextPreview(editingLayer.id, event.target.value)}
+        onBlur={() => props.onTextCommit(editingLayer.id, editingLayer.text ?? '')}
+        onKeyDown={(event) => {
+          if (event.key === 'Escape') { event.preventDefault(); props.onTextCancel() }
+          if (event.key === 'Enter' && (event.ctrlKey || event.metaKey)) { event.preventDefault(); props.onTextCommit(editingLayer.id, editingLayer.text ?? '') }
+        }}
+        style={{
+          left: editingLayer.x * width,
+          top: editingLayer.y * height,
+          width: Math.max(40, editingLayer.width * width),
+          height: Math.max(28, editingLayer.height * height),
+          transform: `rotate(${editingLayer.rotation}deg)`,
+          fontSize: Math.max(10, numberStyle(editingLayer.style.fontSize, 48) * scale),
+          fontFamily: stringStyle(editingLayer.style.fontFamily, 'Microsoft YaHei'),
+          fontWeight: stringStyle(editingLayer.style.fontWeight, 'normal') === 'bold' ? 700 : 400,
+          color: stringStyle(editingLayer.style.color, '#111111'),
+          textAlign: stringStyle(editingLayer.style.align, 'left') as React.CSSProperties['textAlign'],
+          lineHeight: numberStyle(editingLayer.style.lineHeight, 1.2),
+          letterSpacing: numberStyle(editingLayer.style.letterSpacing) * scale,
+          caretColor: stringStyle(editingLayer.style.color, '#111111')
+        }}
+      />}
+    </div>
+  </div>
 }
 
-function EditableNode(props: { layer: Layer; stageWidth: number; stageHeight: number; scale: number; selected: boolean; onSelect: (additive: boolean) => void; onEdit: () => void; onChange: (patch: LayerPatch) => Promise<void>; registerNode: (layerId: string, node: Konva.Node | null) => void }) {
+function EditableNode(props: { layer: Layer; stageWidth: number; stageHeight: number; scale: number; selected: boolean; editing: boolean; onSelect: (additive: boolean) => void; onEdit: () => void; onChange: (patch: LayerPatch) => Promise<void>; registerNode: (layerId: string, node: Konva.Node | null) => void }) {
   const shapeRef = useRef<Konva.Node>(null)
   const image = useImage(props.layer.type === 'image' && props.layer.assetId ? previewUrl(props.layer.assetId, 1600) : null)
   const x = props.layer.x * props.stageWidth
@@ -230,14 +300,14 @@ function EditableNode(props: { layer: Layer; stageWidth: number; stageHeight: nu
     height,
     rotation: props.layer.rotation,
     draggable: true,
-    onClick: (event: Konva.KonvaEventObject<MouseEvent>) => props.onSelect(event.evt.ctrlKey || event.evt.metaKey),
+    onClick: (event: Konva.KonvaEventObject<MouseEvent>) => { const additive = event.evt.ctrlKey || event.evt.metaKey; props.onSelect(additive); if (props.layer.type === 'text' && props.selected && !additive) props.onEdit() },
     onTap: () => props.onSelect(false),
     onDblClick: (event: Konva.KonvaEventObject<MouseEvent>) => { event.cancelBubble = true; props.onSelect(false); props.onEdit() },
     onDragEnd: (event: Konva.KonvaEventObject<DragEvent>) => void props.onChange({ x: event.target.x() / props.stageWidth, y: event.target.y() / props.stageHeight }),
     onTransformEnd: (event: Konva.KonvaEventObject<Event>) => commit(event.target)
   }
   if (props.layer.type === 'text') {
-    return <KonvaText {...common} ref={shapeRef as React.RefObject<Konva.Text>} text={String(props.layer.text ?? '')} fontSize={numberStyle(props.layer.style.fontSize, 48) * props.scale} fontFamily={stringStyle(props.layer.style.fontFamily, 'Microsoft YaHei')} fontStyle={stringStyle(props.layer.style.fontWeight, 'normal') === 'bold' ? 'bold' : 'normal'} fill={stringStyle(props.layer.style.color, '#111111')} align={stringStyle(props.layer.style.align, 'left') as 'left' | 'center' | 'right'} letterSpacing={numberStyle(props.layer.style.letterSpacing)} lineHeight={numberStyle(props.layer.style.lineHeight, 1.2)} />
+    return <KonvaText {...common} visible={!props.editing} ref={shapeRef as React.RefObject<Konva.Text>} text={String(props.layer.text ?? '')} fontSize={numberStyle(props.layer.style.fontSize, 48) * props.scale} fontFamily={stringStyle(props.layer.style.fontFamily, 'Microsoft YaHei')} fontStyle={stringStyle(props.layer.style.fontWeight, 'normal') === 'bold' ? 'bold' : 'normal'} fill={stringStyle(props.layer.style.color, '#111111')} align={stringStyle(props.layer.style.align, 'left') as 'left' | 'center' | 'right'} letterSpacing={numberStyle(props.layer.style.letterSpacing)} lineHeight={numberStyle(props.layer.style.lineHeight, 1.2)} />
   }
   if (!image) {
     return <Rect {...common} ref={shapeRef as React.RefObject<Konva.Rect>} fill="#e8e4dc" stroke="#b8b0a4" dash={[8, 6]} />
@@ -284,11 +354,31 @@ function useImage(url: string | null): HTMLImageElement | null {
   return image
 }
 
-function LayerInspector(props: { work: Work; layer: Layer; asset?: MediaAssetSummary; focusToken: number; onUpdate: (patch: LayerPatch) => void; onUpdateText: (text: string, style: Record<string, unknown>) => void; onReplace: () => void; onDelete: () => void; onReorder: (action: LayerOrderAction) => void }) {
+function PageSettings(props: { background: string; onChange: (background: string) => void }) {
+  const presets = ['#ffffff', '#f4f1ea', '#111111', '#000000']
+  return <section className="page-settings">
+    <div className="page-settings-head"><div><span>当前页面</span><strong>背景颜色</strong></div><input type="color" value={props.background} onChange={(event) => props.onChange(event.target.value)} /></div>
+    <div className="background-presets">{presets.map((color) => <button key={color} title={color} className={props.background.toLowerCase() === color ? 'active' : ''} style={{ background: color }} onClick={() => props.onChange(color)} />)}</div>
+  </section>
+}
+
+function LayerInspector(props: { work: Work; layer: Layer; asset?: MediaAssetSummary; focusToken: number; onPreviewText: (layerId: string, text: string) => void; onUpdate: (patch: LayerPatch) => void; onUpdateText: (text: string, style: Record<string, unknown>) => void; onReplace: () => void; onDelete: () => void; onReorder: (action: LayerOrderAction) => void }) {
   const [text, setText] = useState(props.layer.text ?? '')
   const [dirty, setDirty] = useState(false)
+  const dirtyRef = useRef(false)
+  const layerIdRef = useRef(props.layer.id)
+  const originalTextRef = useRef(props.layer.text ?? '')
   const textareaRef = useRef<HTMLTextAreaElement>(null)
-  useEffect(() => { setText(props.layer.text ?? ''); setDirty(false) }, [props.layer.id, props.layer.text])
+  useEffect(() => {
+    const changedLayer = layerIdRef.current !== props.layer.id
+    if (changedLayer || !dirtyRef.current) {
+      setText(props.layer.text ?? '')
+      setDirty(false)
+      dirtyRef.current = false
+      if (changedLayer) originalTextRef.current = props.layer.text ?? ''
+    }
+    layerIdRef.current = props.layer.id
+  }, [props.layer.id, props.layer.text])
   useEffect(() => {
     if (props.layer.type !== 'text' || props.focusToken === 0) return
     const frame = requestAnimationFrame(() => { textareaRef.current?.focus(); textareaRef.current?.select() })
@@ -304,9 +394,17 @@ function LayerInspector(props: { work: Work; layer: Layer; asset?: MediaAssetSum
     return <label className="number-field"><span>{label}</span><div className="number-input"><input type="number" step="1" value={Math.round(pixelValue * 10) / 10} onChange={(event) => props.onUpdate({ [key]: key === 'rotation' ? Number(event.target.value) : Number(event.target.value) / canvasSize })} /><em>{unit}</em></div></label>
   }
   const commitText = () => {
-    if (!dirty) return
-    props.onUpdateText(text, {})
+    if (!dirtyRef.current) return
+    dirtyRef.current = false
     setDirty(false)
+    props.onUpdateText(text, {})
+  }
+  const cancelText = () => {
+    const original = originalTextRef.current
+    setText(original)
+    setDirty(false)
+    dirtyRef.current = false
+    props.onPreviewText(props.layer.id, original)
   }
   const restoreImageAspect = () => {
     if (!props.asset || props.asset.width <= 0 || props.asset.height <= 0) return
@@ -333,13 +431,13 @@ function LayerInspector(props: { work: Work; layer: Layer; asset?: MediaAssetSum
       </section>
       {props.layer.type === 'text' ? <section className="inspector-section">
         <h4>文字内容</h4>
-        <textarea ref={textareaRef} value={text} onChange={(event) => { setText(event.target.value); setDirty(true) }} onBlur={commitText} onKeyDown={(event) => { if (event.key === 'Enter' && (event.ctrlKey || event.metaKey)) { event.preventDefault(); commitText() } if (event.key === 'Escape') { setText(props.layer.text ?? ''); setDirty(false); event.currentTarget.blur() } }} placeholder="输入文字，支持换行" />
-        <div className="text-commit-row"><span>{dirty ? '内容尚未应用' : '内容已保存'}</span><button disabled={!dirty} onClick={commitText}>应用文字</button></div>
+        <textarea ref={textareaRef} value={text} onChange={(event) => { const value = event.target.value; setText(value); setDirty(true); dirtyRef.current = true; props.onPreviewText(props.layer.id, value) }} onBlur={commitText} onKeyDown={(event) => { if (event.key === 'Enter' && (event.ctrlKey || event.metaKey)) { event.preventDefault(); commitText() } if (event.key === 'Escape') { event.preventDefault(); cancelText(); event.currentTarget.blur() } }} placeholder="输入文字，支持换行" />
+        <div className="text-commit-row"><span>{dirty ? '内容尚未应用' : '内容已保存'}</span><button disabled={!dirty} onMouseDown={(event) => event.preventDefault()} onClick={commitText}>应用文字</button></div>
         <div className="inspector-grid"><label>字号<input type="number" min="1" value={numberStyle(style.fontSize, 48)} onChange={(event) => props.onUpdateText(text, { fontSize: Number(event.target.value) })} /></label><label>颜色<input type="color" value={stringStyle(style.color, '#111111')} onChange={(event) => props.onUpdateText(text, { color: event.target.value })} /></label></div>
         <label>字体<input value={stringStyle(style.fontFamily, 'Microsoft YaHei')} onChange={(event) => props.onUpdateText(text, { fontFamily: event.target.value })} /></label>
         <div className="inspector-grid"><label>对齐<select value={stringStyle(style.align, 'left')} onChange={(event) => props.onUpdateText(text, { align: event.target.value })}><option value="left">左对齐</option><option value="center">居中</option><option value="right">右对齐</option></select></label><label>字重<select value={stringStyle(style.fontWeight, 'normal')} onChange={(event) => props.onUpdateText(text, { fontWeight: event.target.value })}><option value="normal">常规</option><option value="bold">加粗</option></select></label></div>
         <div className="inspector-grid"><label>行距<input type="number" min="0.8" max="3" step="0.1" value={numberStyle(style.lineHeight, 1.2)} onChange={(event) => props.onUpdateText(text, { lineHeight: Number(event.target.value) })} /></label><label>字距<input type="number" step="0.5" value={numberStyle(style.letterSpacing)} onChange={(event) => props.onUpdateText(text, { letterSpacing: Number(event.target.value) })} /></label></div>
-        <p>双击画布上的文字可回到这里编辑；支持 {'{{album}}'}、{'{{camera}}'}、{'{{lens}}'}、{'{{date}}'} 等变量。</p>
+        <p>双击画布上的文字可直接就地编辑；支持 {'{{album}}'}、{'{{camera}}'}、{'{{lens}}'}、{'{{date}}'} 等变量。</p>
       </section> : <section className="inspector-section">
         <div className="section-title"><h4>图片</h4><small>{props.asset ? `${props.asset.width} × ${props.asset.height}` : '缺失图片'}</small></div>
         <button className="button secondary full" onClick={props.onReplace}>更换图片</button>

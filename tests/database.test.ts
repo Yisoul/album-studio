@@ -294,6 +294,22 @@ describe('AppDatabase', () => {
     expect(restored.enabled).toBe(true)
     expect(db.isPathIgnored('H:\\readd\\photos\\one.jpg')).toBe(false)
   })
+  it('sets a first photo as album cover and keeps a valid fallback', () => {
+    const root = db.createSourceRoot('I:\\cover-photos')
+    const first = db.upsertMediaLocation({ rootId: root.id, absolutePath: 'I:\\cover-photos\\first.jpg', relativePath: 'first.jpg', contentHash: 'cover-first', sizeBytes: 10, modifiedAt: 1, width: 100, height: 100, format: 'jpeg', orientation: 'square' }).assetId
+    const second = db.upsertMediaLocation({ rootId: root.id, absolutePath: 'I:\\cover-photos\\second.jpg', relativePath: 'second.jpg', contentHash: 'cover-second', sizeBytes: 10, modifiedAt: 1, width: 100, height: 100, format: 'jpeg', orientation: 'square' }).assetId
+    const album = db.createAlbum('封面测试')
+    db.addAssetToAlbum(album.id, first)
+    expect(db.getAlbum(album.id)?.coverAssetId).toBe(first)
+    db.addAssetToAlbum(album.id, second)
+    db.setAlbumCover(album.id, second)
+    expect(db.getAlbum(album.id)?.coverAssetId).toBe(second)
+    db.removeAssetFromAlbum(album.id, second)
+    expect(db.getAlbum(album.id)?.coverAssetId).toBe(first)
+    db.removeAssetFromAlbum(album.id, first)
+    expect(db.getAlbum(album.id)?.coverAssetId).toBeNull()
+  })
+
   it('replaces a custom template when its display name is reused', () => {
     const firstId = db.saveTemplate({ id: 'custom:first', name: '统一版式', payload: { id: 'custom:first', name: '统一版式' } })
     const secondId = db.saveTemplate({ id: 'custom:second', name: '统一版式', payload: { id: 'custom:second', name: '统一版式' } })

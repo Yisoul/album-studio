@@ -65,6 +65,9 @@ describe('work document persistence', () => {
     const document = db.getWorkDocument(workId)
     expect(document?.pages[0].layers.map((layer) => layer.id)).toEqual([imageLayer.id, textLayer.id])
 
+    db.updatePage(pageId, { background: '#111111' })
+    expect(db.listPages(workId)[0].background).toBe('#111111')
+    db.updateLayer(imageLayer.id, { x: 0.05, y: 0.04, width: 0.9, height: 0.5, rotation: 5 })
     db.updateLayer(imageLayer.id, { x: 0.05, y: 0.04, width: 0.9, height: 0.5, rotation: 5 })
     expect(db.getWorkDocument(workId)?.pages[0].layers[0]).toMatchObject({ x: 0.05, y: 0.04, rotation: 5 })
     db.updateTextLayer(textLayer.id, '新的标题', { fontSize: 72, lineHeight: 1.5 })

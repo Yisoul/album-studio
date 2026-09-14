@@ -1,6 +1,6 @@
 import { contextBridge, ipcRenderer } from 'electron'
 import type { AlbumStudioApi } from '../shared/api'
-import type { AppSettings, ExportOptions, LayerOrderAction, ScanProgress, SearchFilters, SourceRemovalMode, TemplateDefinition } from '../shared/types'
+import type { AppSettings, ExportOptions, LayerOrderAction, Page, ScanProgress, SearchFilters, SourceRemovalMode, TemplateDefinition } from '../shared/types'
 
 const api: AlbumStudioApi = {
   app: {
@@ -52,6 +52,7 @@ const api: AlbumStudioApi = {
     update: (workId: string, changes) => ipcRenderer.invoke('works:update', workId, changes),
     remove: (workId: string) => ipcRenderer.invoke('works:remove', workId),
     createPage: (workId: string, position: number, background: string) => ipcRenderer.invoke('works:create-page', workId, position, background),
+    updatePage: (pageId: string, changes: Pick<Page, 'background'>) => ipcRenderer.invoke('works:update-page', pageId, changes),
     deletePage: (pageId: string) => ipcRenderer.invoke('works:delete-page', pageId),
     createImageLayer: (pageId: string, input) => ipcRenderer.invoke('works:create-image-layer', pageId, input),
     createTextLayer: (pageId: string, input) => ipcRenderer.invoke('works:create-text-layer', pageId, input),

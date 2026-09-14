@@ -538,7 +538,11 @@ export class AppDatabase {
     this.db.prepare(`
       INSERT OR IGNORE INTO album_items(album_id, asset_id, position, created_at) VALUES (?, ?, ?, ?)
     `).run(albumId, assetId, asNumber(row.next_position), now)
-    this.db.prepare('UPDATE albums SET updated_at = ? WHERE id = ?').run(now, albumId)
+    this.db.prepare(`
+      UPDATE albums
+      SET cover_asset_id = COALESCE(cover_asset_id, ?), updated_at = ?
+      WHERE id = ?
+    `).run(assetId, now, albumId)
   }
 
   listAlbumAssets(albumId: string): Array<{ assetId: string; position: number }> {
@@ -894,7 +898,15 @@ export class AppDatabase {
 
   removeAssetFromAlbum(albumId: string, assetId: string): void {
     this.db.prepare('DELETE FROM album_items WHERE album_id = ? AND asset_id = ?').run(albumId, assetId)
-    this.db.prepare('UPDATE albums SET updated_at = ? WHERE id = ?').run(Date.now(), albumId)
+    this.db.prepare(`
+      UPDATE albums
+      SET cover_asset_id = CASE
+        WHEN cover_asset_id = ? THEN (SELECT asset_id FROM album_items WHERE album_id = ? ORDER BY position LIMIT 1)
+        ELSE cover_asset_id
+      END,
+      updated_at = ?
+      WHERE id = ?
+    `).run(assetId, albumId, Date.now(), albumId)
   }
 
   reorderAlbumAssets(albumId: string, assetIds: string[]): void {
@@ -911,6 +923,8 @@ export class AppDatabase {
   }
 
   setAlbumCover(albumId: string, assetId: string): void {
+    const item = this.db.prepare('SELECT 1 FROM album_items WHERE album_id = ? AND asset_id = ?').get(albumId, assetId)
+    if (!item) throw new Error('照片不属于这个相册')
     this.db.prepare('UPDATE albums SET cover_asset_id = ?, updated_at = ? WHERE id = ?').run(assetId, Date.now(), albumId)
   }
 
@@ -1025,6 +1039,13 @@ export class AppDatabase {
 
   deleteLayer(layerId: string): void {
     this.db.prepare('DELETE FROM layers WHERE id = ?').run(layerId)
+  }
+
+  updatePage(pageId: string, input: Pick<Page, 'background'>): void {
+    const row = this.db.prepare('SELECT work_id FROM pages WHERE id = ?').get(pageId) as Row | undefined
+    if (!row) throw new Error('页面不存在')
+    this.db.prepare('UPDATE pages SET background = ? WHERE id = ?').run(input.background, pageId)
+    this.db.prepare('UPDATE works SET updated_at = ? WHERE id = ?').run(Date.now(), asString(row.work_id))
   }
 
   deletePage(pageId: string): void {

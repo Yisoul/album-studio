@@ -95,6 +95,7 @@ export interface AlbumStudioApi {
     update(workId: string, changes: Partial<Pick<Work, 'name' | 'outputMode' | 'canvasWidth' | 'canvasHeight' | 'background'>>): Promise<Work>
     remove(workId: string): Promise<void>
     createPage(workId: string, position: number, background: string): Promise<Page>
+    updatePage(pageId: string, changes: Pick<Page, 'background'>): Promise<void>
     deletePage(pageId: string): Promise<void>
     createImageLayer(pageId: string, input: ImageLayerRequest): Promise<Layer>
     createTextLayer(pageId: string, input: TextLayerRequest): Promise<Layer>
