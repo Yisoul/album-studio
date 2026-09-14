@@ -1,1 +1,253 @@
-aW1wb3J0IHsgZGlhbG9nLCBpcGNNYWluLCBzaGVsbCwgdHlwZSBCcm93c2VyV2luZG93IH0gZnJvbSAnZWxlY3Ryb24nCmltcG9ydCB7IHogfSBmcm9tICd6b2QnCmltcG9ydCB7IEJVSUxUX0lOX1RFTVBMQVRFUyB9IGZyb20gJy4uL3NoYXJlZC90ZW1wbGF0ZXMnCmltcG9ydCB0eXBlIHsgQXBwU2V0dGluZ3MsIE91dHB1dE1vZGUsIFNlYXJjaEZpbHRlcnMsIFNvdXJjZVJlbW92YWxNb2RlLCBUZW1wbGF0ZURlZmluaXRpb24gfSBmcm9tICcuLi9zaGFyZWQvdHlwZXMnCmltcG9ydCB0eXBlIHsgQmFja3VwU2VydmljZSB9IGZyb20gJy4vYmFja3VwJwppbXBvcnQgdHlwZSB7IEFwcERhdGFiYXNlIH0gZnJvbSAnLi9kYXRhYmFzZScKaW1wb3J0IHR5cGUgeyBXb3JrRXhwb3J0ZXIgfSBmcm9tICcuL2V4cG9ydGVyJwppbXBvcnQgdHlwZSB7IExpYnJhcnlTY2FubmVyIH0gZnJvbSAnLi9zY2FubmVyJwppbXBvcnQgdHlwZSB7IFNldHRpbmdzU2VydmljZSB9IGZyb20gJy4vc2V0dGluZ3MnCmltcG9ydCB0eXBlIHsgVGh1bWJuYWlsU2VydmljZSB9IGZyb20gJy4vdGh1bWJuYWlscycKCmludGVyZmFjZSBJcGNDb250ZXh0IHsKICBkYjogQXBwRGF0YWJhc2UKICBzY2FubmVyOiBMaWJyYXJ5U2Nhbm5lcgogIGV4cG9ydGVyOiBXb3JrRXhwb3J0ZXIKICBiYWNrdXBzOiBCYWNrdXBTZXJ2aWNlCiAgc2V0dGluZ3M6IFNldHRpbmdzU2VydmljZQogIHRodW1ibmFpbHM6IFRodW1ibmFpbFNlcnZpY2UKICBnZXRXaW5kb3c6ICgpID0+IEJyb3dzZXJXaW5kb3cgfCBudWxsCn0KCmNvbnN0IHNlYXJjaFNjaGVtYSA9IHoub2JqZWN0KHsKICB0ZXh0OiB6LnN0cmluZygpLm9wdGlvbmFsKCksCiAgY2FwdHVyZWRGcm9tOiB6LnN0cmluZygpLm9wdGlvbmFsKCksCiAgY2FwdHVyZWRUbzogei5zdHJpbmcoKS5vcHRpb25hbCgpLAogIG9yaWVudGF0aW9uOiB6LmVudW0oWydsYW5kc2NhcGUnLCAncG9ydHJhaXQnLCAnc3F1YXJlJ10pLm9wdGlvbmFsKCksCiAgY2FtZXJhTW9kZWw6IHouc3RyaW5nKCkub3B0aW9uYWwoKSwKICBsZW5zOiB6LnN0cmluZygpLm9wdGlvbmFsKCksCiAgaXNvTWluOiB6Lm51bWJlcigpLm9wdGlvbmFsKCksCiAgaXNvTWF4OiB6Lm51bWJlcigpLm9wdGlvbmFsKCksCiAgZmF2b3JpdGU6IHouYm9vbGVhbigpLm9wdGlvbmFsKCksCiAgYWxidW1JZDogei5zdHJpbmcoKS5vcHRpb25hbCgpLAogIGxpbWl0OiB6Lm51bWJlcigpLmludCgpLm1pbigxKS5tYXgoNTAwKS5kZWZhdWx0KDEyMCksCiAgb2Zmc2V0OiB6Lm51bWJlcigpLmludCgpLm1pbigwKS5kZWZhdWx0KDApCn0pCgpleHBvcnQgZnVuY3Rpb24gcmVnaXN0ZXJJcGNIYW5kbGVycyhjb250ZXh0OiBJcGNDb250ZXh0KTogKCkgPT4gdm9pZCB7CiAgY29uc3QgY2hhbm5lbHMgPSBuZXcgU2V0PHN0cmluZz4oKQogIGNvbnN0IGhhbmRsZSA9IChjaGFubmVsOiBzdHJpbmcsIGxpc3RlbmVyOiBQYXJhbWV0ZXJzPHR5cGVvZiBpcGNNYWluLmhhbmRsZT5bMV0pOiB2b2lkID0+IHsKICAgIGlwY01haW4uaGFuZGxlKGNoYW5uZWwsIGxpc3RlbmVyKQogICAgY2hhbm5lbHMuYWRkKGNoYW5uZWwpCiAgfQoKICBoYW5kbGUoJ2FwcDpnZXQtc3RhdHMnLCAoKSA9PiBjb250ZXh0LmRiLmdldFN0YXRzKCkpCiAgaGFuZGxlKCdhcHA6Z2V0LXNldHRpbmdzJywgKCkgPT4gY29udGV4dC5zZXR0aW5ncy5nZXQoKSkKICBoYW5kbGUoJ2FwcDpzYXZlLXNldHRpbmdzJywgYXN5bmMgKF9ldmVudCwgdmFsdWU6IEFwcFNldHRpbmdzKSA9PiB7CiAgICBjb25zdCBzYXZlZCA9IGF3YWl0IGNvbnRleHQuc2V0dGluZ3Muc2F2ZSh2YWx1ZSkKICAgIGF3YWl0IGNvbmZpZ3VyZVdhdGNoZXJzKGNvbnRleHQpCiAgICByZXR1cm4gc2F2ZWQKICB9KQogIGhhbmRsZSgnYXBwOmNob29zZS1mb2xkZXJzJywgYXN5bmMgKCkgPT4gewogICAgY29uc3Qgb3duZXIgPSBjb250ZXh0LmdldFdpbmRvdygpCiAgICBjb25zdCByZXN1bHQgPSBvd25lcgogICAgICA/IGF3YWl0IGRpYWxvZy5zaG93T3BlbkRpYWxvZyhvd25lciwgeyB0aXRsZTogJ+mAieaLqeeFp+eJh+adpea6kOaWh+S7tuWkuScsIHByb3BlcnRpZXM6IFsnb3BlbkRpcmVjdG9yeScsICdtdWx0aVNlbGVjdGlvbnMnXSB9KQogICAgICA6IGF3YWl0IGRpYWxvZy5zaG93T3BlbkRpYWxvZyh7IHRpdGxlOiAn6YCJ5oup54Wn54mH5p2l5rqQ5paH5Lu25aS5JywgcHJvcGVydGllczogWydvcGVuRGlyZWN0b3J5JywgJ211bHRpU2VsZWN0aW9ucyddIH0pCiAgICByZXR1cm4gcmVzdWx0LmNhbmNlbGVkID8gW10gOiByZXN1bHQuZmlsZVBhdGhzCiAgfSkKICBoYW5kbGUoJ2FwcDpjaG9vc2UtZXhwb3J0LWRpcmVjdG9yeScsIGFzeW5jICgpID0+IHsKICAgIGNvbnN0IG93bmVyID0gY29udGV4dC5nZXRXaW5kb3coKQogICAgY29uc3QgcmVzdWx0ID0gb3duZXIKICAgICAgPyBhd2FpdCBkaWFsb2cuc2hvd09wZW5EaWFsb2cob3duZXIsIHsgdGl0bGU6ICfpgInmi6nkvZzlk4Hlr7zlh7rnm67lvZUnLCBwcm9wZXJ0aWVzOiBbJ29wZW5EaXJlY3RvcnknLCAnY3JlYXRlRGlyZWN0b3J5J10gfSkKICAgICAgOiBhd2FpdCBkaWFsb2cuc2hvd09wZW5EaWFsb2coeyB0aXRsZTogJ+mAieaLqeS9nOWTgeWvvOWHuuebruW9lScsIHByb3BlcnRpZXM6IFsnb3BlbkRpcmVjdG9yeScsICdjcmVhdGVEaXJlY3RvcnknXSB9KQogICAgcmV0dXJuIHJlc3VsdC5jYW5jZWxlZCA/IG51bGwgOiByZXN1bHQuZmlsZVBhdGhzWzBdCiAgfSkKICBoYW5kbGUoJ2FwcDpzY2FuLWFsbCcsIGFzeW5jICgpID0+IHsKICAgIGF3YWl0IHNjYW5BbGwoY29udGV4dCkKICB9KQogIGhhbmRsZSgnYXBwOmJhY2t1cC1ub3cnLCAoKSA9PiBjb250ZXh0LmJhY2t1cHMuY3JlYXRlQmFja3VwKCkpCgogIGhhbmRsZSgnbGlicmFyeTpsaXN0LXJvb3RzJywgKCkgPT4gY29udGV4dC5kYi5saXN0U291cmNlUm9vdHMoKSkKICBoYW5kbGUoJ2xpYnJhcnk6YWRkLXJvb3RzJywgYXN5bmMgKF9ldmVudCwgcGF0aHM6IHN0cmluZ1tdKSA9PiB7CiAgICBjb25zdCByb290cyA9IHouYXJyYXkoei5zdHJpbmcoKS5taW4oMSkpLnBhcnNlKHBhdGhzKS5tYXAoKHBhdGgpID0+IGNvbnRleHQuZGIuY3JlYXRlU291cmNlUm9vdChwYXRoKSkKICAgIGF3YWl0IGNvbmZpZ3VyZVdhdGNoZXJzKGNvbnRleHQpCiAgICByZXR1cm4gcm9vdHMKICB9KQogIGhhbmRsZSgnbGlicmFyeTpyZW1vdmUtcm9vdCcsIGFzeW5jIChfZXZlbnQsIHJvb3RJZDogc3RyaW5nLCBtb2RlOiBTb3VyY2VSZW1vdmFsTW9kZSkgPT4gewogICAgY29uc3QgcmVzdWx0ID0gY29udGV4dC5kYi5yZW1vdmVTb3VyY2VSb290KHouc3RyaW5nKCkudXVpZCgpLnBhcnNlKHJvb3RJZCksIHouZW51bShbJ2Rpc2FibGUnLCAnbGlicmFyeScsICdhbGwnXSkucGFyc2UobW9kZSkpCiAgICBhd2FpdCBjb25maWd1cmVXYXRjaGVycyhjb250ZXh0KQogICAgcmV0dXJuIHJlc3VsdAogIH0pCiAgaGFuZGxlKCdsaWJyYXJ5OnNldC1yb290LWVuYWJsZWQnLCBhc3luYyAoX2V2ZW50LCByb290SWQ6IHN0cmluZywgZW5hYmxlZDogYm9vbGVhbikgPT4gewogICAgY29uc3Qgcm9vdCA9IGNvbnRleHQuZGIuc2V0U291cmNlUm9vdEVuYWJsZWQoei5zdHJpbmcoKS51dWlkKCkucGFyc2Uocm9vdElkKSwgQm9vbGVhbihlbmFibGVkKSkKICAgIGF3YWl0IGNvbmZpZ3VyZVdhdGNoZXJzKGNvbnRleHQpCiAgICByZXR1cm4gcm9vdAogIH0pCiAgaGFuZGxlKCdsaWJyYXJ5OmdldC1yb290LWltcGFjdCcsIChfZXZlbnQsIHJvb3RJZDogc3RyaW5nKSA9PiBjb250ZXh0LmRiLmdldFNvdXJjZVJvb3RJbXBhY3Qoei5zdHJpbmcoKS51dWlkKCkucGFyc2Uocm9vdElkKSkpCiAgaGFuZGxlKCdsaWJyYXJ5OnNjYW4tcm9vdCcsIGFzeW5jIChfZXZlbnQsIHJvb3RJZDogc3RyaW5nKSA9PiB7CiAgICBjb25zdCByb290ID0gY29udGV4dC5kYi5saXN0U291cmNlUm9vdHMoKS5maW5kKChpdGVtKSA9PiBpdGVtLmlkID09PSByb290SWQpCiAgICBpZiAoIXJvb3QpIHRocm93IG5ldyBFcnJvcign5p2l5rqQ55uu5b2V5LiN5a2Y5ZyoJykKICAgIHJldHVybiBjb250ZXh0LnNjYW5uZXIuc2NhblJvb3Qocm9vdCwgKHByb2dyZXNzKSA9PiBicm9hZGNhc3QoY29udGV4dCwgJ2FwcDpzY2FuLXByb2dyZXNzJywgcHJvZ3Jlc3MpKQogIH0pCiAgaGFuZGxlKCdsaWJyYXJ5OnNlYXJjaCcsIChfZXZlbnQsIGZpbHRlcnM6IFNlYXJjaEZpbHRlcnMpID0+IGNvbnRleHQuZGIuc2VhcmNoQXNzZXRzKHNlYXJjaFNjaGVtYS5wYXJzZShmaWx0ZXJzKSkpCiAgaGFuZGxlKCdsaWJyYXJ5OmdldC1hc3NldCcsIChfZXZlbnQsIGFzc2V0SWQ6IHN0cmluZykgPT4gY29udGV4dC5kYi5nZXRBc3NldChhc3NldElkKSkKICBoYW5kbGUoJ2xpYnJhcnk6bGlzdC1kdXBsaWNhdGVzJywgKCkgPT4gY29udGV4dC5kYi5saXN0RHVwbGljYXRlQXNzZXRzKCkpCiAgaGFuZGxlKCdsaWJyYXJ5Omxpc3QtbG9jYXRpb25zJywgKF9ldmVudCwgYXNzZXRJZDogc3RyaW5nKSA9PiBjb250ZXh0LmRiLmxpc3RNZWRpYUxvY2F0aW9ucyh6LnN0cmluZygpLnV1aWQoKS5wYXJzZShhc3NldElkKSkpCiAgaGFuZGxlKCdsaWJyYXJ5OnNldC1wcmVmZXJyZWQtbG9jYXRpb24nLCAoX2V2ZW50LCBhc3NldElkOiBzdHJpbmcsIGxvY2F0aW9uSWQ6IHN0cmluZykgPT4gewogICAgY29udGV4dC5kYi5zZXRQcmVmZXJyZWRMb2NhdGlvbihhc3NldElkLCBsb2NhdGlvbklkKQogIH0pCiAgaGFuZGxlKCdsaWJyYXJ5OnNldC1mYXZvcml0ZScsIChfZXZlbnQsIGFzc2V0SWQ6IHN0cmluZywgZmF2b3JpdGU6IGJvb2xlYW4pID0+IHsKICAgIGNvbnRleHQuZGIuc2V0RmF2b3JpdGUoYXNzZXRJZCwgZmF2b3JpdGUpCiAgfSkKICBoYW5kbGUoJ2xpYnJhcnk6aWdub3JlLWFzc2V0JywgKF9ldmVudCwgYXNzZXRJZDogc3RyaW5nKSA9PiBjb250ZXh0LmRiLmlnbm9yZUFzc2V0KGFzc2V0SWQpKQogIGhhbmRsZSgnbGlicmFyeTpkZWxldGUtb3JpZ2luYWwnLCBhc3luYyAoX2V2ZW50LCBsb2NhdGlvbklkOiBzdHJpbmcpID0+IHsKICAgIGNvbnN0IGxvY2F0aW9uID0gY29udGV4dC5kYi5nZXRMb2NhdGlvbihsb2NhdGlvbklkKQogICAgaWYgKCFsb2NhdGlvbikgdGhyb3cgbmV3IEVycm9yKCfnhafniYfkvY3nva7kuI3lrZjlnKgnKQogICAgYXdhaXQgc2hlbGwudHJhc2hJdGVtKGxvY2F0aW9uLmFic29sdXRlUGF0aCkKICAgIGNvbnRleHQuZGIucmVtb3ZlTG9jYXRpb24obG9jYXRpb25JZCkKICB9KQogIGhhbmRsZSgnbGlicmFyeTpzaG93LWluLWZvbGRlcicsIChfZXZlbnQsIGxvY2F0aW9uSWQ6IHN0cmluZykgPT4gewogICAgY29uc3QgbG9jYXRpb24gPSBjb250ZXh0LmRiLmdldExvY2F0aW9uKGxvY2F0aW9uSWQpCiAgICBpZiAoIWxvY2F0aW9uKSB0aHJvdyBuZXcgRXJyb3IoJ+eFp+eJh+S9jee9ruS4jeWtmOWcqCcpCiAgICBzaGVsbC5zaG93SXRlbUluRm9sZGVyKGxvY2F0aW9uLmFic29sdXRlUGF0aCkKICB9KQoKICBoYW5kbGUoJ2FsYnVtczpsaXN0JywgKCkgPT4gY29udGV4dC5kYi5saXN0QWxidW1zKCkpCiAgaGFuZGxlKCdhbGJ1bXM6Y3JlYXRlJywgKF9ldmVudCwgbmFtZTogc3RyaW5nKSA9PiBjb250ZXh0LmRiLmNyZWF0ZUFsYnVtKHouc3RyaW5nKCkudHJpbSgpLm1pbigxKS5tYXgoODApLnBhcnNlKG5hbWUpKSkKICBoYW5kbGUoJ2FsYnVtczpyZW1vdmUnLCAoX2V2ZW50LCBhbGJ1bUlkOiBzdHJpbmcpID0+IGNvbnRleHQuZGIucmVtb3ZlQWxidW0oYWxidW1JZCkpCiAgaGFuZGxlKCdhbGJ1bXM6bGlzdC1hc3NldHMnLCAoX2V2ZW50LCBhbGJ1bUlkOiBzdHJpbmcpID0+IHsKICAgIHJldHVybiBjb250ZXh0LmRiLmxpc3RBbGJ1bUFzc2V0cyhhbGJ1bUlkKQogICAgICAubWFwKChpdGVtKSA9PiBjb250ZXh0LmRiLmdldEFzc2V0KGl0ZW0uYXNzZXRJZCkpCiAgICAgIC5maWx0ZXIoKGFzc2V0KTogYXNzZXQgaXMgTm9uTnVsbGFibGU8dHlwZW9mIGFzc2V0PiA9PiBCb29sZWFuKGFzc2V0KSkKICB9KQogIGhhbmRsZSgnYWxidW1zOmFkZC1hc3NldHMnLCAoX2V2ZW50LCBhbGJ1bUlkOiBzdHJpbmcsIGFzc2V0SWRzOiBzdHJpbmdbXSkgPT4gewogICAgei5hcnJheSh6LnN0cmluZygpLnV1aWQoKSkucGFyc2UoYXNzZXRJZHMpLmZvckVhY2goKGFzc2V0SWQpID0+IGNvbnRleHQuZGIuYWRkQXNzZXRUb0FsYnVtKGFsYnVtSWQsIGFzc2V0SWQpKQogIH0pCiAgaGFuZGxlKCdhbGJ1bXM6cmVtb3ZlLWFzc2V0JywgKF9ldmVudCwgYWxidW1JZDogc3RyaW5nLCBhc3NldElkOiBzdHJpbmcpID0+IGNvbnRleHQuZGIucmVtb3ZlQXNzZXRGcm9tQWxidW0oYWxidW1JZCwgYXNzZXRJZCkpCiAgaGFuZGxlKCdhbGJ1bXM6cmVvcmRlcicsIChfZXZlbnQsIGFsYnVtSWQ6IHN0cmluZywgYXNzZXRJZHM6IHN0cmluZ1tdKSA9PiBjb250ZXh0LmRiLnJlb3JkZXJBbGJ1bUFzc2V0cyhhbGJ1bUlkLCBhc3NldElkcykpCiAgaGFuZGxlKCdhbGJ1bXM6c2V0LWNvdmVyJywgKF9ldmVudCwgYWxidW1JZDogc3RyaW5nLCBhc3NldElkOiBzdHJpbmcpID0+IGNvbnRleHQuZGIuc2V0QWxidW1Db3ZlcihhbGJ1bUlkLCBhc3NldElkKSkKCiAgaGFuZGxlKCd3b3JrczpsaXN0JywgKF9ldmVudCwgYWxidW1JZDogc3RyaW5nKSA9PiBjb250ZXh0LmRiLmxpc3RXb3JrcyhhbGJ1bUlkKSkKICBoYW5kbGUoJ3dvcmtzOmNyZWF0ZScsIChfZXZlbnQsIHJlcXVlc3Q6IHsKICAgIGFsYnVtSWQ6IHN0cmluZwogICAgbmFtZTogc3RyaW5nCiAgICBvdXRwdXRNb2RlOiBPdXRwdXRNb2RlCiAgICB0ZW1wbGF0ZUlkPzogc3RyaW5nCiAgICBjYW52YXNXaWR0aD86IG51bWJlcgogICAgY2FudmFzSGVpZ2h0PzogbnVtYmVyCiAgICBiYWNrZ3JvdW5kPzogc3RyaW5nCiAgfSkgPT4gY3JlYXRlV29ya0Zyb21UZW1wbGF0ZShjb250ZXh0LCByZXF1ZXN0KSkKICBoYW5kbGUoJ3dvcmtzOmdldCcsIChfZXZlbnQsIHdvcmtJZDogc3RyaW5nKSA9PiByZXF1aXJlV29ya0RvY3VtZW50KGNvbnRleHQsIHdvcmtJZCkpCiAgaGFuZGxlKCd3b3Jrczp1cGRhdGUnLCAoX2V2ZW50LCB3b3JrSWQ6IHN0cmluZywgY2hhbmdlczogUmVjb3JkPHN0cmluZywgdW5rbm93bj4pID0+IHsKICAgIGNvbnRleHQuZGIudXBkYXRlV29yayh3b3JrSWQsIGNoYW5nZXMgYXMgUGFyYW1ldGVyczxBcHBEYXRhYmFzZVsndXBkYXRlV29yayddPlsxXSkKICAgIHJldHVybiBjb250ZXh0LmRiLmdldFdvcmsod29ya0lkKQogIH0pCiAgaGFuZGxlKCd3b3JrczpyZW1vdmUnLCAoX2V2ZW50LCB3b3JrSWQ6IHN0cmluZykgPT4gY29udGV4dC5kYi5kZWxldGVXb3JrKHdvcmtJZCkpCiAgaGFuZGxlKCd3b3JrczpjcmVhdGUtcGFnZScsIChfZXZlbnQsIHdvcmtJZDogc3RyaW5nLCBwb3NpdGlvbjogbnVtYmVyLCBiYWNrZ3JvdW5kOiBzdHJpbmcpID0+IGNvbnRleHQuZGIuY3JlYXRlUGFnZSh3b3JrSWQsIHBvc2l0aW9uLCBiYWNrZ3JvdW5kKSkKICBoYW5kbGUoJ3dvcmtzOmRlbGV0ZS1wYWdlJywgKF9ldmVudCwgcGFnZUlkOiBzdHJpbmcpID0+IGNvbnRleHQuZGIuZGVsZXRlUGFnZShwYWdlSWQpKQogIGhhbmRsZSgnd29ya3M6Y3JlYXRlLWltYWdlLWxheWVyJywgKF9ldmVudCwgcGFnZUlkOiBzdHJpbmcsIGlucHV0OiBSZWNvcmQ8c3RyaW5nLCB1bmtub3duPikgPT4gY29udGV4dC5kYi5jcmVhdGVJbWFnZUxheWVyKHBhZ2VJZCwgaW5wdXQgYXMgdW5rbm93biBhcyBQYXJhbWV0ZXJzPEFwcERhdGFiYXNlWydjcmVhdGVJbWFnZUxheWVyJ10+WzFdKSkKICBoYW5kbGUoJ3dvcmtzOmNyZWF0ZS10ZXh0LWxheWVyJywgKF9ldmVudCwgcGFnZUlkOiBzdHJpbmcsIGlucHV0OiBSZWNvcmQ8c3RyaW5nLCB1bmtub3duPikgPT4gY29udGV4dC5kYi5jcmVhdGVUZXh0TGF5ZXIocGFnZUlkLCBpbnB1dCBhcyB1bmtub3duIGFzIFBhcmFtZXRlcnM8QXBwRGF0YWJhc2VbJ2NyZWF0ZVRleHRMYXllciddPlsxXSkpCiAgaGFuZGxlKCd3b3Jrczp1cGRhdGUtbGF5ZXInLCAoX2V2ZW50LCBsYXllcklkOiBzdHJpbmcsIGNoYW5nZXM6IFJlY29yZDxzdHJpbmcsIHVua25vd24+KSA9PiBjb250ZXh0LmRiLnVwZGF0ZUxheWVyKGxheWVySWQsIGNoYW5nZXMgYXMgUGFyYW1ldGVyczxBcHBEYXRhYmFzZVsndXBkYXRlTGF5ZXInXT5bMV0pKQogIGhhbmRsZSgnd29ya3M6dXBkYXRlLXRleHQtbGF5ZXInLCAoX2V2ZW50LCBsYXllcklkOiBzdHJpbmcsIHRleHQ6IHN0cmluZywgc3R5bGU6IFJlY29yZDxzdHJpbmcsIHVua25vd24+KSA9PiBjb250ZXh0LmRiLnVwZGF0ZVRleHRMYXllcihsYXllcklkLCB0ZXh0LCBzdHlsZSkpCiAgaGFuZGxlKCd3b3JrczpkZWxldGUtbGF5ZXInLCAoX2V2ZW50LCBsYXllcklkOiBzdHJpbmcpID0+IGNvbnRleHQuZGIuZGVsZXRlTGF5ZXIobGF5ZXJJZCkpCgogIGhhbmRsZSgndGVtcGxhdGVzOmxpc3QnLCAoKSA9PiBjb250ZXh0LmRiLmxpc3RUZW1wbGF0ZXMoKS5tYXAoKGl0ZW0pID0+IGl0ZW0ucGF5bG9hZCBhcyBUZW1wbGF0ZURlZmluaXRpb24pKQogIGhhbmRsZSgndGVtcGxhdGVzOnNhdmUnLCAoX2V2ZW50LCBuYW1lOiBzdHJpbmcsIHBheWxvYWQ6IFRlbXBsYXRlRGVmaW5pdGlvbikgPT4gY29udGV4dC5kYi5zYXZlVGVtcGxhdGUoeyBpZDogcGF5bG9hZC5pZCwgbmFtZSwgcGF5bG9hZCB9KSkKCiAgaGFuZGxlKCdleHBvcnRlcjpydW4nLCAoX2V2ZW50LCB3b3JrSWQ6IHN0cmluZywgb3B0aW9uczogUGFyYW1ldGVyczxXb3JrRXhwb3J0ZXJbJ2V4cG9ydFdvcmsnXT5bMV0pID0+IGNvbnRleHQuZXhwb3J0ZXIuZXhwb3J0V29yayh3b3JrSWQsIG9wdGlvbnMpKQoKICByZXR1cm4gKCkgPT4gewogICAgZm9yIChjb25zdCBjaGFubmVsIG9mIGNoYW5uZWxzKSBpcGNNYWluLnJlbW92ZUhhbmRsZXIoY2hhbm5lbCkKICB9Cn0KCmV4cG9ydCBmdW5jdGlvbiBzZWVkVGVtcGxhdGVzKGRiOiBBcHBEYXRhYmFzZSk6IHZvaWQgewogIGZvciAoY29uc3QgdGVtcGxhdGUgb2YgQlVJTFRfSU5fVEVNUExBVEVTKSB7CiAgICBkYi5zYXZlVGVtcGxhdGUoeyBpZDogYGJ1aWx0aW46JHt0ZW1wbGF0ZS5pZH1gLCBuYW1lOiB0ZW1wbGF0ZS5uYW1lLCBwYXlsb2FkOiB0ZW1wbGF0ZSwgaXNCdWlsdGluOiB0cnVlIH0pCiAgfQp9Cgphc3luYyBmdW5jdGlvbiBjb25maWd1cmVXYXRjaGVycyhjb250ZXh0OiBJcGNDb250ZXh0KTogUHJvbWlzZTx2b2lkPiB7CiAgYXdhaXQgY29udGV4dC5zY2FubmVyLmNsb3NlKCkKICBjb25zdCBzZXR0aW5ncyA9IGF3YWl0IGNvbnRleHQuc2V0dGluZ3MuZ2V0KCkKICBpZiAoIXNldHRpbmdzLmF1dG9XYXRjaCkgcmV0dXJuCiAgZm9yIChjb25zdCByb290IG9mIGNvbnRleHQuZGIubGlzdFNvdXJjZVJvb3RzKCkuZmlsdGVyKChpdGVtKSA9PiBpdGVtLmVuYWJsZWQpKSBjb250ZXh0LnNjYW5uZXIud2F0Y2hSb290KHJvb3QpCn0KCmFzeW5jIGZ1bmN0aW9uIHNjYW5BbGwoY29udGV4dDogSXBjQ29udGV4dCk6IFByb21pc2U8dm9pZD4gewogIGNvbnN0IHJvb3RzID0gY29udGV4dC5kYi5saXN0U291cmNlUm9vdHMoKQogIGF3YWl0IGNvbnRleHQuc2Nhbm5lci5zY2FuQWxsKHJvb3RzLCAocHJvZ3Jlc3MpID0+IGJyb2FkY2FzdChjb250ZXh0LCAnYXBwOnNjYW4tcHJvZ3Jlc3MnLCBwcm9ncmVzcykpCn0KCmZ1bmN0aW9uIGJyb2FkY2FzdChjb250ZXh0OiBJcGNDb250ZXh0LCBjaGFubmVsOiBzdHJpbmcsIHBheWxvYWQ6IHVua25vd24pOiB2b2lkIHsKICBjb25zdCB3aW5kb3cgPSBjb250ZXh0LmdldFdpbmRvdygpCiAgaWYgKHdpbmRvdyAmJiAhd2luZG93LmlzRGVzdHJveWVkKCkpIHdpbmRvdy53ZWJDb250ZW50cy5zZW5kKGNoYW5uZWwsIHBheWxvYWQpCn0KCmZ1bmN0aW9uIGNyZWF0ZVdvcmtGcm9tVGVtcGxhdGUoY29udGV4dDogSXBjQ29udGV4dCwgcmVxdWVzdDogewogIGFsYnVtSWQ6IHN0cmluZwogIG5hbWU6IHN0cmluZwogIG91dHB1dE1vZGU6IE91dHB1dE1vZGUKICB0ZW1wbGF0ZUlkPzogc3RyaW5nCiAgY2FudmFzV2lkdGg/OiBudW1iZXIKICBjYW52YXNIZWlnaHQ/OiBudW1iZXIKICBiYWNrZ3JvdW5kPzogc3RyaW5nCn0pIHsKICBjb25zdCB0ZW1wbGF0ZSA9IGNvbnRleHQuZGIubGlzdFRlbXBsYXRlcygpCiAgICAubWFwKChpdGVtKSA9PiBpdGVtLnBheWxvYWQgYXMgVGVtcGxhdGVEZWZpbml0aW9uKQogICAgLmZpbmQoKGl0ZW0pID0+IGl0ZW0uaWQgPT09IHJlcXVlc3QudGVtcGxhdGVJZCkKICBjb25zdCBvdXRwdXRNb2RlID0gdGVtcGxhdGU/LmNhdGVnb3J5ID8/IHJlcXVlc3Qub3V0cHV0TW9kZQogIGNvbnN0IHdvcmsgPSBjb250ZXh0LmRiLmNyZWF0ZVdvcmsoewogICAgYWxidW1JZDogcmVxdWVzdC5hbGJ1bUlkLAogICAgbmFtZTogcmVxdWVzdC5uYW1lLAogICAgb3V0cHV0TW9kZSwKICAgIGNhbnZhc1dpZHRoOiByZXF1ZXN0LmNhbnZhc1dpZHRoID8/IHRlbXBsYXRlPy5jYW52YXNXaWR0aCA/PyAxMDgwLAogICAgY2FudmFzSGVpZ2h0OiByZXF1ZXN0LmNhbnZhc0hlaWdodCA/PyB0ZW1wbGF0ZT8uY2FudmFzSGVpZ2h0ID8/IDE0NDAsCiAgICBiYWNrZ3JvdW5kOiByZXF1ZXN0LmJhY2tncm91bmQgPz8gdGVtcGxhdGU/LmJhY2tncm91bmQgPz8gJyNmZmZmZmYnCiAgfSkKICBjb25zdCBwYWdlID0gY29udGV4dC5kYi5jcmVhdGVQYWdlKHdvcmsuaWQsIDAsIHRlbXBsYXRlPy5iYWNrZ3JvdW5kID8/IHdvcmsuYmFja2dyb3VuZCkKICBjb25zdCBhbGJ1bUFzc2V0cyA9IGNvbnRleHQuZGIubGlzdEFsYnVtQXNzZXRzKHJlcXVlc3QuYWxidW1JZCkKICBsZXQgaW1hZ2VJbmRleCA9IDAKCiAgZm9yIChjb25zdCBsYXllciBvZiB0ZW1wbGF0ZT8ubGF5ZXJzID8/IFtdKSB7CiAgICBpZiAobGF5ZXIudHlwZSA9PT0gJ2ltYWdlJykgewogICAgICBjb25zdCBhc3NldCA9IGFsYnVtQXNzZXRzW2ltYWdlSW5kZXgrK10/LmFzc2V0SWQgPz8gbnVsbAogICAgICBjb250ZXh0LmRiLmNyZWF0ZUltYWdlTGF5ZXIocGFnZS5pZCwgewogICAgICAgIGFzc2V0SWQ6IGFzc2V0LAogICAgICAgIHg6IGxheWVyLngsCiAgICAgICAgeTogbGF5ZXIueSwKICAgICAgICB3aWR0aDogbGF5ZXIud2lkdGgsCiAgICAgICAgaGVpZ2h0OiBsYXllci5oZWlnaHQsCiAgICAgICAgcm90YXRpb246IGxheWVyLnJvdGF0aW9uLAogICAgICAgIHpJbmRleDogbGF5ZXIuekluZGV4LAogICAgICAgIGZpdDogbGF5ZXIuc3R5bGUuZml0ID09PSAnY29udGFpbicgPyAnY29udGFpbicgOiAnY292ZXInLAogICAgICAgIHJhZGl1czogdHlwZW9mIGxheWVyLnN0eWxlLnJhZGl1cyA9PT0gJ251bWJlcicgPyBsYXllci5zdHlsZS5yYWRpdXMgOiAwCiAgICAgIH0pCiAgICB9IGVsc2UgewogICAgICBjb250ZXh0LmRiLmNyZWF0ZVRleHRMYXllcihwYWdlLmlkLCB7CiAgICAgICAgeDogbGF5ZXIueCwKICAgICAgICB5OiBsYXllci55LAogICAgICAgIHdpZHRoOiBsYXllci53aWR0aCwKICAgICAgICBoZWlnaHQ6IGxheWVyLmhlaWdodCwKICAgICAgICByb3RhdGlvbjogbGF5ZXIucm90YXRpb24sCiAgICAgICAgekluZGV4OiBsYXllci56SW5kZXgsCiAgICAgICAgdGV4dDogbGF5ZXIudGV4dCA/PyAne3thbGJ1bX19JywKICAgICAgICBmb250U2l6ZTogdHlwZW9mIGxheWVyLnN0eWxlLmZvbnRTaXplID09PSAnbnVtYmVyJyA/IGxheWVyLnN0eWxlLmZvbnRTaXplIDogNTYsCiAgICAgICAgY29sb3I6IHR5cGVvZiBsYXllci5zdHlsZS5jb2xvciA9PT0gJ3N0cmluZycgPyBsYXllci5zdHlsZS5jb2xvciA6ICcjMTExMTExJywKICAgICAgICBmb250RmFtaWx5OiB0eXBlb2YgbGF5ZXIuc3R5bGUuZm9udEZhbWlseSA9PT0gJ3N0cmluZycgPyBsYXllci5zdHlsZS5mb250RmFtaWx5IDogJ01pY3Jvc29mdCBZYUhlaScsCiAgICAgICAgZm9udFdlaWdodDogdHlwZW9mIGxheWVyLnN0eWxlLmZvbnRXZWlnaHQgPT09ICdzdHJpbmcnID8gbGF5ZXIuc3R5bGUuZm9udFdlaWdodCA6ICdub3JtYWwnLAogICAgICAgIGFsaWduOiBsYXllci5zdHlsZS5hbGlnbiA9PT0gJ2NlbnRlcicgfHwgbGF5ZXIuc3R5bGUuYWxpZ24gPT09ICdyaWdodCcgPyBsYXllci5zdHlsZS5hbGlnbiA6ICdsZWZ0JywKICAgICAgICBsZXR0ZXJTcGFjaW5nOiB0eXBlb2YgbGF5ZXIuc3R5bGUubGV0dGVyU3BhY2luZyA9PT0gJ251bWJlcicgPyBsYXllci5zdHlsZS5sZXR0ZXJTcGFjaW5nIDogMCwKICAgICAgICBsaW5lSGVpZ2h0OiB0eXBlb2YgbGF5ZXIuc3R5bGUubGluZUhlaWdodCA9PT0gJ251bWJlcicgPyBsYXllci5zdHlsZS5saW5lSGVpZ2h0IDogMS4yCiAgICAgIH0pCiAgICB9CiAgfQoKICByZXR1cm4gcmVxdWlyZVdvcmtEb2N1bWVudChjb250ZXh0LCB3b3JrLmlkKQp9CgpmdW5jdGlvbiByZXF1aXJlV29ya0RvY3VtZW50KGNvbnRleHQ6IElwY0NvbnRleHQsIHdvcmtJZDogc3RyaW5nKSB7CiAgY29uc3QgZG9jdW1lbnQgPSBjb250ZXh0LmRiLmdldFdvcmtEb2N1bWVudCh3b3JrSWQpCiAgaWYgKCFkb2N1bWVudCkgdGhyb3cgbmV3IEVycm9yKCfkvZzlk4HkuI3lrZjlnKgnKQogIHJldHVybiBkb2N1bWVudAp9
+import { dialog, ipcMain, shell, type BrowserWindow } from 'electron'
+import { z } from 'zod'
+import { BUILT_IN_TEMPLATES } from '../shared/templates'
+import type { AppSettings, OutputMode, SearchFilters, SourceRemovalMode, TemplateDefinition } from '../shared/types'
+import type { BackupService } from './backup'
+import type { AppDatabase } from './database'
+import type { WorkExporter } from './exporter'
+import type { LibraryScanner } from './scanner'
+import type { SettingsService } from './settings'
+import type { ThumbnailService } from './thumbnails'
+
+interface IpcContext {
+  db: AppDatabase
+  scanner: LibraryScanner
+  exporter: WorkExporter
+  backups: BackupService
+  settings: SettingsService
+  thumbnails: ThumbnailService
+  getWindow: () => BrowserWindow | null
+}
+
+const searchSchema = z.object({
+  text: z.string().optional(),
+  capturedFrom: z.string().optional(),
+  capturedTo: z.string().optional(),
+  orientation: z.enum(['landscape', 'portrait', 'square']).optional(),
+  cameraModel: z.string().optional(),
+  lens: z.string().optional(),
+  isoMin: z.number().optional(),
+  isoMax: z.number().optional(),
+  favorite: z.boolean().optional(),
+  albumId: z.string().optional(),
+  limit: z.number().int().min(1).max(500).default(120),
+  offset: z.number().int().min(0).default(0)
+})
+
+export function registerIpcHandlers(context: IpcContext): () => void {
+  const channels = new Set<string>()
+  const handle = (channel: string, listener: Parameters<typeof ipcMain.handle>[1]): void => {
+    ipcMain.handle(channel, listener)
+    channels.add(channel)
+  }
+
+  handle('app:get-stats', () => context.db.getStats())
+  handle('app:get-settings', () => context.settings.get())
+  handle('app:save-settings', async (_event, value: AppSettings) => {
+    const saved = await context.settings.save(value)
+    await configureWatchers(context)
+    return saved
+  })
+  handle('app:choose-folders', async () => {
+    const owner = context.getWindow()
+    const result = owner
+      ? await dialog.showOpenDialog(owner, { title: '选择照片来源文件夹', properties: ['openDirectory', 'multiSelections'] })
+      : await dialog.showOpenDialog({ title: '选择照片来源文件夹', properties: ['openDirectory', 'multiSelections'] })
+    return result.canceled ? [] : result.filePaths
+  })
+  handle('app:choose-export-directory', async () => {
+    const owner = context.getWindow()
+    const result = owner
+      ? await dialog.showOpenDialog(owner, { title: '选择作品导出目录', properties: ['openDirectory', 'createDirectory'] })
+      : await dialog.showOpenDialog({ title: '选择作品导出目录', properties: ['openDirectory', 'createDirectory'] })
+    return result.canceled ? null : result.filePaths[0]
+  })
+  handle('app:scan-all', async () => {
+    await scanAll(context)
+  })
+  handle('app:backup-now', () => context.backups.createBackup())
+
+  handle('library:list-roots', () => context.db.listSourceRoots())
+  handle('library:add-roots', async (_event, paths: string[]) => {
+    const roots = z.array(z.string().min(1)).parse(paths).map((path) => context.db.createSourceRoot(path))
+    await configureWatchers(context)
+    return roots
+  })
+  handle('library:remove-root', async (_event, rootId: string, mode: SourceRemovalMode) => {
+    const result = context.db.removeSourceRoot(z.string().uuid().parse(rootId), z.enum(['disable', 'library', 'all']).parse(mode))
+    await configureWatchers(context)
+    return result
+  })
+  handle('library:set-root-enabled', async (_event, rootId: string, enabled: boolean) => {
+    const root = context.db.setSourceRootEnabled(z.string().uuid().parse(rootId), Boolean(enabled))
+    await configureWatchers(context)
+    return root
+  })
+  handle('library:get-root-impact', (_event, rootId: string) => context.db.getSourceRootImpact(z.string().uuid().parse(rootId)))
+  handle('library:scan-root', async (_event, rootId: string) => {
+    const root = context.db.listSourceRoots().find((item) => item.id === rootId)
+    if (!root) throw new Error('来源目录不存在')
+    return context.scanner.scanRoot(root, (progress) => broadcast(context, 'app:scan-progress', progress))
+  })
+  handle('library:search', (_event, filters: SearchFilters) => context.db.searchAssets(searchSchema.parse(filters)))
+  handle('library:get-asset', (_event, assetId: string) => context.db.getAsset(assetId))
+  handle('library:list-duplicates', () => context.db.listDuplicateAssets())
+  handle('library:list-locations', (_event, assetId: string) => context.db.listMediaLocations(z.string().uuid().parse(assetId)))
+  handle('library:set-preferred-location', (_event, assetId: string, locationId: string) => {
+    context.db.setPreferredLocation(assetId, locationId)
+  })
+  handle('library:set-favorite', (_event, assetId: string, favorite: boolean) => {
+    context.db.setFavorite(assetId, favorite)
+  })
+  handle('library:ignore-asset', (_event, assetId: string) => context.db.ignoreAsset(assetId))
+  handle('library:delete-original', async (_event, locationId: string) => {
+    const location = context.db.getLocation(locationId)
+    if (!location) throw new Error('照片位置不存在')
+    await shell.trashItem(location.absolutePath)
+    context.db.removeLocation(locationId)
+  })
+  handle('library:show-in-folder', (_event, locationId: string) => {
+    const location = context.db.getLocation(locationId)
+    if (!location) throw new Error('照片位置不存在')
+    shell.showItemInFolder(location.absolutePath)
+  })
+
+  handle('albums:list', () => context.db.listAlbums())
+  handle('albums:create', (_event, name: string) => context.db.createAlbum(z.string().trim().min(1).max(80).parse(name)))
+  handle('albums:remove', (_event, albumId: string) => context.db.removeAlbum(albumId))
+  handle('albums:list-assets', (_event, albumId: string) => {
+    return context.db.listAlbumAssets(albumId)
+      .map((item) => context.db.getAsset(item.assetId))
+      .filter((asset): asset is NonNullable<typeof asset> => Boolean(asset))
+  })
+  handle('albums:add-assets', (_event, albumId: string, assetIds: string[]) => {
+    z.array(z.string().uuid()).parse(assetIds).forEach((assetId) => context.db.addAssetToAlbum(albumId, assetId))
+  })
+  handle('albums:remove-asset', (_event, albumId: string, assetId: string) => context.db.removeAssetFromAlbum(albumId, assetId))
+  handle('albums:reorder', (_event, albumId: string, assetIds: string[]) => context.db.reorderAlbumAssets(albumId, assetIds))
+  handle('albums:set-cover', (_event, albumId: string, assetId: string) => context.db.setAlbumCover(albumId, assetId))
+
+  handle('works:list', (_event, albumId: string) => context.db.listWorks(albumId))
+  handle('works:create', (_event, request: {
+    albumId: string
+    name: string
+    outputMode: OutputMode
+    templateId?: string
+    canvasWidth?: number
+    canvasHeight?: number
+    background?: string
+  }) => createWorkFromTemplate(context, request))
+  handle('works:get', (_event, workId: string) => requireWorkDocument(context, workId))
+  handle('works:update', (_event, workId: string, changes: Record<string, unknown>) => {
+    context.db.updateWork(workId, changes as Parameters<AppDatabase['updateWork']>[1])
+    return context.db.getWork(workId)
+  })
+  handle('works:remove', (_event, workId: string) => context.db.deleteWork(workId))
+  handle('works:create-page', (_event, workId: string, position: number, background: string) => context.db.createPage(workId, position, background))
+  handle('works:delete-page', (_event, pageId: string) => context.db.deletePage(pageId))
+  handle('works:create-image-layer', (_event, pageId: string, input: Record<string, unknown>) => context.db.createImageLayer(pageId, input as unknown as Parameters<AppDatabase['createImageLayer']>[1]))
+  handle('works:create-text-layer', (_event, pageId: string, input: Record<string, unknown>) => context.db.createTextLayer(pageId, input as unknown as Parameters<AppDatabase['createTextLayer']>[1]))
+  handle('works:update-layer', (_event, layerId: string, changes: Record<string, unknown>) => context.db.updateLayer(layerId, changes as Parameters<AppDatabase['updateLayer']>[1]))
+  handle('works:update-text-layer', (_event, layerId: string, text: string, style: Record<string, unknown>) => context.db.updateTextLayer(layerId, text, style))
+  handle('works:delete-layer', (_event, layerId: string) => context.db.deleteLayer(layerId))
+
+  handle('templates:list', () => context.db.listTemplates().map((item) => item.payload as TemplateDefinition))
+  handle('templates:save', (_event, name: string, payload: TemplateDefinition) => context.db.saveTemplate({ id: payload.id, name, payload }))
+
+  handle('exporter:run', (_event, workId: string, options: Parameters<WorkExporter['exportWork']>[1]) => context.exporter.exportWork(workId, options))
+
+  return () => {
+    for (const channel of channels) ipcMain.removeHandler(channel)
+  }
+}
+
+export function seedTemplates(db: AppDatabase): void {
+  for (const template of BUILT_IN_TEMPLATES) {
+    db.saveTemplate({ id: `builtin:${template.id}`, name: template.name, payload: template, isBuiltin: true })
+  }
+}
+
+async function configureWatchers(context: IpcContext): Promise<void> {
+  await context.scanner.close()
+  const settings = await context.settings.get()
+  if (!settings.autoWatch) return
+  for (const root of context.db.listSourceRoots().filter((item) => item.enabled)) context.scanner.watchRoot(root)
+}
+
+async function scanAll(context: IpcContext): Promise<void> {
+  const roots = context.db.listSourceRoots()
+  await context.scanner.scanAll(roots, (progress) => broadcast(context, 'app:scan-progress', progress))
+}
+
+function broadcast(context: IpcContext, channel: string, payload: unknown): void {
+  const window = context.getWindow()
+  if (window && !window.isDestroyed()) window.webContents.send(channel, payload)
+}
+
+function createWorkFromTemplate(context: IpcContext, request: {
+  albumId: string
+  name: string
+  outputMode: OutputMode
+  templateId?: string
+  canvasWidth?: number
+  canvasHeight?: number
+  background?: string
+}) {
+  const template = context.db.listTemplates()
+    .map((item) => item.payload as TemplateDefinition)
+    .find((item) => item.id === request.templateId)
+  const outputMode = template?.category ?? request.outputMode
+  const work = context.db.createWork({
+    albumId: request.albumId,
+    name: request.name,
+    outputMode,
+    canvasWidth: request.canvasWidth ?? template?.canvasWidth ?? 1080,
+    canvasHeight: request.canvasHeight ?? template?.canvasHeight ?? 1440,
+    background: request.background ?? template?.background ?? '#ffffff'
+  })
+  const page = context.db.createPage(work.id, 0, template?.background ?? work.background)
+  const albumAssets = context.db.listAlbumAssets(request.albumId)
+  let imageIndex = 0
+
+  for (const layer of template?.layers ?? []) {
+    if (layer.type === 'image') {
+      const asset = albumAssets[imageIndex++]?.assetId ?? null
+      context.db.createImageLayer(page.id, {
+        assetId: asset,
+        x: layer.x,
+        y: layer.y,
+        width: layer.width,
+        height: layer.height,
+        rotation: layer.rotation,
+        zIndex: layer.zIndex,
+        fit: layer.style.fit === 'contain' ? 'contain' : 'cover',
+        radius: typeof layer.style.radius === 'number' ? layer.style.radius : 0
+      })
+    } else {
+      context.db.createTextLayer(page.id, {
+        x: layer.x,
+        y: layer.y,
+        width: layer.width,
+        height: layer.height,
+        rotation: layer.rotation,
+        zIndex: layer.zIndex,
+        text: layer.text ?? '{{album}}',
+        fontSize: typeof layer.style.fontSize === 'number' ? layer.style.fontSize : 56,
+        color: typeof layer.style.color === 'string' ? layer.style.color : '#111111',
+        fontFamily: typeof layer.style.fontFamily === 'string' ? layer.style.fontFamily : 'Microsoft YaHei',
+        fontWeight: typeof layer.style.fontWeight === 'string' ? layer.style.fontWeight : 'normal',
+        align: layer.style.align === 'center' || layer.style.align === 'right' ? layer.style.align : 'left',
+        letterSpacing: typeof layer.style.letterSpacing === 'number' ? layer.style.letterSpacing : 0,
+        lineHeight: typeof layer.style.lineHeight === 'number' ? layer.style.lineHeight : 1.2
+      })
+    }
+  }
+
+  return requireWorkDocument(context, work.id)
+}
+
+function requireWorkDocument(context: IpcContext, workId: string) {
+  const document = context.db.getWorkDocument(workId)
+  if (!document) throw new Error('作品不存在')
+  return document
+}

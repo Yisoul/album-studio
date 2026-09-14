@@ -1,1 +1,32 @@
-aW1wb3J0IHsgcmVzb2x2ZSB9IGZyb20gJ25vZGU6cGF0aCcKaW1wb3J0IHsgZGVmaW5lQ29uZmlnLCBleHRlcm5hbGl6ZURlcHNQbHVnaW4gfSBmcm9tICdlbGVjdHJvbi12aXRlJwppbXBvcnQgcmVhY3QgZnJvbSAnQHZpdGVqcy9wbHVnaW4tcmVhY3QnCgpleHBvcnQgZGVmYXVsdCBkZWZpbmVDb25maWcoewogIG1haW46IHsKICAgIHBsdWdpbnM6IFtleHRlcm5hbGl6ZURlcHNQbHVnaW4oKV0sCiAgICBidWlsZDogewogICAgICByb2xsdXBPcHRpb25zOiB7CiAgICAgICAgaW5wdXQ6IHJlc29sdmUoX19kaXJuYW1lLCAnc3JjL21haW4vaW5kZXgudHMnKQogICAgICB9CiAgICB9CiAgfSwKICBwcmVsb2FkOiB7CiAgICBwbHVnaW5zOiBbZXh0ZXJuYWxpemVEZXBzUGx1Z2luKCldLAogICAgYnVpbGQ6IHsKICAgICAgcm9sbHVwT3B0aW9uczogewogICAgICAgIGlucHV0OiByZXNvbHZlKF9fZGlybmFtZSwgJ3NyYy9wcmVsb2FkL2luZGV4LnRzJykKICAgICAgfQogICAgfQogIH0sCiAgcmVuZGVyZXI6IHsKICAgIHJvb3Q6IHJlc29sdmUoX19kaXJuYW1lLCAnc3JjL3JlbmRlcmVyJyksCiAgICByZXNvbHZlOiB7CiAgICAgIGFsaWFzOiB7CiAgICAgICAgJ0ByZW5kZXJlcic6IHJlc29sdmUoX19kaXJuYW1lLCAnc3JjL3JlbmRlcmVyL3NyYycpLAogICAgICAgICdAc2hhcmVkJzogcmVzb2x2ZShfX2Rpcm5hbWUsICdzcmMvc2hhcmVkJykKICAgICAgfQogICAgfSwKICAgIHBsdWdpbnM6IFtyZWFjdCgpXQogIH0KfSk=
+import { resolve } from 'node:path'
+import { defineConfig, externalizeDepsPlugin } from 'electron-vite'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  main: {
+    plugins: [externalizeDepsPlugin()],
+    build: {
+      rollupOptions: {
+        input: resolve(__dirname, 'src/main/index.ts')
+      }
+    }
+  },
+  preload: {
+    plugins: [externalizeDepsPlugin()],
+    build: {
+      rollupOptions: {
+        input: resolve(__dirname, 'src/preload/index.ts')
+      }
+    }
+  },
+  renderer: {
+    root: resolve(__dirname, 'src/renderer'),
+    resolve: {
+      alias: {
+        '@renderer': resolve(__dirname, 'src/renderer/src'),
+        '@shared': resolve(__dirname, 'src/shared')
+      }
+    },
+    plugins: [react()]
+  }
+})

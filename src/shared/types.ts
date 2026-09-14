@@ -1,1 +1,184 @@
-ZXhwb3J0IHR5cGUgT3JpZW50YXRpb24gPSAnbGFuZHNjYXBlJyB8ICdwb3J0cmFpdCcgfCAnc3F1YXJlJwpleHBvcnQgdHlwZSBTb3VyY2VSZW1vdmFsTW9kZSA9ICdkaXNhYmxlJyB8ICdsaWJyYXJ5JyB8ICdhbGwnCgpleHBvcnQgaW50ZXJmYWNlIFNvdXJjZVJvb3RJbXBhY3QgewogIGFzc2V0Q291bnQ6IG51bWJlcgogIGxvY2F0aW9uQ291bnQ6IG51bWJlcgp9CgpleHBvcnQgaW50ZXJmYWNlIFNvdXJjZVJlbW92YWxSZXN1bHQgewogIG1vZGU6IFNvdXJjZVJlbW92YWxNb2RlCiAgYWZmZWN0ZWRBc3NldHM6IG51bWJlcgogIHJlbW92ZWRMb2NhdGlvbnM6IG51bWJlcgogIHJlbW92ZWRBc3NldHM6IG51bWJlcgogIHJlbW92ZWRBbGJ1bUl0ZW1zOiBudW1iZXIKICByZW1vdmVkTGF5ZXJzOiBudW1iZXIKfQpleHBvcnQgdHlwZSBPdXRwdXRNb2RlID0gJ3BhZ2VzJyB8ICdsb25nX2ltYWdlJwpleHBvcnQgdHlwZSBMYXllclR5cGUgPSAnaW1hZ2UnIHwgJ3RleHQnCgpleHBvcnQgaW50ZXJmYWNlIFNvdXJjZVJvb3QgewogIGlkOiBzdHJpbmcKICBwYXRoOiBzdHJpbmcKICBlbmFibGVkOiBib29sZWFuCiAgY3JlYXRlZEF0OiBudW1iZXIKfQoKZXhwb3J0IGludGVyZmFjZSBNZWRpYUxvY2F0aW9uIHsKICBpZDogc3RyaW5nCiAgYXNzZXRJZDogc3RyaW5nCiAgcm9vdElkOiBzdHJpbmcKICBhYnNvbHV0ZVBhdGg6IHN0cmluZwogIHJlbGF0aXZlUGF0aDogc3RyaW5nCiAgc2l6ZUJ5dGVzOiBudW1iZXIKICBtb2RpZmllZEF0OiBudW1iZXIKICBzdGF0dXM6ICdhdmFpbGFibGUnIHwgJ21pc3NpbmcnCiAgcHJlZmVycmVkOiBib29sZWFuCn0KCmV4cG9ydCBpbnRlcmZhY2UgTWVkaWFBc3NldFN1bW1hcnkgewogIGlkOiBzdHJpbmcKICBjb250ZW50SGFzaDogc3RyaW5nCiAgd2lkdGg6IG51bWJlcgogIGhlaWdodDogbnVtYmVyCiAgZm9ybWF0OiBzdHJpbmcKICBjYXB0dXJlZEF0OiBzdHJpbmcgfCBudWxsCiAgY2FtZXJhTWFrZTogc3RyaW5nIHwgbnVsbAogIGNhbWVyYU1vZGVsOiBzdHJpbmcgfCBudWxsCiAgbGVuczogc3RyaW5nIHwgbnVsbAogIGZvY2FsTGVuZ3RoOiBudW1iZXIgfCBudWxsCiAgYXBlcnR1cmU6IG51bWJlciB8IG51bGwKICBzaHV0dGVyU3BlZWQ6IHN0cmluZyB8IG51bGwKICBpc286IG51bWJlciB8IG51bGwKICBvcmllbnRhdGlvbjogT3JpZW50YXRpb24KICBmYXZvcml0ZTogYm9vbGVhbgogIG1pc3Npbmc6IGJvb2xlYW4KICBwcmltYXJ5UGF0aDogc3RyaW5nIHwgbnVsbAogIGxvY2F0aW9uQ291bnQ6IG51bWJlcgp9CgpleHBvcnQgaW50ZXJmYWNlIFNlYXJjaEZpbHRlcnMgewogIHRleHQ/OiBzdHJpbmcKICBjYXB0dXJlZEZyb20/OiBzdHJpbmcKICBjYXB0dXJlZFRvPzogc3RyaW5nCiAgb3JpZW50YXRpb24/OiBPcmllbnRhdGlvbgogIGNhbWVyYU1vZGVsPzogc3RyaW5nCiAgbGVucz86IHN0cmluZwogIGlzb01pbj86IG51bWJlcgogIGlzb01heD86IG51bWJlcgogIGZhdm9yaXRlPzogYm9vbGVhbgogIGFsYnVtSWQ/OiBzdHJpbmcKICBsaW1pdDogbnVtYmVyCiAgb2Zmc2V0OiBudW1iZXIKfQoKZXhwb3J0IGludGVyZmFjZSBEdXBsaWNhdGVHcm91cCB7CiAgYXNzZXRJZDogc3RyaW5nCiAgY29udGVudEhhc2g6IHN0cmluZwogIGxvY2F0aW9uQ291bnQ6IG51bWJlcgp9CgpleHBvcnQgaW50ZXJmYWNlIEFsYnVtIHsKICBpZDogc3RyaW5nCiAgbmFtZTogc3RyaW5nCiAgY292ZXJBc3NldElkOiBzdHJpbmcgfCBudWxsCiAgY3JlYXRlZEF0OiBudW1iZXIKICB1cGRhdGVkQXQ6IG51bWJlcgp9CgpleHBvcnQgaW50ZXJmYWNlIFdvcmsgewogIGlkOiBzdHJpbmcKICBhbGJ1bUlkOiBzdHJpbmcKICBuYW1lOiBzdHJpbmcKICBvdXRwdXRNb2RlOiBPdXRwdXRNb2RlCiAgY2FudmFzV2lkdGg6IG51bWJlcgogIGNhbnZhc0hlaWdodDogbnVtYmVyCiAgYmFja2dyb3VuZDogc3RyaW5nCiAgY3JlYXRlZEF0OiBudW1iZXIKICB1cGRhdGVkQXQ6IG51bWJlcgp9CgpleHBvcnQgaW50ZXJmYWNlIFBhZ2UgewogIGlkOiBzdHJpbmcKICB3b3JrSWQ6IHN0cmluZwogIHBvc2l0aW9uOiBudW1iZXIKICBiYWNrZ3JvdW5kOiBzdHJpbmcKfQoKZXhwb3J0IGludGVyZmFjZSBMYXllciB7CiAgaWQ6IHN0cmluZwogIHBhZ2VJZDogc3RyaW5nCiAgdHlwZTogTGF5ZXJUeXBlCiAgYXNzZXRJZDogc3RyaW5nIHwgbnVsbAogIHg6IG51bWJlcgogIHk6IG51bWJlcgogIHdpZHRoOiBudW1iZXIKICBoZWlnaHQ6IG51bWJlcgogIHJvdGF0aW9uOiBudW1iZXIKICB6SW5kZXg6IG51bWJlcgogIHN0eWxlOiBSZWNvcmQ8c3RyaW5nLCB1bmtub3duPgogIHRleHQ6IHN0cmluZyB8IG51bGwKfQoKZXhwb3J0IGludGVyZmFjZSBXb3JrRG9jdW1lbnQgewogIHdvcms6IFdvcmsKICBwYWdlczogQXJyYXk8UGFnZSAmIHsgbGF5ZXJzOiBMYXllcltdIH0+Cn0KCmV4cG9ydCBpbnRlcmZhY2UgVGVtcGxhdGVMYXllciB7CiAgdHlwZTogTGF5ZXJUeXBlCiAgeDogbnVtYmVyCiAgeTogbnVtYmVyCiAgd2lkdGg6IG51bWJlcgogIGhlaWdodDogbnVtYmVyCiAgcm90YXRpb246IG51bWJlcgogIHpJbmRleDogbnVtYmVyCiAgc3R5bGU6IFJlY29yZDxzdHJpbmcsIHVua25vd24+CiAgdGV4dD86IHN0cmluZwp9CgpleHBvcnQgaW50ZXJmYWNlIFRlbXBsYXRlRGVmaW5pdGlvbiB7CiAgaWQ6IHN0cmluZwogIG5hbWU6IHN0cmluZwogIGNhdGVnb3J5OiAncGFnZXMnIHwgJ2xvbmdfaW1hZ2UnCiAgY2FudmFzV2lkdGg6IG51bWJlcgogIGNhbnZhc0hlaWdodDogbnVtYmVyCiAgYmFja2dyb3VuZDogc3RyaW5nCiAgbGF5ZXJzOiBUZW1wbGF0ZUxheWVyW10KfQoKZXhwb3J0IGludGVyZmFjZSBTY2FuUHJvZ3Jlc3MgewogIHJvb3RJZDogc3RyaW5nCiAgcGhhc2U6ICdpZGxlJyB8ICdzY2FubmluZycgfCAncmVhZGluZycgfCAnY29tcGxldGUnIHwgJ2Vycm9yJwogIGRpc2NvdmVyZWQ6IG51bWJlcgogIHByb2Nlc3NlZDogbnVtYmVyCiAgaW5kZXhlZDogbnVtYmVyCiAgZXJyb3JzOiBudW1iZXIKICBtZXNzYWdlPzogc3RyaW5nCn0KCmV4cG9ydCBpbnRlcmZhY2UgRXhwb3J0T3B0aW9ucyB7CiAgZGlyZWN0b3J5OiBzdHJpbmcKICBmb3JtYXQ6ICdqcGVnJyB8ICdwbmcnCiAgcXVhbGl0eTogbnVtYmVyCiAgbG9uZ0VkZ2U6IDEwODAgfCAxNDQwIHwgMjE2MCB8IG51bWJlcgogIGdhcDogbnVtYmVyCiAgZmlsZU5hbWVQcmVmaXg6IHN0cmluZwp9CgpleHBvcnQgaW50ZXJmYWNlIEV4cG9ydFJlc3VsdCB7CiAgZmlsZXM6IHN0cmluZ1tdCiAgd2lkdGg6IG51bWJlcgogIHBhZ2VzOiBudW1iZXIKfQoKZXhwb3J0IGludGVyZmFjZSBBcHBTZXR0aW5ncyB7CiAgdGh1bWJuYWlsQ2FjaGVMaW1pdEdiOiBudW1iZXIKICBhdXRvV2F0Y2g6IGJvb2xlYW4KfQoKZXhwb3J0IGludGVyZmFjZSBTY2FuU3VtbWFyeSB7CiAgZGlzY292ZXJlZDogbnVtYmVyCiAgaW5kZXhlZDogbnVtYmVyCiAgZXJyb3JzOiBzdHJpbmdbXQp9
+export type Orientation = 'landscape' | 'portrait' | 'square'
+export type SourceRemovalMode = 'disable' | 'library' | 'all'
+
+export interface SourceRootImpact {
+  assetCount: number
+  locationCount: number
+}
+
+export interface SourceRemovalResult {
+  mode: SourceRemovalMode
+  affectedAssets: number
+  removedLocations: number
+  removedAssets: number
+  removedAlbumItems: number
+  removedLayers: number
+}
+export type OutputMode = 'pages' | 'long_image'
+export type LayerType = 'image' | 'text'
+
+export interface SourceRoot {
+  id: string
+  path: string
+  enabled: boolean
+  createdAt: number
+}
+
+export interface MediaLocation {
+  id: string
+  assetId: string
+  rootId: string
+  absolutePath: string
+  relativePath: string
+  sizeBytes: number
+  modifiedAt: number
+  status: 'available' | 'missing'
+  preferred: boolean
+}
+
+export interface MediaAssetSummary {
+  id: string
+  contentHash: string
+  width: number
+  height: number
+  format: string
+  capturedAt: string | null
+  cameraMake: string | null
+  cameraModel: string | null
+  lens: string | null
+  focalLength: number | null
+  aperture: number | null
+  shutterSpeed: string | null
+  iso: number | null
+  orientation: Orientation
+  favorite: boolean
+  missing: boolean
+  primaryPath: string | null
+  locationCount: number
+}
+
+export interface SearchFilters {
+  text?: string
+  capturedFrom?: string
+  capturedTo?: string
+  orientation?: Orientation
+  cameraModel?: string
+  lens?: string
+  isoMin?: number
+  isoMax?: number
+  favorite?: boolean
+  albumId?: string
+  limit: number
+  offset: number
+}
+
+export interface DuplicateGroup {
+  assetId: string
+  contentHash: string
+  locationCount: number
+}
+
+export interface Album {
+  id: string
+  name: string
+  coverAssetId: string | null
+  createdAt: number
+  updatedAt: number
+}
+
+export interface Work {
+  id: string
+  albumId: string
+  name: string
+  outputMode: OutputMode
+  canvasWidth: number
+  canvasHeight: number
+  background: string
+  createdAt: number
+  updatedAt: number
+}
+
+export interface Page {
+  id: string
+  workId: string
+  position: number
+  background: string
+}
+
+export interface Layer {
+  id: string
+  pageId: string
+  type: LayerType
+  assetId: string | null
+  x: number
+  y: number
+  width: number
+  height: number
+  rotation: number
+  zIndex: number
+  style: Record<string, unknown>
+  text: string | null
+}
+
+export interface WorkDocument {
+  work: Work
+  pages: Array<Page & { layers: Layer[] }>
+}
+
+export interface TemplateLayer {
+  type: LayerType
+  x: number
+  y: number
+  width: number
+  height: number
+  rotation: number
+  zIndex: number
+  style: Record<string, unknown>
+  text?: string
+}
+
+export interface TemplateDefinition {
+  id: string
+  name: string
+  category: 'pages' | 'long_image'
+  canvasWidth: number
+  canvasHeight: number
+  background: string
+  layers: TemplateLayer[]
+}
+
+export interface ScanProgress {
+  rootId: string
+  phase: 'idle' | 'scanning' | 'reading' | 'complete' | 'error'
+  discovered: number
+  processed: number
+  indexed: number
+  errors: number
+  message?: string
+}
+
+export interface ExportOptions {
+  directory: string
+  format: 'jpeg' | 'png'
+  quality: number
+  longEdge: 1080 | 1440 | 2160 | number
+  gap: number
+  fileNamePrefix: string
+}
+
+export interface ExportResult {
+  files: string[]
+  width: number
+  pages: number
+}
+
+export interface AppSettings {
+  thumbnailCacheLimitGb: number
+  autoWatch: boolean
+}
+
+export interface ScanSummary {
+  discovered: number
+  indexed: number
+  errors: string[]
+}

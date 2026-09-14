@@ -1,1 +1,61 @@
-aW1wb3J0IHsgbWtkdGVtcCwgcmVhZEZpbGUsIHJtLCBzdGF0IH0gZnJvbSAnbm9kZTpmcy9wcm9taXNlcycKaW1wb3J0IHsgdG1wZGlyIH0gZnJvbSAnbm9kZTpvcycKaW1wb3J0IHsgam9pbiB9IGZyb20gJ25vZGU6cGF0aCcKaW1wb3J0IHNoYXJwIGZyb20gJ3NoYXJwJwppbXBvcnQgeyBhZnRlckVhY2gsIGJlZm9yZUVhY2gsIGRlc2NyaWJlLCBleHBlY3QsIGl0IH0gZnJvbSAndml0ZXN0JwppbXBvcnQgeyBBcHBEYXRhYmFzZSB9IGZyb20gJy4uL3NyYy9tYWluL2RhdGFiYXNlJwppbXBvcnQgeyBUaHVtYm5haWxTZXJ2aWNlIH0gZnJvbSAnLi4vc3JjL21haW4vdGh1bWJuYWlscycKCmRlc2NyaWJlKCdUaHVtYm5haWxTZXJ2aWNlJywgKCkgPT4gewogIGxldCBkaXJlY3Rvcnk6IHN0cmluZwogIGxldCBkYjogQXBwRGF0YWJhc2UKICBsZXQgYXNzZXRJZDogc3RyaW5nCgogIGJlZm9yZUVhY2goYXN5bmMgKCkgPT4gewogICAgZGlyZWN0b3J5ID0gYXdhaXQgbWtkdGVtcChqb2luKHRtcGRpcigpLCAnYWxidW0tdGh1bWItJykpCiAgICBkYiA9IG5ldyBBcHBEYXRhYmFzZSgnOm1lbW9yeTonKQogICAgZGIubWlncmF0ZSgpCiAgICBjb25zdCByb290ID0gZGIuY3JlYXRlU291cmNlUm9vdChkaXJlY3RvcnkpCiAgICBjb25zdCBzb3VyY2UgPSBqb2luKGRpcmVjdG9yeSwgJ2xhcmdlLnBuZycpCiAgICBhd2FpdCBzaGFycCh7IGNyZWF0ZTogeyB3aWR0aDogMjQwMCwgaGVpZ2h0OiAxNjAwLCBjaGFubmVsczogMywgYmFja2dyb3VuZDogJyM1NTc3OTknIH0gfSkucG5nKCkudG9GaWxlKHNvdXJjZSkKICAgIGFzc2V0SWQgPSBkYi51cHNlcnRNZWRpYUxvY2F0aW9uKHsKICAgICAgcm9vdElkOiByb290LmlkLAogICAgICBhYnNvbHV0ZVBhdGg6IHNvdXJjZSwKICAgICAgcmVsYXRpdmVQYXRoOiAnbGFyZ2UucG5nJywKICAgICAgY29udGVudEhhc2g6ICd0aHVtYm5haWwtc291cmNlJywKICAgICAgc2l6ZUJ5dGVzOiAxMDAsCiAgICAgIG1vZGlmaWVkQXQ6IDEsCiAgICAgIHdpZHRoOiAyNDAwLAogICAgICBoZWlnaHQ6IDE2MDAsCiAgICAgIGZvcm1hdDogJ3BuZycsCiAgICAgIG9yaWVudGF0aW9uOiAnbGFuZHNjYXBlJwogICAgfSkuYXNzZXRJZAogIH0pCgogIGFmdGVyRWFjaChhc3luYyAoKSA9PiB7CiAgICBkYi5jbG9zZSgpCiAgICBhd2FpdCBybShkaXJlY3RvcnksIHsgcmVjdXJzaXZlOiB0cnVlLCBmb3JjZTogdHJ1ZSB9KQogIH0pCgogIGl0KCdldmljdHMgb2xkIGNhY2hlIGZpbGVzIHdoZW4gdGhlIGNvbmZpZ3VyZWQgc2l6ZSBsaW1pdCBpcyBleGNlZWRlZCcsIGFzeW5jICgpID0+IHsKICAgIGNvbnN0IHNlcnZpY2UgPSBuZXcgVGh1bWJuYWlsU2VydmljZShkYiwgam9pbihkaXJlY3RvcnksICdjYWNoZScpKQogICAgY29uc3QgdGh1bWJuYWlsID0gYXdhaXQgc2VydmljZS5nZXRUaHVtYm5haWwoYXNzZXRJZCwgMzIwKQoKICAgIGNvbnN0IHJlc3VsdCA9IGF3YWl0IHNlcnZpY2UuZW5mb3JjZUNhY2hlTGltaXQoMSkKCiAgICBleHBlY3QocmVzdWx0LmRlbGV0ZWQpLnRvQmVHcmVhdGVyVGhhbigwKQogICAgYXdhaXQgZXhwZWN0KHN0YXQodGh1bWJuYWlsKSkucmVqZWN0cy50b1Rocm93KCkKICB9KQogIGl0KCdjcmVhdGVzIGFuZCByZXVzZXMgYSBib3VuZGVkIFdlYlAgdGh1bWJuYWlsJywgYXN5bmMgKCkgPT4gewogICAgY29uc3Qgc2VydmljZSA9IG5ldyBUaHVtYm5haWxTZXJ2aWNlKGRiLCBqb2luKGRpcmVjdG9yeSwgJ2NhY2hlJykpCiAgICBjb25zdCBmaXJzdCA9IGF3YWl0IHNlcnZpY2UuZ2V0VGh1bWJuYWlsKGFzc2V0SWQsIDMyMCkKICAgIGNvbnN0IHNlY29uZCA9IGF3YWl0IHNlcnZpY2UuZ2V0VGh1bWJuYWlsKGFzc2V0SWQsIDMyMCkKICAgIGNvbnN0IG1ldGFkYXRhID0gYXdhaXQgc2hhcnAoYXdhaXQgcmVhZEZpbGUoZmlyc3QpKS5tZXRhZGF0YSgpCiAgICBjb25zdCBmaWxlID0gYXdhaXQgc3RhdChmaXJzdCkKCiAgICBleHBlY3QoZmlyc3QpLnRvQmUoc2Vjb25kKQogICAgZXhwZWN0KGZpbGUuc2l6ZSkudG9CZUdyZWF0ZXJUaGFuKDApCiAgICBleHBlY3QobWV0YWRhdGEuZm9ybWF0KS50b0JlKCd3ZWJwJykKICAgIGV4cGVjdChNYXRoLm1heChtZXRhZGF0YS53aWR0aCA/PyAwLCBtZXRhZGF0YS5oZWlnaHQgPz8gMCkpLnRvQmVMZXNzVGhhbk9yRXF1YWwoMzIwKQogIH0pCn0p
+import { mkdtemp, readFile, rm, stat } from 'node:fs/promises'
+import { tmpdir } from 'node:os'
+import { join } from 'node:path'
+import sharp from 'sharp'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { AppDatabase } from '../src/main/database'
+import { ThumbnailService } from '../src/main/thumbnails'
+
+describe('ThumbnailService', () => {
+  let directory: string
+  let db: AppDatabase
+  let assetId: string
+
+  beforeEach(async () => {
+    directory = await mkdtemp(join(tmpdir(), 'album-thumb-'))
+    db = new AppDatabase(':memory:')
+    db.migrate()
+    const root = db.createSourceRoot(directory)
+    const source = join(directory, 'large.png')
+    await sharp({ create: { width: 2400, height: 1600, channels: 3, background: '#557799' } }).png().toFile(source)
+    assetId = db.upsertMediaLocation({
+      rootId: root.id,
+      absolutePath: source,
+      relativePath: 'large.png',
+      contentHash: 'thumbnail-source',
+      sizeBytes: 100,
+      modifiedAt: 1,
+      width: 2400,
+      height: 1600,
+      format: 'png',
+      orientation: 'landscape'
+    }).assetId
+  })
+
+  afterEach(async () => {
+    db.close()
+    await rm(directory, { recursive: true, force: true })
+  })
+
+  it('evicts old cache files when the configured size limit is exceeded', async () => {
+    const service = new ThumbnailService(db, join(directory, 'cache'))
+    const thumbnail = await service.getThumbnail(assetId, 320)
+
+    const result = await service.enforceCacheLimit(1)
+
+    expect(result.deleted).toBeGreaterThan(0)
+    await expect(stat(thumbnail)).rejects.toThrow()
+  })
+  it('creates and reuses a bounded WebP thumbnail', async () => {
+    const service = new ThumbnailService(db, join(directory, 'cache'))
+    const first = await service.getThumbnail(assetId, 320)
+    const second = await service.getThumbnail(assetId, 320)
+    const metadata = await sharp(await readFile(first)).metadata()
+    const file = await stat(first)
+
+    expect(first).toBe(second)
+    expect(file.size).toBeGreaterThan(0)
+    expect(metadata.format).toBe('webp')
+    expect(Math.max(metadata.width ?? 0, metadata.height ?? 0)).toBeLessThanOrEqual(320)
+  })
+})

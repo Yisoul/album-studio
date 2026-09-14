@@ -1,1 +1,111 @@
-aW1wb3J0IHR5cGUgewogIEFsYnVtLCBBcHBTZXR0aW5ncywgRHVwbGljYXRlR3JvdXAsIEV4cG9ydE9wdGlvbnMsIEV4cG9ydFJlc3VsdCwgTGF5ZXIsIE1lZGlhQXNzZXRTdW1tYXJ5LAogIE1lZGlhTG9jYXRpb24sIE91dHB1dE1vZGUsIFBhZ2UsIFNjYW5Qcm9ncmVzcywgU2VhcmNoRmlsdGVycywgU291cmNlUmVtb3ZhbE1vZGUsIFNvdXJjZVJlbW92YWxSZXN1bHQsIFNvdXJjZVJvb3QsIFNvdXJjZVJvb3RJbXBhY3QsIFRlbXBsYXRlRGVmaW5pdGlvbiwgV29yaywgV29ya0RvY3VtZW50Cn0gZnJvbSAnLi90eXBlcycKCmV4cG9ydCBpbnRlcmZhY2UgQXBwU3RhdHMgewogIGFzc2V0czogbnVtYmVyCiAgZHVwbGljYXRlR3JvdXBzOiBudW1iZXIKICBtaXNzaW5nOiBudW1iZXIKICByb290czogbnVtYmVyCn0KCmV4cG9ydCBpbnRlcmZhY2UgSW1hZ2VMYXllclJlcXVlc3QgewogIGFzc2V0SWQ6IHN0cmluZyB8IG51bGwKICB4OiBudW1iZXIKICB5OiBudW1iZXIKICB3aWR0aDogbnVtYmVyCiAgaGVpZ2h0OiBudW1iZXIKICByb3RhdGlvbjogbnVtYmVyCiAgekluZGV4OiBudW1iZXIKICBmaXQ6ICdjb3ZlcicgfCAnY29udGFpbicKICByYWRpdXM6IG51bWJlcgp9CgpleHBvcnQgaW50ZXJmYWNlIFRleHRMYXllclJlcXVlc3QgewogIHg6IG51bWJlcgogIHk6IG51bWJlcgogIHdpZHRoOiBudW1iZXIKICBoZWlnaHQ6IG51bWJlcgogIHJvdGF0aW9uOiBudW1iZXIKICB6SW5kZXg6IG51bWJlcgogIHRleHQ6IHN0cmluZwogIGZvbnRTaXplOiBudW1iZXIKICBjb2xvcjogc3RyaW5nCiAgZm9udEZhbWlseTogc3RyaW5nCiAgZm9udFdlaWdodDogc3RyaW5nCiAgYWxpZ246ICdsZWZ0JyB8ICdjZW50ZXInIHwgJ3JpZ2h0JwogIGxldHRlclNwYWNpbmc/OiBudW1iZXIKICBsaW5lSGVpZ2h0PzogbnVtYmVyCn0KCmV4cG9ydCBpbnRlcmZhY2UgQ3JlYXRlV29ya1JlcXVlc3QgewogIGFsYnVtSWQ6IHN0cmluZwogIG5hbWU6IHN0cmluZwogIG91dHB1dE1vZGU6IE91dHB1dE1vZGUKICB0ZW1wbGF0ZUlkPzogc3RyaW5nCiAgY2FudmFzV2lkdGg/OiBudW1iZXIKICBjYW52YXNIZWlnaHQ/OiBudW1iZXIKICBiYWNrZ3JvdW5kPzogc3RyaW5nCn0KCmV4cG9ydCBpbnRlcmZhY2UgQWxidW1TdHVkaW9BcGkgewogIGFwcDogewogICAgZ2V0U3RhdHMoKTogUHJvbWlzZTxBcHBTdGF0cz4KICAgIGdldFNldHRpbmdzKCk6IFByb21pc2U8QXBwU2V0dGluZ3M+CiAgICBzYXZlU2V0dGluZ3Moc2V0dGluZ3M6IEFwcFNldHRpbmdzKTogUHJvbWlzZTxBcHBTZXR0aW5ncz4KICAgIGNob29zZUZvbGRlcnMoKTogUHJvbWlzZTxzdHJpbmdbXT4KICAgIGNob29zZUV4cG9ydERpcmVjdG9yeSgpOiBQcm9taXNlPHN0cmluZyB8IG51bGw+CiAgICBzY2FuQWxsKCk6IFByb21pc2U8dm9pZD4KICAgIGJhY2t1cE5vdygpOiBQcm9taXNlPHN0cmluZz4KICAgIG9uU2NhblByb2dyZXNzKGNhbGxiYWNrOiAocHJvZ3Jlc3M6IFNjYW5Qcm9ncmVzcykgPT4gdm9pZCk6ICgpID0+IHZvaWQKICB9CiAgbGlicmFyeTogewogICAgbGlzdFJvb3RzKCk6IFByb21pc2U8U291cmNlUm9vdFtdPgogICAgYWRkUm9vdHMocGF0aHM6IHN0cmluZ1tdKTogUHJvbWlzZTxTb3VyY2VSb290W10+CiAgICByZW1vdmVSb290KHJvb3RJZDogc3RyaW5nLCBtb2RlOiBTb3VyY2VSZW1vdmFsTW9kZSk6IFByb21pc2U8U291cmNlUmVtb3ZhbFJlc3VsdD4KICAgIHNldFJvb3RFbmFibGVkKHJvb3RJZDogc3RyaW5nLCBlbmFibGVkOiBib29sZWFuKTogUHJvbWlzZTxTb3VyY2VSb290PgogICAgZ2V0Um9vdEltcGFjdChyb290SWQ6IHN0cmluZyk6IFByb21pc2U8U291cmNlUm9vdEltcGFjdD4KICAgIHNjYW5Sb290KHJvb3RJZDogc3RyaW5nKTogUHJvbWlzZTx7IGRpc2NvdmVyZWQ6IG51bWJlcjsgaW5kZXhlZDogbnVtYmVyOyBlcnJvcnM6IHN0cmluZ1tdIH0+CiAgICBzZWFyY2goZmlsdGVyczogU2VhcmNoRmlsdGVycyk6IFByb21pc2U8eyBpdGVtczogTWVkaWFBc3NldFN1bW1hcnlbXTsgdG90YWw6IG51bWJlciB9PgogICAgZ2V0KGFzc2V0SWQ6IHN0cmluZyk6IFByb21pc2U8TWVkaWFBc3NldFN1bW1hcnkgfCBudWxsPgogICAgbGlzdER1cGxpY2F0ZXMoKTogUHJvbWlzZTxEdXBsaWNhdGVHcm91cFtdPgogICAgbGlzdExvY2F0aW9ucyhhc3NldElkOiBzdHJpbmcpOiBQcm9taXNlPE1lZGlhTG9jYXRpb25bXT4KICAgIHNldFByZWZlcnJlZExvY2F0aW9uKGFzc2V0SWQ6IHN0cmluZywgbG9jYXRpb25JZDogc3RyaW5nKTogUHJvbWlzZTx2b2lkPgogICAgc2V0RmF2b3JpdGUoYXNzZXRJZDogc3RyaW5nLCBmYXZvcml0ZTogYm9vbGVhbik6IFByb21pc2U8dm9pZD4KICAgIGlnbm9yZUFzc2V0KGFzc2V0SWQ6IHN0cmluZyk6IFByb21pc2U8dm9pZD4KICAgIGRlbGV0ZU9yaWdpbmFsKGxvY2F0aW9uSWQ6IHN0cmluZyk6IFByb21pc2U8dm9pZD4KICAgIHNob3dJbkZvbGRlcihsb2NhdGlvbklkOiBzdHJpbmcpOiBQcm9taXNlPHZvaWQ+CiAgfQogIGFsYnVtczogewogICAgbGlzdCgpOiBQcm9taXNlPEFsYnVtW10+CiAgICBjcmVhdGUobmFtZTogc3RyaW5nKTogUHJvbWlzZTxBbGJ1bT4KICAgIHJlbW92ZShhbGJ1bUlkOiBzdHJpbmcpOiBQcm9taXNlPHZvaWQ+CiAgICBsaXN0QXNzZXRzKGFsYnVtSWQ6IHN0cmluZyk6IFByb21pc2U8TWVkaWFBc3NldFN1bW1hcnlbXT4KICAgIGFkZEFzc2V0cyhhbGJ1bUlkOiBzdHJpbmcsIGFzc2V0SWRzOiBzdHJpbmdbXSk6IFByb21pc2U8dm9pZD4KICAgIHJlbW92ZUFzc2V0KGFsYnVtSWQ6IHN0cmluZywgYXNzZXRJZDogc3RyaW5nKTogUHJvbWlzZTx2b2lkPgogICAgcmVvcmRlcihhbGJ1bUlkOiBzdHJpbmcsIGFzc2V0SWRzOiBzdHJpbmdbXSk6IFByb21pc2U8dm9pZD4KICAgIHNldENvdmVyKGFsYnVtSWQ6IHN0cmluZywgYXNzZXRJZDogc3RyaW5nKTogUHJvbWlzZTx2b2lkPgogIH0KICB3b3JrczogewogICAgbGlzdChhbGJ1bUlkOiBzdHJpbmcpOiBQcm9taXNlPFdvcmtbXT4KICAgIGNyZWF0ZShyZXF1ZXN0OiBDcmVhdGVXb3JrUmVxdWVzdCk6IFByb21pc2U8V29ya0RvY3VtZW50PgogICAgZ2V0KHdvcmtJZDogc3RyaW5nKTogUHJvbWlzZTxXb3JrRG9jdW1lbnQ+CiAgICB1cGRhdGUod29ya0lkOiBzdHJpbmcsIGNoYW5nZXM6IFBhcnRpYWw8UGljazxXb3JrLCAnbmFtZScgfCAnb3V0cHV0TW9kZScgfCAnY2FudmFzV2lkdGgnIHwgJ2NhbnZhc0hlaWdodCcgfCAnYmFja2dyb3VuZCc+Pik6IFByb21pc2U8V29yaz4KICAgIHJlbW92ZSh3b3JrSWQ6IHN0cmluZyk6IFByb21pc2U8dm9pZD4KICAgIGNyZWF0ZVBhZ2Uod29ya0lkOiBzdHJpbmcsIHBvc2l0aW9uOiBudW1iZXIsIGJhY2tncm91bmQ6IHN0cmluZyk6IFByb21pc2U8UGFnZT4KICAgIGRlbGV0ZVBhZ2UocGFnZUlkOiBzdHJpbmcpOiBQcm9taXNlPHZvaWQ+CiAgICBjcmVhdGVJbWFnZUxheWVyKHBhZ2VJZDogc3RyaW5nLCBpbnB1dDogSW1hZ2VMYXllclJlcXVlc3QpOiBQcm9taXNlPExheWVyPgogICAgY3JlYXRlVGV4dExheWVyKHBhZ2VJZDogc3RyaW5nLCBpbnB1dDogVGV4dExheWVyUmVxdWVzdCk6IFByb21pc2U8TGF5ZXI+CiAgICB1cGRhdGVMYXllcihsYXllcklkOiBzdHJpbmcsIGNoYW5nZXM6IFJlY29yZDxzdHJpbmcsIHVua25vd24+KTogUHJvbWlzZTx2b2lkPgogICAgdXBkYXRlVGV4dExheWVyKGxheWVySWQ6IHN0cmluZywgdGV4dDogc3RyaW5nLCBzdHlsZTogUmVjb3JkPHN0cmluZywgdW5rbm93bj4pOiBQcm9taXNlPHZvaWQ+CiAgICBkZWxldGVMYXllcihsYXllcklkOiBzdHJpbmcpOiBQcm9taXNlPHZvaWQ+CiAgfQogIHRlbXBsYXRlczogewogICAgbGlzdCgpOiBQcm9taXNlPFRlbXBsYXRlRGVmaW5pdGlvbltdPgogICAgc2F2ZShuYW1lOiBzdHJpbmcsIHBheWxvYWQ6IFRlbXBsYXRlRGVmaW5pdGlvbik6IFByb21pc2U8c3RyaW5nPgogIH0KICBleHBvcnRlcjogewogICAgcnVuKHdvcmtJZDogc3RyaW5nLCBvcHRpb25zOiBFeHBvcnRPcHRpb25zKTogUHJvbWlzZTxFeHBvcnRSZXN1bHQ+CiAgfQp9
+import type {
+  Album, AppSettings, DuplicateGroup, ExportOptions, ExportResult, Layer, MediaAssetSummary,
+  MediaLocation, OutputMode, Page, ScanProgress, SearchFilters, SourceRemovalMode, SourceRemovalResult, SourceRoot, SourceRootImpact, TemplateDefinition, Work, WorkDocument
+} from './types'
+
+export interface AppStats {
+  assets: number
+  duplicateGroups: number
+  missing: number
+  roots: number
+}
+
+export interface ImageLayerRequest {
+  assetId: string | null
+  x: number
+  y: number
+  width: number
+  height: number
+  rotation: number
+  zIndex: number
+  fit: 'cover' | 'contain'
+  radius: number
+}
+
+export interface TextLayerRequest {
+  x: number
+  y: number
+  width: number
+  height: number
+  rotation: number
+  zIndex: number
+  text: string
+  fontSize: number
+  color: string
+  fontFamily: string
+  fontWeight: string
+  align: 'left' | 'center' | 'right'
+  letterSpacing?: number
+  lineHeight?: number
+}
+
+export interface CreateWorkRequest {
+  albumId: string
+  name: string
+  outputMode: OutputMode
+  templateId?: string
+  canvasWidth?: number
+  canvasHeight?: number
+  background?: string
+}
+
+export interface AlbumStudioApi {
+  app: {
+    getStats(): Promise<AppStats>
+    getSettings(): Promise<AppSettings>
+    saveSettings(settings: AppSettings): Promise<AppSettings>
+    chooseFolders(): Promise<string[]>
+    chooseExportDirectory(): Promise<string | null>
+    scanAll(): Promise<void>
+    backupNow(): Promise<string>
+    onScanProgress(callback: (progress: ScanProgress) => void): () => void
+  }
+  library: {
+    listRoots(): Promise<SourceRoot[]>
+    addRoots(paths: string[]): Promise<SourceRoot[]>
+    removeRoot(rootId: string, mode: SourceRemovalMode): Promise<SourceRemovalResult>
+    setRootEnabled(rootId: string, enabled: boolean): Promise<SourceRoot>
+    getRootImpact(rootId: string): Promise<SourceRootImpact>
+    scanRoot(rootId: string): Promise<{ discovered: number; indexed: number; errors: string[] }>
+    search(filters: SearchFilters): Promise<{ items: MediaAssetSummary[]; total: number }>
+    get(assetId: string): Promise<MediaAssetSummary | null>
+    listDuplicates(): Promise<DuplicateGroup[]>
+    listLocations(assetId: string): Promise<MediaLocation[]>
+    setPreferredLocation(assetId: string, locationId: string): Promise<void>
+    setFavorite(assetId: string, favorite: boolean): Promise<void>
+    ignoreAsset(assetId: string): Promise<void>
+    deleteOriginal(locationId: string): Promise<void>
+    showInFolder(locationId: string): Promise<void>
+  }
+  albums: {
+    list(): Promise<Album[]>
+    create(name: string): Promise<Album>
+    remove(albumId: string): Promise<void>
+    listAssets(albumId: string): Promise<MediaAssetSummary[]>
+    addAssets(albumId: string, assetIds: string[]): Promise<void>
+    removeAsset(albumId: string, assetId: string): Promise<void>
+    reorder(albumId: string, assetIds: string[]): Promise<void>
+    setCover(albumId: string, assetId: string): Promise<void>
+  }
+  works: {
+    list(albumId: string): Promise<Work[]>
+    create(request: CreateWorkRequest): Promise<WorkDocument>
+    get(workId: string): Promise<WorkDocument>
+    update(workId: string, changes: Partial<Pick<Work, 'name' | 'outputMode' | 'canvasWidth' | 'canvasHeight' | 'background'>>): Promise<Work>
+    remove(workId: string): Promise<void>
+    createPage(workId: string, position: number, background: string): Promise<Page>
+    deletePage(pageId: string): Promise<void>
+    createImageLayer(pageId: string, input: ImageLayerRequest): Promise<Layer>
+    createTextLayer(pageId: string, input: TextLayerRequest): Promise<Layer>
+    updateLayer(layerId: string, changes: Record<string, unknown>): Promise<void>
+    updateTextLayer(layerId: string, text: string, style: Record<string, unknown>): Promise<void>
+    deleteLayer(layerId: string): Promise<void>
+  }
+  templates: {
+    list(): Promise<TemplateDefinition[]>
+    save(name: string, payload: TemplateDefinition): Promise<string>
+  }
+  exporter: {
+    run(workId: string, options: ExportOptions): Promise<ExportResult>
+  }
+}

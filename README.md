@@ -1,1 +1,63 @@
-IyDnm7jlhozlt6XkvZzlj7AKCldpbmRvd3Mg5pys5Zyw5pGE5b2x55u45YaM5LiO56S+5Lqk5L2c5ZOB5o6S54mI5bel5YW344CC5Y6f5Zu+55WZ5Zyo5Y6f55uu5b2V77yM6L2v5Lu25Y+q5bu656uL57Si5byV77yb5ZCM5LiA5YaF5a6555qE5aSa5Liq5paH5Lu25ZCI5bm25Li65LiA5Liq54Wn54mH6LWE5Lqn77yM5aSa5Liq55u45YaM5ZKM5L2c5ZOB5YWx5Lqr5byV55So44CCCgojIyDlt7Llrp7njrAKCi0g57Si5byV5pys5ZywIEpQRy9KUEVHL1BORyDnm67lvZXvvIzor7vlj5blrozmlbQgRVhJRu+8jOW5tuiHquWKqOebkeWQrOaWsOWinuOAgeaUueWQjeWSjOWIoOmZpOOAggotIOaMiSBTSEEtMjU2IOWQiOW5tuWujOWFqOebuOWQjOeahOeFp+eJh++8m+aYvuekuuaJgOacieaWh+S7tuS9jee9ruW5tuaUr+aMgeWIh+aNoummlumAieWOn+WbvuOAggotIOWbvuW6k+aQnOe0ou+8muaWh+S7tuWQjeOAgei3r+W+hOOAgeaXpeacn+OAgeaWueWQkeOAgeebuOacuuOAgemVnOWktOOAgeeEpui3neOAgeWFieWciOOAgeW/q+mXqOOAgUlTTyDlkozmlLbol4/jgIIKLSDnm7jlhozlj6/lpI3nlKjlkIzkuIDnhafniYfvvIzmlK/mjIHmjpLluo/jgIHlsIHpnaLlkozkuIDlpZfnm7jlhozlpJrlpZfkvZzlk4HjgIIKLSDlm77lupPmjInmr4/pobUgMTIwIOW8oOiHquWKqOa7muWKqOWKoOi9ve+8m+ayoeacieWPr+eUqOWOn+WbvueahOiusOW9lem7mOiupOS4jei/m+WFpeWbvuW6k+OAggotIOenu+mZpOadpea6kOebruW9leaXtuWPr+mAieaLqeS7heWBnOatouaJq+aPj+OAgeS7juWbvuW6k+enu+mZpOS9huS/neeVmeebuOWGjOW8leeUqO+8jOaIluS7juWbvuW6k+OAgeebuOWGjOWSjOS9nOWTgeS4gOi1t+enu+mZpOOAggotIOaWsOW7uuebuOWGjOWSjOS/neWtmOaooeadv+S9v+eUqOW6lOeUqOWGheWvueivneahhu+8jOS4jeS+nei1liBFbGVjdHJvbiDkuI3mlK/mjIHnmoTmtY/op4jlmaggYHByb21wdGDjgIIKLSA4IOWll+WGhee9ruaooeadv++8m+WbvueJh+OAgeaWh+Wtl+OAgeiDjOaZr+WPr+aLluWKqOOAgee8qeaUvuOAgeaXi+i9rOOAgeijgeWJquWSjOiwg+WxguOAggotIOaUr+aMgSBge3thbGJ1bX19YOOAgWB7e2NhbWVyYX19YOOAgWB7e2xlbnN9fWDjgIFge3thcGVydHVyZX19YOOAgWB7e3NodXR0ZXJ9fWDjgIFge3tpc299fWDjgIFge3tkYXRlfX1gIOaWh+Wtl+WPmOmHj+OAggotIOWvvOWHuuWwgemdouS4juWkmumhteWbvueJh+e7hO+8jOaIluaMiemXtOi3nee6teWQkeWQiOW5tumVv+Wbvu+8m+aUr+aMgSBKUEVHL1BORyDlkowgMTA4MC8xNDQwLzIxNjAg6ZW/6L6544CCCi0g5Yig6Zmk5Y6f5Zu+6ZyA6KaB5LqM5qyh56Gu6K6k5bm26L+b5YWl57O757uf5Zue5pS256uZ77yb6buY6K6k56e76Zmk5pON5L2c57ud5LiN5L+u5pS556OB55uY5Y6f5Zu+44CCCi0gU1FMaXRlIOiHquWKqOWkh+S7ve+8jOS/neeVmSA3IOS7ve+8m+e8qeeVpeWbvue8k+WtmOS4iumZkOWPr+WcqOiuvue9ruS4reiwg+aVtOOAggoKIyMg5byA5Y+RCgpgYGBwb3dlcnNoZWxsCm5wbSBpbnN0YWxsCm5wbSBydW4gZGV2CmBgYAoK6aqM6K+B77yaCgpgYGBwb3dlcnNoZWxsCm5wbSBydW4gdHlwZWNoZWNrCm5wbSB0ZXN0Cm5wbSBydW4gYnVpbGQKYGBgCgrlpoLmnpwgRWxlY3Ryb24g5LqM6L+b5Yi25LiL6L295aSx6LSl77yM5Y+v5L2/55So6ZWc5YOP77yaCgpgYGBwb3dlcnNoZWxsCiRlbnY6RUxFQ1RST05fTUlSUk9SPSdodHRwczovL25wbW1pcnJvci5jb20vbWlycm9ycy9lbGVjdHJvbi8nCm5vZGUgbm9kZV9tb2R1bGVzL2VsZWN0cm9uL2luc3RhbGwuanMKYGBgCgojIyDmiZPljIUKCmBgYHBvd2Vyc2hlbGwKbnBtIHJ1biBwYWNrYWdlCmBgYAoK5a6J6KOF5YyF6L6T5Ye65YiwIGBkaXN0XEFsYnVtLVN0dWRpby0wLjEuMS1TZXR1cC5leGVg44CC5LuT5bqT5YaF55qE5omT5YyF6YWN572u5L2/55So5pys5ZywIEVsZWN0cm9uIOWIhuWPke+8jOmBv+WFjeaJk+WMheaXtumHjeWkjeS4i+i9veOAggoKIyMg5pWw5o2u5L2N572uCgrlupTnlKjmlbDmja7kv53lrZjlnKggYCVBUFBEQVRBJVznm7jlhozlt6XkvZzlj7Bg77yaCgotIGBsaWJyYXJ5LnNxbGl0ZWDvvJrnhafniYfntKLlvJXjgIHnm7jlhozjgIHkvZzlk4HlkozmqKHmnb/jgIIKLSBgdGh1bWJuYWlsc2DvvJrlj6/ph43mlrDnlJ/miJDnmoQgV2ViUCDnvJPlrZjjgIIKLSBgYmFja3Vwc2DvvJrmlbDmja7lupPlpIfku73vvIzkv53nlZnmnIDov5EgNyDku73jgIIKLSBgc2V0dGluZ3MuanNvbmDvvJrmiavmj4/lkoznvJPlrZjorr7nva7jgIIKCuWOn+WbvuS4jeS8muiiq+enu+WKqOWIsOW6lOeUqOebruW9leOAggoKIyMg56ys5LiA54mI6L6555WMCgrlj6rmlK/mjIEgSlBHL0pQRUcvUE5H77yb5pqC5LiN5pSv5oyBIFJBV+OAgUhFSUPjgIHkupHlkIzmraXjgIHlpJrkurrljY/kvZzjgIHmoIfnrb7jgIHmmbrog73nm7jlhozlkoznhafniYfosIPoibLjgII=
+# 相册工作台
+
+Windows 本地摄影相册与社交作品排版工具。原图留在原目录，软件只建立索引；同一内容的多个文件合并为一个照片资产，多个相册和作品共享引用。
+
+## 已实现
+
+- 索引本地 JPG/JPEG/PNG 目录，读取完整 EXIF，并自动监听新增、改名和删除。
+- 按 SHA-256 合并完全相同的照片；显示所有文件位置并支持切换首选原图。
+- 图库搜索：文件名、路径、日期、方向、相机、镜头、焦距、光圈、快门、ISO 和收藏。
+- 相册可复用同一照片，支持排序、封面和一套相册多套作品。
+- 图库按每页 120 张自动滚动加载；没有可用原图的记录默认不进入图库。
+- 移除来源目录时可选择仅停止扫描、从图库移除但保留相册引用，或从图库、相册和作品一起移除。
+- 新建相册和保存模板使用应用内对话框，不依赖 Electron 不支持的浏览器 `prompt`。
+- 8 套内置模板；图片、文字、背景可拖动、缩放、旋转、裁剪和调层。
+- 支持 `{{album}}`、`{{camera}}`、`{{lens}}`、`{{aperture}}`、`{{shutter}}`、`{{iso}}`、`{{date}}` 文字变量。
+- 导出封面与多页图片组，或按间距纵向合并长图；支持 JPEG/PNG 和 1080/1440/2160 长边。
+- 删除原图需要二次确认并进入系统回收站；默认移除操作绝不修改磁盘原图。
+- SQLite 自动备份，保留 7 份；缩略图缓存上限可在设置中调整。
+
+## 开发
+
+```powershell
+npm install
+npm run dev
+```
+
+验证：
+
+```powershell
+npm run typecheck
+npm test
+npm run build
+```
+
+如果 Electron 二进制下载失败，可使用镜像：
+
+```powershell
+$env:ELECTRON_MIRROR='https://npmmirror.com/mirrors/electron/'
+node node_modules/electron/install.js
+```
+
+## 打包
+
+```powershell
+npm run package
+```
+
+安装包输出到 `dist\Album-Studio-0.1.1-Setup.exe`。仓库内的打包配置使用本地 Electron 分发，避免打包时重复下载。
+
+## 数据位置
+
+应用数据保存在 `%APPDATA%\相册工作台`：
+
+- `library.sqlite`：照片索引、相册、作品和模板。
+- `thumbnails`：可重新生成的 WebP 缓存。
+- `backups`：数据库备份，保留最近 7 份。
+- `settings.json`：扫描和缓存设置。
+
+原图不会被移动到应用目录。
+
+## 第一版边界
+
+只支持 JPG/JPEG/PNG；暂不支持 RAW、HEIC、云同步、多人协作、标签、智能相册和照片调色。

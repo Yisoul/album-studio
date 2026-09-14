@@ -1,1 +1,38 @@
-aW1wb3J0IHR5cGUgeyBNZWRpYUFzc2V0U3VtbWFyeSB9IGZyb20gJy4uLy4uL3NoYXJlZC90eXBlcycKCmV4cG9ydCBmdW5jdGlvbiB0aHVtYm5haWxVcmwoYXNzZXRJZDogc3RyaW5nLCBzaXplID0gMzIwKTogc3RyaW5nIHsKICByZXR1cm4gYGFsYnVtLW1lZGlhOi8vdGh1bWJuYWlsLyR7ZW5jb2RlVVJJQ29tcG9uZW50KGFzc2V0SWQpfT9zaXplPSR7c2l6ZX1gCn0KCmV4cG9ydCBmdW5jdGlvbiBwcmV2aWV3VXJsKGFzc2V0SWQ6IHN0cmluZywgc2l6ZSA9IDE2MDApOiBzdHJpbmcgewogIHJldHVybiBgYWxidW0tbWVkaWE6Ly9wcmV2aWV3LyR7ZW5jb2RlVVJJQ29tcG9uZW50KGFzc2V0SWQpfT9zaXplPSR7c2l6ZX1gCn0KCmV4cG9ydCBmdW5jdGlvbiBmb3JtYXREYXRlKHZhbHVlOiBzdHJpbmcgfCBudWxsKTogc3RyaW5nIHsKICBpZiAoIXZhbHVlKSByZXR1cm4gJ+acquefpeaXpeacnycKICBjb25zdCBkYXRlID0gbmV3IERhdGUodmFsdWUpCiAgaWYgKE51bWJlci5pc05hTihkYXRlLmdldFRpbWUoKSkpIHJldHVybiAn5pyq55+l5pel5pyfJwogIHJldHVybiBuZXcgSW50bC5EYXRlVGltZUZvcm1hdCgnemgtQ04nLCB7IGRhdGVTdHlsZTogJ21lZGl1bScgfSkuZm9ybWF0KGRhdGUpCn0KCmV4cG9ydCBmdW5jdGlvbiBmb3JtYXRDYW1lcmEoYXNzZXQ6IE1lZGlhQXNzZXRTdW1tYXJ5KTogc3RyaW5nIHsKICBjb25zdCBtb2RlbCA9IFthc3NldC5jYW1lcmFNYWtlLCBhc3NldC5jYW1lcmFNb2RlbF0uZmlsdGVyKEJvb2xlYW4pLmpvaW4oJyAnKQogIGNvbnN0IGRldGFpbHMgPSBbCiAgICBtb2RlbCwKICAgIGFzc2V0LmxlbnMsCiAgICBhc3NldC5mb2NhbExlbmd0aCA/IGAke01hdGgucm91bmQoYXNzZXQuZm9jYWxMZW5ndGgpfW1tYCA6IG51bGwsCiAgICBhc3NldC5hcGVydHVyZSA/IGBmLyR7YXNzZXQuYXBlcnR1cmV9YCA6IG51bGwsCiAgICBhc3NldC5zaHV0dGVyU3BlZWQsCiAgICBhc3NldC5pc28gPyBgSVNPICR7YXNzZXQuaXNvfWAgOiBudWxsCiAgXS5maWx0ZXIoQm9vbGVhbikKICByZXR1cm4gZGV0YWlscy5qb2luKCcgwrcgJykgfHwgJ+aXoOaLjeaRhOWPguaVsCcKfQoKZXhwb3J0IGZ1bmN0aW9uIGNsYW1wKHZhbHVlOiBudW1iZXIsIG1pbjogbnVtYmVyLCBtYXg6IG51bWJlcik6IG51bWJlciB7CiAgcmV0dXJuIE1hdGgubWluKG1heCwgTWF0aC5tYXgobWluLCB2YWx1ZSkpCn0KCmV4cG9ydCBmdW5jdGlvbiBlcnJvck1lc3NhZ2UoZXJyb3I6IHVua25vd24pOiBzdHJpbmcgewogIGlmIChlcnJvciBpbnN0YW5jZW9mIEVycm9yKSByZXR1cm4gZXJyb3IubWVzc2FnZQogIHJldHVybiBTdHJpbmcoZXJyb3IpCn0=
+import type { MediaAssetSummary } from '../../shared/types'
+
+export function thumbnailUrl(assetId: string, size = 320): string {
+  return `album-media://thumbnail/${encodeURIComponent(assetId)}?size=${size}`
+}
+
+export function previewUrl(assetId: string, size = 1600): string {
+  return `album-media://preview/${encodeURIComponent(assetId)}?size=${size}`
+}
+
+export function formatDate(value: string | null): string {
+  if (!value) return '未知日期'
+  const date = new Date(value)
+  if (Number.isNaN(date.getTime())) return '未知日期'
+  return new Intl.DateTimeFormat('zh-CN', { dateStyle: 'medium' }).format(date)
+}
+
+export function formatCamera(asset: MediaAssetSummary): string {
+  const model = [asset.cameraMake, asset.cameraModel].filter(Boolean).join(' ')
+  const details = [
+    model,
+    asset.lens,
+    asset.focalLength ? `${Math.round(asset.focalLength)}mm` : null,
+    asset.aperture ? `f/${asset.aperture}` : null,
+    asset.shutterSpeed,
+    asset.iso ? `ISO ${asset.iso}` : null
+  ].filter(Boolean)
+  return details.join(' · ') || '无拍摄参数'
+}
+
+export function clamp(value: number, min: number, max: number): number {
+  return Math.min(max, Math.max(min, value))
+}
+
+export function errorMessage(error: unknown): string {
+  if (error instanceof Error) return error.message
+  return String(error)
+}

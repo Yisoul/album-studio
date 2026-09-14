@@ -1,1 +1,85 @@
-aW1wb3J0IHsgbWtkaXIsIHJlYWRkaXIsIHJlbmFtZSwgc3RhdCwgdW5saW5rIH0gZnJvbSAnbm9kZTpmcy9wcm9taXNlcycKaW1wb3J0IHsgam9pbiB9IGZyb20gJ25vZGU6cGF0aCcKaW1wb3J0IHNoYXJwIGZyb20gJ3NoYXJwJwppbXBvcnQgdHlwZSB7IEFwcERhdGFiYXNlIH0gZnJvbSAnLi9kYXRhYmFzZScKCmV4cG9ydCBjbGFzcyBUaHVtYm5haWxTZXJ2aWNlIHsKICBwcml2YXRlIHJlYWRvbmx5IHBlbmRpbmcgPSBuZXcgTWFwPHN0cmluZywgUHJvbWlzZTxzdHJpbmc+PigpCgogIGNvbnN0cnVjdG9yKAogICAgcHJpdmF0ZSByZWFkb25seSBkYjogQXBwRGF0YWJhc2UsCiAgICBwcml2YXRlIHJlYWRvbmx5IGNhY2hlRGlyZWN0b3J5OiBzdHJpbmcKICApIHt9CgogIGdldFRodW1ibmFpbChhc3NldElkOiBzdHJpbmcsIG1heFNpemUgPSAzMjApOiBQcm9taXNlPHN0cmluZz4gewogICAgcmV0dXJuIHRoaXMuZ2V0Q2FjaGVkSW1hZ2UoYXNzZXRJZCwgbWF4U2l6ZSwgNzgpCiAgfQoKICBnZXRQcmV2aWV3KGFzc2V0SWQ6IHN0cmluZywgbWF4U2l6ZSA9IDE2MDApOiBQcm9taXNlPHN0cmluZz4gewogICAgcmV0dXJuIHRoaXMuZ2V0Q2FjaGVkSW1hZ2UoYXNzZXRJZCwgbWF4U2l6ZSwgODYpCiAgfQoKICBhc3luYyBlbmZvcmNlQ2FjaGVMaW1pdChtYXhCeXRlczogbnVtYmVyKTogUHJvbWlzZTx7IGRlbGV0ZWQ6IG51bWJlcjsgZnJlZWRCeXRlczogbnVtYmVyIH0+IHsKICAgIGxldCBlbnRyaWVzOiBBcnJheTx7IHBhdGg6IHN0cmluZzsgc2l6ZTogbnVtYmVyOyBtb2RpZmllZEF0OiBudW1iZXIgfT4KICAgIHRyeSB7CiAgICAgIGNvbnN0IG5hbWVzID0gYXdhaXQgcmVhZGRpcih0aGlzLmNhY2hlRGlyZWN0b3J5KQogICAgICBlbnRyaWVzID0gYXdhaXQgUHJvbWlzZS5hbGwobmFtZXMuZmlsdGVyKChuYW1lKSA9PiBuYW1lLmVuZHNXaXRoKCcud2VicCcpKS5tYXAoYXN5bmMgKG5hbWUpID0+IHsKICAgICAgICBjb25zdCBwYXRoID0gam9pbih0aGlzLmNhY2hlRGlyZWN0b3J5LCBuYW1lKQogICAgICAgIGNvbnN0IGluZm8gPSBhd2FpdCBzdGF0KHBhdGgpCiAgICAgICAgcmV0dXJuIHsgcGF0aCwgc2l6ZTogaW5mby5zaXplLCBtb2RpZmllZEF0OiBpbmZvLm10aW1lTXMgfQogICAgICB9KSkKICAgIH0gY2F0Y2ggewogICAgICByZXR1cm4geyBkZWxldGVkOiAwLCBmcmVlZEJ5dGVzOiAwIH0KICAgIH0KCiAgICBsZXQgdG90YWwgPSBlbnRyaWVzLnJlZHVjZSgoc3VtLCBlbnRyeSkgPT4gc3VtICsgZW50cnkuc2l6ZSwgMCkKICAgIGxldCBkZWxldGVkID0gMAogICAgbGV0IGZyZWVkQnl0ZXMgPSAwCiAgICBmb3IgKGNvbnN0IGVudHJ5IG9mIGVudHJpZXMuc29ydCgobGVmdCwgcmlnaHQpID0+IGxlZnQubW9kaWZpZWRBdCAtIHJpZ2h0Lm1vZGlmaWVkQXQpKSB7CiAgICAgIGlmICh0b3RhbCA8PSBNYXRoLm1heCgwLCBtYXhCeXRlcykpIGJyZWFrCiAgICAgIGF3YWl0IHVubGluayhlbnRyeS5wYXRoKS5jYXRjaCgoKSA9PiB1bmRlZmluZWQpCiAgICAgIHRvdGFsIC09IGVudHJ5LnNpemUKICAgICAgZnJlZWRCeXRlcyArPSBlbnRyeS5zaXplCiAgICAgIGRlbGV0ZWQgKz0gMQogICAgfQogICAgcmV0dXJuIHsgZGVsZXRlZCwgZnJlZWRCeXRlcyB9CiAgfQogIHByaXZhdGUgZ2V0Q2FjaGVkSW1hZ2UoYXNzZXRJZDogc3RyaW5nLCBtYXhTaXplOiBudW1iZXIsIHF1YWxpdHk6IG51bWJlcik6IFByb21pc2U8c3RyaW5nPiB7CiAgICBjb25zdCBrZXkgPSBgJHthc3NldElkfToke21heFNpemV9YAogICAgY29uc3QgZXhpc3RpbmcgPSB0aGlzLnBlbmRpbmcuZ2V0KGtleSkKICAgIGlmIChleGlzdGluZykgcmV0dXJuIGV4aXN0aW5nCiAgICBjb25zdCB0YXNrID0gdGhpcy5nZW5lcmF0ZShhc3NldElkLCBtYXhTaXplLCBxdWFsaXR5KS5maW5hbGx5KCgpID0+IHRoaXMucGVuZGluZy5kZWxldGUoa2V5KSkKICAgIHRoaXMucGVuZGluZy5zZXQoa2V5LCB0YXNrKQogICAgcmV0dXJuIHRhc2sKICB9CgogIHByaXZhdGUgYXN5bmMgZ2VuZXJhdGUoYXNzZXRJZDogc3RyaW5nLCBtYXhTaXplOiBudW1iZXIsIHF1YWxpdHk6IG51bWJlcik6IFByb21pc2U8c3RyaW5nPiB7CiAgICBjb25zdCBhc3NldCA9IHRoaXMuZGIuZ2V0QXNzZXQoYXNzZXRJZCkKICAgIGNvbnN0IGxvY2F0aW9uID0gdGhpcy5kYi5nZXRQcmVmZXJyZWRMb2NhdGlvbihhc3NldElkKQogICAgaWYgKCFhc3NldCB8fCAhbG9jYXRpb24pIHRocm93IG5ldyBFcnJvcign54Wn54mH5paH5Lu25LiN5Y+v55SoJykKCiAgICBhd2FpdCBta2Rpcih0aGlzLmNhY2hlRGlyZWN0b3J5LCB7IHJlY3Vyc2l2ZTogdHJ1ZSB9KQogICAgY29uc3Qgc2FmZVNpemUgPSBNYXRoLm1heCg2NCwgTWF0aC5taW4oNDA5NiwgTWF0aC5yb3VuZChtYXhTaXplKSkpCiAgICBjb25zdCBjYWNoZVBhdGggPSBqb2luKHRoaXMuY2FjaGVEaXJlY3RvcnksIGAke2Fzc2V0SWR9XyR7YXNzZXQuY29udGVudEhhc2guc2xpY2UoMCwgMTIpfV8ke3NhZmVTaXplfS53ZWJwYCkKICAgIHRyeSB7CiAgICAgIGNvbnN0IGluZm8gPSBhd2FpdCBzdGF0KGNhY2hlUGF0aCkKICAgICAgaWYgKGluZm8uc2l6ZSA+IDApIHJldHVybiBjYWNoZVBhdGgKICAgIH0gY2F0Y2ggewogICAgICAvLyBDYWNoZSBtaXNzLgogICAgfQoKICAgIGNvbnN0IHRlbXBvcmFyeVBhdGggPSBgJHtjYWNoZVBhdGh9LiR7cHJvY2Vzcy5waWR9LiR7RGF0ZS5ub3coKX0udG1wYAogICAgdHJ5IHsKICAgICAgYXdhaXQgc2hhcnAobG9jYXRpb24uYWJzb2x1dGVQYXRoLCB7IGZhaWxPbjogJ25vbmUnIH0pCiAgICAgICAgLnJvdGF0ZSgpCiAgICAgICAgLnJlc2l6ZSh7IHdpZHRoOiBzYWZlU2l6ZSwgaGVpZ2h0OiBzYWZlU2l6ZSwgZml0OiAnaW5zaWRlJywgd2l0aG91dEVubGFyZ2VtZW50OiB0cnVlIH0pCiAgICAgICAgLndlYnAoeyBxdWFsaXR5LCBlZmZvcnQ6IDQgfSkKICAgICAgICAudG9GaWxlKHRlbXBvcmFyeVBhdGgpCiAgICAgIGF3YWl0IHJlbmFtZSh0ZW1wb3JhcnlQYXRoLCBjYWNoZVBhdGgpCiAgICAgIHJldHVybiBjYWNoZVBhdGgKICAgIH0gY2F0Y2ggKGVycm9yKSB7CiAgICAgIGF3YWl0IHVubGluayh0ZW1wb3JhcnlQYXRoKS5jYXRjaCgoKSA9PiB1bmRlZmluZWQpCiAgICAgIHRocm93IGVycm9yCiAgICB9CiAgfQp9
+import { mkdir, readdir, rename, stat, unlink } from 'node:fs/promises'
+import { join } from 'node:path'
+import sharp from 'sharp'
+import type { AppDatabase } from './database'
+
+export class ThumbnailService {
+  private readonly pending = new Map<string, Promise<string>>()
+
+  constructor(
+    private readonly db: AppDatabase,
+    private readonly cacheDirectory: string
+  ) {}
+
+  getThumbnail(assetId: string, maxSize = 320): Promise<string> {
+    return this.getCachedImage(assetId, maxSize, 78)
+  }
+
+  getPreview(assetId: string, maxSize = 1600): Promise<string> {
+    return this.getCachedImage(assetId, maxSize, 86)
+  }
+
+  async enforceCacheLimit(maxBytes: number): Promise<{ deleted: number; freedBytes: number }> {
+    let entries: Array<{ path: string; size: number; modifiedAt: number }>
+    try {
+      const names = await readdir(this.cacheDirectory)
+      entries = await Promise.all(names.filter((name) => name.endsWith('.webp')).map(async (name) => {
+        const path = join(this.cacheDirectory, name)
+        const info = await stat(path)
+        return { path, size: info.size, modifiedAt: info.mtimeMs }
+      }))
+    } catch {
+      return { deleted: 0, freedBytes: 0 }
+    }
+
+    let total = entries.reduce((sum, entry) => sum + entry.size, 0)
+    let deleted = 0
+    let freedBytes = 0
+    for (const entry of entries.sort((left, right) => left.modifiedAt - right.modifiedAt)) {
+      if (total <= Math.max(0, maxBytes)) break
+      await unlink(entry.path).catch(() => undefined)
+      total -= entry.size
+      freedBytes += entry.size
+      deleted += 1
+    }
+    return { deleted, freedBytes }
+  }
+  private getCachedImage(assetId: string, maxSize: number, quality: number): Promise<string> {
+    const key = `${assetId}:${maxSize}`
+    const existing = this.pending.get(key)
+    if (existing) return existing
+    const task = this.generate(assetId, maxSize, quality).finally(() => this.pending.delete(key))
+    this.pending.set(key, task)
+    return task
+  }
+
+  private async generate(assetId: string, maxSize: number, quality: number): Promise<string> {
+    const asset = this.db.getAsset(assetId)
+    const location = this.db.getPreferredLocation(assetId)
+    if (!asset || !location) throw new Error('照片文件不可用')
+
+    await mkdir(this.cacheDirectory, { recursive: true })
+    const safeSize = Math.max(64, Math.min(4096, Math.round(maxSize)))
+    const cachePath = join(this.cacheDirectory, `${assetId}_${asset.contentHash.slice(0, 12)}_${safeSize}.webp`)
+    try {
+      const info = await stat(cachePath)
+      if (info.size > 0) return cachePath
+    } catch {
+      // Cache miss.
+    }
+
+    const temporaryPath = `${cachePath}.${process.pid}.${Date.now()}.tmp`
+    try {
+      await sharp(location.absolutePath, { failOn: 'none' })
+        .rotate()
+        .resize({ width: safeSize, height: safeSize, fit: 'inside', withoutEnlargement: true })
+        .webp({ quality, effort: 4 })
+        .toFile(temporaryPath)
+      await rename(temporaryPath, cachePath)
+      return cachePath
+    } catch (error) {
+      await unlink(temporaryPath).catch(() => undefined)
+      throw error
+    }
+  }
+}

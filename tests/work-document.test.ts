@@ -1,1 +1,75 @@
-aW1wb3J0IHsgYmVmb3JlRWFjaCwgZGVzY3JpYmUsIGV4cGVjdCwgaXQgfSBmcm9tICd2aXRlc3QnCmltcG9ydCB7IEFwcERhdGFiYXNlIH0gZnJvbSAnLi4vc3JjL21haW4vZGF0YWJhc2UnCgpkZXNjcmliZSgnd29yayBkb2N1bWVudCBwZXJzaXN0ZW5jZScsICgpID0+IHsKICBsZXQgZGI6IEFwcERhdGFiYXNlCiAgbGV0IGFzc2V0SWQ6IHN0cmluZwogIGxldCB3b3JrSWQ6IHN0cmluZwogIGxldCBwYWdlSWQ6IHN0cmluZwoKICBiZWZvcmVFYWNoKCgpID0+IHsKICAgIGRiID0gbmV3IEFwcERhdGFiYXNlKCc6bWVtb3J5OicpCiAgICBkYi5taWdyYXRlKCkKICAgIGNvbnN0IHJvb3QgPSBkYi5jcmVhdGVTb3VyY2VSb290KCdDOlxccGhvdG9zJykKICAgIGFzc2V0SWQgPSBkYi51cHNlcnRNZWRpYUxvY2F0aW9uKHsKICAgICAgcm9vdElkOiByb290LmlkLAogICAgICBhYnNvbHV0ZVBhdGg6ICdDOlxccGhvdG9zXFxwaG90by5qcGcnLAogICAgICByZWxhdGl2ZVBhdGg6ICdwaG90by5qcGcnLAogICAgICBjb250ZW50SGFzaDogJ3dvcmstcGhvdG8nLAogICAgICBzaXplQnl0ZXM6IDEwMCwKICAgICAgbW9kaWZpZWRBdDogMSwKICAgICAgd2lkdGg6IDEyMDAsCiAgICAgIGhlaWdodDogODAwLAogICAgICBmb3JtYXQ6ICdqcGVnJywKICAgICAgb3JpZW50YXRpb246ICdsYW5kc2NhcGUnCiAgICB9KS5hc3NldElkCiAgICBjb25zdCBhbGJ1bSA9IGRiLmNyZWF0ZUFsYnVtKCfkvZzlk4EnKQogICAgd29ya0lkID0gZGIuY3JlYXRlV29yayh7CiAgICAgIGFsYnVtSWQ6IGFsYnVtLmlkLAogICAgICBuYW1lOiAn56ys5LiA54mIJywKICAgICAgb3V0cHV0TW9kZTogJ3BhZ2VzJywKICAgICAgY2FudmFzV2lkdGg6IDEwODAsCiAgICAgIGNhbnZhc0hlaWdodDogMTQ0MCwKICAgICAgYmFja2dyb3VuZDogJyNmZmZmZmYnCiAgICB9KS5pZAogICAgcGFnZUlkID0gZGIuY3JlYXRlUGFnZSh3b3JrSWQsIDAsICcjZmZmZmZmJykuaWQKICB9KQoKICBpdCgnbG9hZHMgYW5kIHVwZGF0ZXMgYW4gZWRpdGFibGUgd29yayBkb2N1bWVudCcsICgpID0+IHsKICAgIGNvbnN0IGltYWdlTGF5ZXIgPSBkYi5jcmVhdGVJbWFnZUxheWVyKHBhZ2VJZCwgewogICAgICBhc3NldElkLAogICAgICB4OiAwLAogICAgICB5OiAwLAogICAgICB3aWR0aDogMSwKICAgICAgaGVpZ2h0OiAxLAogICAgICByb3RhdGlvbjogMCwKICAgICAgekluZGV4OiAxLAogICAgICBmaXQ6ICdjb3ZlcicsCiAgICAgIHJhZGl1czogMAogICAgfSkKICAgIGNvbnN0IHRleHRMYXllciA9IGRiLmNyZWF0ZVRleHRMYXllcihwYWdlSWQsIHsKICAgICAgeDogMC4xLAogICAgICB5OiAwLjgsCiAgICAgIHdpZHRoOiAwLjgsCiAgICAgIGhlaWdodDogMC4xLAogICAgICByb3RhdGlvbjogMCwKICAgICAgekluZGV4OiAyLAogICAgICB0ZXh0OiAn5qCH6aKYJywKICAgICAgZm9udFNpemU6IDY0LAogICAgICBjb2xvcjogJyMxMTExMTEnLAogICAgICBmb250RmFtaWx5OiAnTWljcm9zb2Z0IFlhSGVpJywKICAgICAgZm9udFdlaWdodDogJ2JvbGQnLAogICAgICBhbGlnbjogJ2NlbnRlcicKICAgIH0pCgogICAgY29uc3QgZG9jdW1lbnQgPSBkYi5nZXRXb3JrRG9jdW1lbnQod29ya0lkKQogICAgZXhwZWN0KGRvY3VtZW50Py5wYWdlc1swXS5sYXllcnMubWFwKChsYXllcikgPT4gbGF5ZXIuaWQpKS50b0VxdWFsKFtpbWFnZUxheWVyLmlkLCB0ZXh0TGF5ZXIuaWRdKQoKICAgIGRiLnVwZGF0ZUxheWVyKGltYWdlTGF5ZXIuaWQsIHsgeDogMC4wNSwgeTogMC4wNCwgd2lkdGg6IDAuOSwgaGVpZ2h0OiAwLjUsIHJvdGF0aW9uOiA1IH0pCiAgICBleHBlY3QoZGIuZ2V0V29ya0RvY3VtZW50KHdvcmtJZCk/LnBhZ2VzWzBdLmxheWVyc1swXSkudG9NYXRjaE9iamVjdCh7IHg6IDAuMDUsIHk6IDAuMDQsIHJvdGF0aW9uOiA1IH0pCgogICAgZGIuZGVsZXRlTGF5ZXIodGV4dExheWVyLmlkKQogICAgZXhwZWN0KGRiLmdldFdvcmtEb2N1bWVudCh3b3JrSWQpPy5wYWdlc1swXS5sYXllcnMpLnRvSGF2ZUxlbmd0aCgxKQogICAgZXhwZWN0KGRiLmxpc3RXb3Jrcyhkb2N1bWVudCEud29yay5hbGJ1bUlkKSkudG9IYXZlTGVuZ3RoKDEpCiAgfSkKfSk=
+import { beforeEach, describe, expect, it } from 'vitest'
+import { AppDatabase } from '../src/main/database'
+
+describe('work document persistence', () => {
+  let db: AppDatabase
+  let assetId: string
+  let workId: string
+  let pageId: string
+
+  beforeEach(() => {
+    db = new AppDatabase(':memory:')
+    db.migrate()
+    const root = db.createSourceRoot('C:\\photos')
+    assetId = db.upsertMediaLocation({
+      rootId: root.id,
+      absolutePath: 'C:\\photos\\photo.jpg',
+      relativePath: 'photo.jpg',
+      contentHash: 'work-photo',
+      sizeBytes: 100,
+      modifiedAt: 1,
+      width: 1200,
+      height: 800,
+      format: 'jpeg',
+      orientation: 'landscape'
+    }).assetId
+    const album = db.createAlbum('作品')
+    workId = db.createWork({
+      albumId: album.id,
+      name: '第一版',
+      outputMode: 'pages',
+      canvasWidth: 1080,
+      canvasHeight: 1440,
+      background: '#ffffff'
+    }).id
+    pageId = db.createPage(workId, 0, '#ffffff').id
+  })
+
+  it('loads and updates an editable work document', () => {
+    const imageLayer = db.createImageLayer(pageId, {
+      assetId,
+      x: 0,
+      y: 0,
+      width: 1,
+      height: 1,
+      rotation: 0,
+      zIndex: 1,
+      fit: 'cover',
+      radius: 0
+    })
+    const textLayer = db.createTextLayer(pageId, {
+      x: 0.1,
+      y: 0.8,
+      width: 0.8,
+      height: 0.1,
+      rotation: 0,
+      zIndex: 2,
+      text: '标题',
+      fontSize: 64,
+      color: '#111111',
+      fontFamily: 'Microsoft YaHei',
+      fontWeight: 'bold',
+      align: 'center'
+    })
+
+    const document = db.getWorkDocument(workId)
+    expect(document?.pages[0].layers.map((layer) => layer.id)).toEqual([imageLayer.id, textLayer.id])
+
+    db.updateLayer(imageLayer.id, { x: 0.05, y: 0.04, width: 0.9, height: 0.5, rotation: 5 })
+    expect(db.getWorkDocument(workId)?.pages[0].layers[0]).toMatchObject({ x: 0.05, y: 0.04, rotation: 5 })
+
+    db.deleteLayer(textLayer.id)
+    expect(db.getWorkDocument(workId)?.pages[0].layers).toHaveLength(1)
+    expect(db.listWorks(document!.work.albumId)).toHaveLength(1)
+  })
+})

@@ -1,1 +1,259 @@
-aW1wb3J0IHsgYWZ0ZXJFYWNoLCBiZWZvcmVFYWNoLCBkZXNjcmliZSwgZXhwZWN0LCBpdCB9IGZyb20gJ3ZpdGVzdCcKaW1wb3J0IHsgQXBwRGF0YWJhc2UgfSBmcm9tICcuLi9zcmMvbWFpbi9kYXRhYmFzZScKCmRlc2NyaWJlKCdBcHBEYXRhYmFzZScsICgpID0+IHsKICBsZXQgZGI6IEFwcERhdGFiYXNlCgogIGJlZm9yZUVhY2goKCkgPT4gewogICAgZGIgPSBuZXcgQXBwRGF0YWJhc2UoJzptZW1vcnk6JykKICAgIGRiLm1pZ3JhdGUoKQogIH0pCgogIGFmdGVyRWFjaCgoKSA9PiB7CiAgICBkYi5jbG9zZSgpCiAgfSkKCiAgaXQoJ21lcmdlcyBpZGVudGljYWwgY29udGVudCBpbnRvIG9uZSBhc3NldCB3aXRoIG11bHRpcGxlIGZpbGUgbG9jYXRpb25zJywgKCkgPT4gewogICAgY29uc3QgZmlyc3RSb290ID0gZGIuY3JlYXRlU291cmNlUm9vdCgnQzpcXHBob3Rvc1xcYScpCiAgICBjb25zdCBzZWNvbmRSb290ID0gZGIuY3JlYXRlU291cmNlUm9vdCgnQzpcXHBob3Rvc1xcYicpCgogICAgY29uc3QgZmlyc3QgPSBkYi51cHNlcnRNZWRpYUxvY2F0aW9uKHsKICAgICAgcm9vdElkOiBmaXJzdFJvb3QuaWQsCiAgICAgIGFic29sdXRlUGF0aDogJ0M6XFxwaG90b3NcXGFcXGNvdmVyLmpwZycsCiAgICAgIHJlbGF0aXZlUGF0aDogJ2NvdmVyLmpwZycsCiAgICAgIGNvbnRlbnRIYXNoOiAnc2FtZS1oYXNoJywKICAgICAgc2l6ZUJ5dGVzOiAxMDAsCiAgICAgIG1vZGlmaWVkQXQ6IDEsCiAgICAgIHdpZHRoOiAxMjAwLAogICAgICBoZWlnaHQ6IDgwMCwKICAgICAgZm9ybWF0OiAnanBlZycsCiAgICAgIGNhcHR1cmVkQXQ6ICcyMDI2LTAxLTAxVDEwOjAwOjAwLjAwMFonLAogICAgICBjYW1lcmFNYWtlOiAnRnVqaWZpbG0nLAogICAgICBjYW1lcmFNb2RlbDogJ1gtVDUnLAogICAgICBsZW5zOiAnWEYgMzVtbSBGMS40JywKICAgICAgZm9jYWxMZW5ndGg6IDM1LAogICAgICBhcGVydHVyZTogMS40LAogICAgICBzaHV0dGVyU3BlZWQ6ICcxLzI1MCcsCiAgICAgIGlzbzogMjAwLAogICAgICBvcmllbnRhdGlvbjogJ2xhbmRzY2FwZScKICAgIH0pCiAgICBjb25zdCBzZWNvbmQgPSBkYi51cHNlcnRNZWRpYUxvY2F0aW9uKHsKICAgICAgcm9vdElkOiBzZWNvbmRSb290LmlkLAogICAgICBhYnNvbHV0ZVBhdGg6ICdDOlxccGhvdG9zXFxiXFxjb3B5LmpwZycsCiAgICAgIHJlbGF0aXZlUGF0aDogJ2NvcHkuanBnJywKICAgICAgY29udGVudEhhc2g6ICdzYW1lLWhhc2gnLAogICAgICBzaXplQnl0ZXM6IDEwMCwKICAgICAgbW9kaWZpZWRBdDogMiwKICAgICAgd2lkdGg6IDEyMDAsCiAgICAgIGhlaWdodDogODAwLAogICAgICBmb3JtYXQ6ICdqcGVnJywKICAgICAgY2FwdHVyZWRBdDogJzIwMjYtMDEtMDFUMTA6MDA6MDAuMDAwWicsCiAgICAgIGNhbWVyYU1ha2U6ICdGdWppZmlsbScsCiAgICAgIGNhbWVyYU1vZGVsOiAnWC1UNScsCiAgICAgIGxlbnM6ICdYRiAzNW1tIEYxLjQnLAogICAgICBmb2NhbExlbmd0aDogMzUsCiAgICAgIGFwZXJ0dXJlOiAxLjQsCiAgICAgIHNodXR0ZXJTcGVlZDogJzEvMjUwJywKICAgICAgaXNvOiAyMDAsCiAgICAgIG9yaWVudGF0aW9uOiAnbGFuZHNjYXBlJwogICAgfSkKCiAgICBleHBlY3Qoc2Vjb25kLmFzc2V0SWQpLnRvQmUoZmlyc3QuYXNzZXRJZCkKICAgIGV4cGVjdChkYi5saXN0TWVkaWFMb2NhdGlvbnMoZmlyc3QuYXNzZXRJZCkpLnRvSGF2ZUxlbmd0aCgyKQogICAgZXhwZWN0KGRiLmxpc3REdXBsaWNhdGVBc3NldHMoKSkudG9IYXZlTGVuZ3RoKDEpCiAgfSkKCiAgaXQoJ2FsbG93cyBvbmUgYXNzZXQgdG8gYmUgcmVmZXJlbmNlZCBieSBtdWx0aXBsZSBhbGJ1bXMgd2l0aG91dCBhbm90aGVyIGFzc2V0IHJvdycsICgpID0+IHsKICAgIGNvbnN0IHJvb3QgPSBkYi5jcmVhdGVTb3VyY2VSb290KCdDOlxccGhvdG9zJykKICAgIGNvbnN0IGFzc2V0ID0gZGIudXBzZXJ0TWVkaWFMb2NhdGlvbih7CiAgICAgIHJvb3RJZDogcm9vdC5pZCwKICAgICAgYWJzb2x1dGVQYXRoOiAnQzpcXHBob3Rvc1xcb25lLmpwZycsCiAgICAgIHJlbGF0aXZlUGF0aDogJ29uZS5qcGcnLAogICAgICBjb250ZW50SGFzaDogJ3VuaXF1ZScsCiAgICAgIHNpemVCeXRlczogMTAsCiAgICAgIG1vZGlmaWVkQXQ6IDEsCiAgICAgIHdpZHRoOiAxMDAsCiAgICAgIGhlaWdodDogMTAwLAogICAgICBmb3JtYXQ6ICdqcGVnJywKICAgICAgb3JpZW50YXRpb246ICdzcXVhcmUnCiAgICB9KQogICAgY29uc3QgdHJhdmVsID0gZGIuY3JlYXRlQWxidW0oJ+aXheihjCcpCiAgICBjb25zdCBwb3J0Zm9saW8gPSBkYi5jcmVhdGVBbGJ1bSgn5L2c5ZOB6ZuGJykKCiAgICBkYi5hZGRBc3NldFRvQWxidW0odHJhdmVsLmlkLCBhc3NldC5hc3NldElkKQogICAgZGIuYWRkQXNzZXRUb0FsYnVtKHRyYXZlbC5pZCwgYXNzZXQuYXNzZXRJZCkKICAgIGRiLmFkZEFzc2V0VG9BbGJ1bShwb3J0Zm9saW8uaWQsIGFzc2V0LmFzc2V0SWQpCgogICAgZXhwZWN0KGRiLmxpc3RBbGJ1bUFzc2V0cyh0cmF2ZWwuaWQpKS50b0hhdmVMZW5ndGgoMSkKICAgIGV4cGVjdChkYi5saXN0QWxidW1Bc3NldHMocG9ydGZvbGlvLmlkKVswXS5hc3NldElkKS50b0JlKGFzc2V0LmFzc2V0SWQpCiAgICBleHBlY3QoZGIuY291bnRBc3NldHMoKSkudG9CZSgxKQogIH0pCgogIGl0KCdtYXJrcyBvcnBoYW5lZCBhc3NldHMgYXMgbWlzc2luZyB3aGVuIHRoZWlyIHNvdXJjZSByb290IGlzIHJlbW92ZWQnLCAoKSA9PiB7CiAgICBjb25zdCByb290ID0gZGIuY3JlYXRlU291cmNlUm9vdCgnRDpcXGV4dGVybmFsXFxwaG90b3MnKQogICAgY29uc3QgYXNzZXQgPSBkYi51cHNlcnRNZWRpYUxvY2F0aW9uKHsKICAgICAgcm9vdElkOiByb290LmlkLAogICAgICBhYnNvbHV0ZVBhdGg6ICdEOlxcZXh0ZXJuYWxcXHBob3Rvc1xcb25lLmpwZycsCiAgICAgIHJlbGF0aXZlUGF0aDogJ29uZS5qcGcnLAogICAgICBjb250ZW50SGFzaDogJ2V4dGVybmFsLW9ubHknLAogICAgICBzaXplQnl0ZXM6IDEwLAogICAgICBtb2RpZmllZEF0OiAxLAogICAgICB3aWR0aDogMTAwLAogICAgICBoZWlnaHQ6IDEwMCwKICAgICAgZm9ybWF0OiAnanBlZycsCiAgICAgIG9yaWVudGF0aW9uOiAnc3F1YXJlJwogICAgfSkKCiAgICBkYi5yZW1vdmVTb3VyY2VSb290KHJvb3QuaWQpCgogICAgZXhwZWN0KGRiLmdldEFzc2V0KGFzc2V0LmFzc2V0SWQpPy5taXNzaW5nKS50b0JlKHRydWUpCiAgICBleHBlY3QoZGIuY291bnRBc3NldHMoKSkudG9CZSgxKQogIH0pCiAgaXQoJ2tlZXBzIHBob3RvcyBzZWFyY2hhYmxlIHdoaWxlIGEgc291cmNlIHJvb3QgaXMgb25seSBkaXNhYmxlZCcsICgpID0+IHsKICAgIGNvbnN0IHJvb3QgPSBkYi5jcmVhdGVTb3VyY2VSb290KCdFOlxcZGlzYWJsZWRcXHBob3RvcycpCiAgICBjb25zdCBhc3NldCA9IGRiLnVwc2VydE1lZGlhTG9jYXRpb24oewogICAgICByb290SWQ6IHJvb3QuaWQsCiAgICAgIGFic29sdXRlUGF0aDogJ0U6XFxkaXNhYmxlZFxccGhvdG9zXFxvbmUuanBnJywKICAgICAgcmVsYXRpdmVQYXRoOiAnb25lLmpwZycsCiAgICAgIGNvbnRlbnRIYXNoOiAnZGlzYWJsZWQtb25seScsCiAgICAgIHNpemVCeXRlczogMTAsCiAgICAgIG1vZGlmaWVkQXQ6IDEsCiAgICAgIHdpZHRoOiAxMDAsCiAgICAgIGhlaWdodDogMTAwLAogICAgICBmb3JtYXQ6ICdqcGVnJywKICAgICAgb3JpZW50YXRpb246ICdzcXVhcmUnCiAgICB9KQoKICAgIGNvbnN0IHJlc3VsdCA9IGRiLnJlbW92ZVNvdXJjZVJvb3Qocm9vdC5pZCwgJ2Rpc2FibGUnKQoKICAgIGV4cGVjdChyZXN1bHQuYWZmZWN0ZWRBc3NldHMpLnRvQmUoMSkKICAgIGV4cGVjdChkYi5saXN0U291cmNlUm9vdHMoKS5maW5kKChpdGVtKSA9PiBpdGVtLmlkID09PSByb290LmlkKT8uZW5hYmxlZCkudG9CZShmYWxzZSkKICAgIGV4cGVjdChkYi5zZWFyY2hBc3NldHMoeyBsaW1pdDogMjAsIG9mZnNldDogMCB9KS50b3RhbCkudG9CZSgxKQogICAgZXhwZWN0KGRiLmdldEFzc2V0KGFzc2V0LmFzc2V0SWQpPy5taXNzaW5nKS50b0JlKGZhbHNlKQogIH0pCgogIGl0KCdyZW1vdmVzIGEgc291cmNlIHJvb3QgZnJvbSB0aGUgbGlicmFyeSB3aGlsZSBwcmVzZXJ2aW5nIGFsYnVtIGFuZCB3b3JrIHJlZmVyZW5jZXMnLCAoKSA9PiB7CiAgICBjb25zdCByb290ID0gZGIuY3JlYXRlU291cmNlUm9vdCgnRjpcXHJlbW92ZWRcXHBob3RvcycpCiAgICBjb25zdCBhc3NldCA9IGRiLnVwc2VydE1lZGlhTG9jYXRpb24oewogICAgICByb290SWQ6IHJvb3QuaWQsCiAgICAgIGFic29sdXRlUGF0aDogJ0Y6XFxyZW1vdmVkXFxwaG90b3NcXG9uZS5qcGcnLAogICAgICByZWxhdGl2ZVBhdGg6ICdvbmUuanBnJywKICAgICAgY29udGVudEhhc2g6ICdsaWJyYXJ5LXJlbW92ZWQnLAogICAgICBzaXplQnl0ZXM6IDEwLAogICAgICBtb2RpZmllZEF0OiAxLAogICAgICB3aWR0aDogMTAwLAogICAgICBoZWlnaHQ6IDEwMCwKICAgICAgZm9ybWF0OiAnanBlZycsCiAgICAgIG9yaWVudGF0aW9uOiAnc3F1YXJlJwogICAgfSkKICAgIGNvbnN0IGFsYnVtID0gZGIuY3JlYXRlQWxidW0oJ+S/neeVmeW8leeUqCcpCiAgICBkYi5hZGRBc3NldFRvQWxidW0oYWxidW0uaWQsIGFzc2V0LmFzc2V0SWQpCiAgICBjb25zdCB3b3JrID0gZGIuY3JlYXRlV29yayh7IGFsYnVtSWQ6IGFsYnVtLmlkLCBuYW1lOiAn5L+d55WZ5L2c5ZOBJywgb3V0cHV0TW9kZTogJ3BhZ2VzJywgY2FudmFzV2lkdGg6IDEwODAsIGNhbnZhc0hlaWdodDogMTQ0MCwgYmFja2dyb3VuZDogJyNmZmYnIH0pCiAgICBjb25zdCBwYWdlID0gZGIuY3JlYXRlUGFnZSh3b3JrLmlkLCAwLCAnI2ZmZicpCiAgICBkYi5jcmVhdGVJbWFnZUxheWVyKHBhZ2UuaWQsIHsgYXNzZXRJZDogYXNzZXQuYXNzZXRJZCwgeDogMCwgeTogMCwgd2lkdGg6IDEsIGhlaWdodDogMSwgcm90YXRpb246IDAsIHpJbmRleDogMSwgZml0OiAnY292ZXInLCByYWRpdXM6IDAgfSkKCiAgICBjb25zdCByZXN1bHQgPSBkYi5yZW1vdmVTb3VyY2VSb290KHJvb3QuaWQsICdsaWJyYXJ5JykKCiAgICBleHBlY3QocmVzdWx0LnJlbW92ZWRMb2NhdGlvbnMpLnRvQmUoMSkKICAgIGV4cGVjdChyZXN1bHQucmVtb3ZlZEFzc2V0cykudG9CZSgwKQogICAgZXhwZWN0KGRiLnNlYXJjaEFzc2V0cyh7IGxpbWl0OiAyMCwgb2Zmc2V0OiAwIH0pLnRvdGFsKS50b0JlKDApCiAgICBleHBlY3QoZGIubGlzdEFsYnVtQXNzZXRzKGFsYnVtLmlkKSkudG9IYXZlTGVuZ3RoKDEpCiAgICBleHBlY3QoZGIubGlzdExheWVycyhwYWdlLmlkKSkudG9IYXZlTGVuZ3RoKDEpCiAgICBleHBlY3QoZGIuZ2V0QXNzZXQoYXNzZXQuYXNzZXRJZCk/Lm1pc3NpbmcpLnRvQmUodHJ1ZSkKICAgIGV4cGVjdChkYi5pc1BhdGhJZ25vcmVkKCdGOlxccmVtb3ZlZFxccGhvdG9zXFxvbmUuanBnJykpLnRvQmUodHJ1ZSkKICB9KQoKICBpdCgnZnVsbHkgcmVtb3ZlcyBwaG90b3MgZnJvbSB0aGUgbGlicmFyeSwgYWxidW1zLCBhbmQgaW1hZ2UgbGF5ZXJzJywgKCkgPT4gewogICAgY29uc3Qgcm9vdCA9IGRiLmNyZWF0ZVNvdXJjZVJvb3QoJ0c6XFxhbGxcXHBob3RvcycpCiAgICBjb25zdCBhc3NldCA9IGRiLnVwc2VydE1lZGlhTG9jYXRpb24oewogICAgICByb290SWQ6IHJvb3QuaWQsCiAgICAgIGFic29sdXRlUGF0aDogJ0c6XFxhbGxcXHBob3Rvc1xcb25lLmpwZycsCiAgICAgIHJlbGF0aXZlUGF0aDogJ29uZS5qcGcnLAogICAgICBjb250ZW50SGFzaDogJ2Z1bGwtcmVtb3ZlZCcsCiAgICAgIHNpemVCeXRlczogMTAsCiAgICAgIG1vZGlmaWVkQXQ6IDEsCiAgICAgIHdpZHRoOiAxMDAsCiAgICAgIGhlaWdodDogMTAwLAogICAgICBmb3JtYXQ6ICdqcGVnJywKICAgICAgb3JpZW50YXRpb246ICdzcXVhcmUnCiAgICB9KQogICAgY29uc3QgYWxidW0gPSBkYi5jcmVhdGVBbGJ1bSgn5YWo6YOo56e76ZmkJykKICAgIGRiLmFkZEFzc2V0VG9BbGJ1bShhbGJ1bS5pZCwgYXNzZXQuYXNzZXRJZCkKICAgIGNvbnN0IHdvcmsgPSBkYi5jcmVhdGVXb3JrKHsgYWxidW1JZDogYWxidW0uaWQsIG5hbWU6ICflhajpg6jnp7vpmaTkvZzlk4EnLCBvdXRwdXRNb2RlOiAncGFnZXMnLCBjYW52YXNXaWR0aDogMTA4MCwgY2FudmFzSGVpZ2h0OiAxNDQwLCBiYWNrZ3JvdW5kOiAnI2ZmZicgfSkKICAgIGNvbnN0IHBhZ2UgPSBkYi5jcmVhdGVQYWdlKHdvcmsuaWQsIDAsICcjZmZmJykKICAgIGRiLmNyZWF0ZUltYWdlTGF5ZXIocGFnZS5pZCwgeyBhc3NldElkOiBhc3NldC5hc3NldElkLCB4OiAwLCB5OiAwLCB3aWR0aDogMSwgaGVpZ2h0OiAxLCByb3RhdGlvbjogMCwgekluZGV4OiAxLCBmaXQ6ICdjb3ZlcicsIHJhZGl1czogMCB9KQogICAgZGIuY3JlYXRlVGV4dExheWVyKHBhZ2UuaWQsIHsgeDogMCwgeTogMC44LCB3aWR0aDogMSwgaGVpZ2h0OiAwLjEsIHJvdGF0aW9uOiAwLCB6SW5kZXg6IDIsIHRleHQ6ICfkv53nlZnmloflrZcnLCBmb250U2l6ZTogNDgsIGNvbG9yOiAnIzExMScsIGZvbnRGYW1pbHk6ICdNaWNyb3NvZnQgWWFIZWknLCBmb250V2VpZ2h0OiAnbm9ybWFsJywgYWxpZ246ICdsZWZ0JyB9KQoKICAgIGNvbnN0IHJlc3VsdCA9IGRiLnJlbW92ZVNvdXJjZVJvb3Qocm9vdC5pZCwgJ2FsbCcpCgogICAgZXhwZWN0KHJlc3VsdC5yZW1vdmVkQXNzZXRzKS50b0JlKDEpCiAgICBleHBlY3QocmVzdWx0LnJlbW92ZWRBbGJ1bUl0ZW1zKS50b0JlKDEpCiAgICBleHBlY3QocmVzdWx0LnJlbW92ZWRMYXllcnMpLnRvQmUoMSkKICAgIGV4cGVjdChkYi5nZXRBc3NldChhc3NldC5hc3NldElkKSkudG9CZU51bGwoKQogICAgZXhwZWN0KGRiLmxpc3RBbGJ1bUFzc2V0cyhhbGJ1bS5pZCkpLnRvSGF2ZUxlbmd0aCgwKQogICAgZXhwZWN0KGRiLmxpc3RMYXllcnMocGFnZS5pZCkpLnRvSGF2ZUxlbmd0aCgxKQogICAgZXhwZWN0KGRiLmxpc3RMYXllcnMocGFnZS5pZClbMF0udHlwZSkudG9CZSgndGV4dCcpCiAgICBleHBlY3QoZGIuY291bnRBc3NldHMoKSkudG9CZSgwKQogIH0pCgogIGl0KCdyZS1hZGRzIGEgcmVtb3ZlZCBzb3VyY2Ugcm9vdCBhbmQgY2xlYXJzIGlnbm9yZWQgcGF0aHMnLCAoKSA9PiB7CiAgICBjb25zdCByb290ID0gZGIuY3JlYXRlU291cmNlUm9vdCgnSDpcXHJlYWRkXFxwaG90b3MnKQogICAgZGIudXBzZXJ0TWVkaWFMb2NhdGlvbih7CiAgICAgIHJvb3RJZDogcm9vdC5pZCwKICAgICAgYWJzb2x1dGVQYXRoOiAnSDpcXHJlYWRkXFxwaG90b3NcXG9uZS5qcGcnLAogICAgICByZWxhdGl2ZVBhdGg6ICdvbmUuanBnJywKICAgICAgY29udGVudEhhc2g6ICdyZWFkZC1waG90bycsCiAgICAgIHNpemVCeXRlczogMTAsCiAgICAgIG1vZGlmaWVkQXQ6IDEsCiAgICAgIHdpZHRoOiAxMDAsCiAgICAgIGhlaWdodDogMTAwLAogICAgICBmb3JtYXQ6ICdqcGVnJywKICAgICAgb3JpZW50YXRpb246ICdzcXVhcmUnCiAgICB9KQogICAgZGIucmVtb3ZlU291cmNlUm9vdChyb290LmlkLCAnbGlicmFyeScpCgogICAgY29uc3QgcmVzdG9yZWQgPSBkYi5jcmVhdGVTb3VyY2VSb290KCdIOlxccmVhZGRcXHBob3RvcycpCgogICAgZXhwZWN0KHJlc3RvcmVkLmVuYWJsZWQpLnRvQmUodHJ1ZSkKICAgIGV4cGVjdChkYi5pc1BhdGhJZ25vcmVkKCdIOlxccmVhZGRcXHBob3Rvc1xcb25lLmpwZycpKS50b0JlKGZhbHNlKQogIH0pCiAgaXQoJ3JlcGxhY2VzIGEgY3VzdG9tIHRlbXBsYXRlIHdoZW4gaXRzIGRpc3BsYXkgbmFtZSBpcyByZXVzZWQnLCAoKSA9PiB7CiAgICBjb25zdCBmaXJzdElkID0gZGIuc2F2ZVRlbXBsYXRlKHsgaWQ6ICdjdXN0b206Zmlyc3QnLCBuYW1lOiAn57uf5LiA54mI5byPJywgcGF5bG9hZDogeyBpZDogJ2N1c3RvbTpmaXJzdCcsIG5hbWU6ICfnu5/kuIDniYjlvI8nIH0gfSkKICAgIGNvbnN0IHNlY29uZElkID0gZGIuc2F2ZVRlbXBsYXRlKHsgaWQ6ICdjdXN0b206c2Vjb25kJywgbmFtZTogJ+e7n+S4gOeJiOW8jycsIHBheWxvYWQ6IHsgaWQ6ICdjdXN0b206c2Vjb25kJywgbmFtZTogJ+e7n+S4gOeJiOW8jycgfSB9KQoKICAgIGV4cGVjdChzZWNvbmRJZCkudG9CZShmaXJzdElkKQogICAgZXhwZWN0KGRiLmxpc3RUZW1wbGF0ZXMoKS5maWx0ZXIoKHRlbXBsYXRlKSA9PiB0ZW1wbGF0ZS5uYW1lID09PSAn57uf5LiA54mI5byPJykpLnRvSGF2ZUxlbmd0aCgxKQogIH0pCiAgaXQoJ3BlcnNpc3RzIGEgd29yayB3aXRoIG11bHRpcGxlIGluZGVwZW5kZW50bHkgZWRpdGFibGUgcGFnZXMnLCAoKSA9PiB7CiAgICBjb25zdCBhbGJ1bSA9IGRiLmNyZWF0ZUFsYnVtKCflpJzmma8nKQogICAgY29uc3Qgd29yayA9IGRiLmNyZWF0ZVdvcmsoewogICAgICBhbGJ1bUlkOiBhbGJ1bS5pZCwKICAgICAgbmFtZTogJ+Wwj+e6ouS5puWPkeW4g+eJiCcsCiAgICAgIG91dHB1dE1vZGU6ICdwYWdlcycsCiAgICAgIGNhbnZhc1dpZHRoOiAxMDgwLAogICAgICBjYW52YXNIZWlnaHQ6IDE0NDAsCiAgICAgIGJhY2tncm91bmQ6ICcjZmZmZmZmJwogICAgfSkKCiAgICBjb25zdCBjb3ZlciA9IGRiLmNyZWF0ZVBhZ2Uod29yay5pZCwgMCwgJyMxMTExMTEnKQogICAgY29uc3QgYm9keSA9IGRiLmNyZWF0ZVBhZ2Uod29yay5pZCwgMSwgJyNmZmZmZmYnKQogICAgZGIuY3JlYXRlVGV4dExheWVyKGNvdmVyLmlkLCB7CiAgICAgIHg6IDgwLAogICAgICB5OiAxMDAsCiAgICAgIHdpZHRoOiA5MjAsCiAgICAgIGhlaWdodDogMTIwLAogICAgICByb3RhdGlvbjogMCwKICAgICAgekluZGV4OiAyLAogICAgICB0ZXh0OiAne3thbGJ1bX19JywKICAgICAgZm9udFNpemU6IDY0LAogICAgICBjb2xvcjogJyNmZmZmZmYnLAogICAgICBmb250RmFtaWx5OiAnTWljcm9zb2Z0IFlhSGVpJywKICAgICAgZm9udFdlaWdodDogJ2JvbGQnLAogICAgICBhbGlnbjogJ2NlbnRlcicKICAgIH0pCgogICAgZXhwZWN0KGRiLmxpc3RXb3JrcyhhbGJ1bS5pZCkpLnRvSGF2ZUxlbmd0aCgxKQogICAgZXhwZWN0KGRiLmxpc3RQYWdlcyh3b3JrLmlkKS5tYXAoKHBhZ2UpID0+IHBhZ2UuaWQpKS50b0VxdWFsKFtjb3Zlci5pZCwgYm9keS5pZF0pCiAgICBleHBlY3QoZGIubGlzdExheWVycyhjb3Zlci5pZClbMF0udHlwZSkudG9CZSgndGV4dCcpCiAgfSkKfSk=
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { AppDatabase } from '../src/main/database'
+
+describe('AppDatabase', () => {
+  let db: AppDatabase
+
+  beforeEach(() => {
+    db = new AppDatabase(':memory:')
+    db.migrate()
+  })
+
+  afterEach(() => {
+    db.close()
+  })
+
+  it('merges identical content into one asset with multiple file locations', () => {
+    const firstRoot = db.createSourceRoot('C:\\photos\\a')
+    const secondRoot = db.createSourceRoot('C:\\photos\\b')
+
+    const first = db.upsertMediaLocation({
+      rootId: firstRoot.id,
+      absolutePath: 'C:\\photos\\a\\cover.jpg',
+      relativePath: 'cover.jpg',
+      contentHash: 'same-hash',
+      sizeBytes: 100,
+      modifiedAt: 1,
+      width: 1200,
+      height: 800,
+      format: 'jpeg',
+      capturedAt: '2026-01-01T10:00:00.000Z',
+      cameraMake: 'Fujifilm',
+      cameraModel: 'X-T5',
+      lens: 'XF 35mm F1.4',
+      focalLength: 35,
+      aperture: 1.4,
+      shutterSpeed: '1/250',
+      iso: 200,
+      orientation: 'landscape'
+    })
+    const second = db.upsertMediaLocation({
+      rootId: secondRoot.id,
+      absolutePath: 'C:\\photos\\b\\copy.jpg',
+      relativePath: 'copy.jpg',
+      contentHash: 'same-hash',
+      sizeBytes: 100,
+      modifiedAt: 2,
+      width: 1200,
+      height: 800,
+      format: 'jpeg',
+      capturedAt: '2026-01-01T10:00:00.000Z',
+      cameraMake: 'Fujifilm',
+      cameraModel: 'X-T5',
+      lens: 'XF 35mm F1.4',
+      focalLength: 35,
+      aperture: 1.4,
+      shutterSpeed: '1/250',
+      iso: 200,
+      orientation: 'landscape'
+    })
+
+    expect(second.assetId).toBe(first.assetId)
+    expect(db.listMediaLocations(first.assetId)).toHaveLength(2)
+    expect(db.listDuplicateAssets()).toHaveLength(1)
+  })
+
+  it('allows one asset to be referenced by multiple albums without another asset row', () => {
+    const root = db.createSourceRoot('C:\\photos')
+    const asset = db.upsertMediaLocation({
+      rootId: root.id,
+      absolutePath: 'C:\\photos\\one.jpg',
+      relativePath: 'one.jpg',
+      contentHash: 'unique',
+      sizeBytes: 10,
+      modifiedAt: 1,
+      width: 100,
+      height: 100,
+      format: 'jpeg',
+      orientation: 'square'
+    })
+    const travel = db.createAlbum('旅行')
+    const portfolio = db.createAlbum('作品集')
+
+    db.addAssetToAlbum(travel.id, asset.assetId)
+    db.addAssetToAlbum(travel.id, asset.assetId)
+    db.addAssetToAlbum(portfolio.id, asset.assetId)
+
+    expect(db.listAlbumAssets(travel.id)).toHaveLength(1)
+    expect(db.listAlbumAssets(portfolio.id)[0].assetId).toBe(asset.assetId)
+    expect(db.countAssets()).toBe(1)
+  })
+
+  it('marks orphaned assets as missing when their source root is removed', () => {
+    const root = db.createSourceRoot('D:\\external\\photos')
+    const asset = db.upsertMediaLocation({
+      rootId: root.id,
+      absolutePath: 'D:\\external\\photos\\one.jpg',
+      relativePath: 'one.jpg',
+      contentHash: 'external-only',
+      sizeBytes: 10,
+      modifiedAt: 1,
+      width: 100,
+      height: 100,
+      format: 'jpeg',
+      orientation: 'square'
+    })
+
+    db.removeSourceRoot(root.id)
+
+    expect(db.getAsset(asset.assetId)?.missing).toBe(true)
+    expect(db.countAssets()).toBe(1)
+  })
+  it('keeps photos searchable while a source root is only disabled', () => {
+    const root = db.createSourceRoot('E:\\disabled\\photos')
+    const asset = db.upsertMediaLocation({
+      rootId: root.id,
+      absolutePath: 'E:\\disabled\\photos\\one.jpg',
+      relativePath: 'one.jpg',
+      contentHash: 'disabled-only',
+      sizeBytes: 10,
+      modifiedAt: 1,
+      width: 100,
+      height: 100,
+      format: 'jpeg',
+      orientation: 'square'
+    })
+
+    const result = db.removeSourceRoot(root.id, 'disable')
+
+    expect(result.affectedAssets).toBe(1)
+    expect(db.listSourceRoots().find((item) => item.id === root.id)?.enabled).toBe(false)
+    expect(db.searchAssets({ limit: 20, offset: 0 }).total).toBe(1)
+    expect(db.getAsset(asset.assetId)?.missing).toBe(false)
+  })
+
+  it('removes a source root from the library while preserving album and work references', () => {
+    const root = db.createSourceRoot('F:\\removed\\photos')
+    const asset = db.upsertMediaLocation({
+      rootId: root.id,
+      absolutePath: 'F:\\removed\\photos\\one.jpg',
+      relativePath: 'one.jpg',
+      contentHash: 'library-removed',
+      sizeBytes: 10,
+      modifiedAt: 1,
+      width: 100,
+      height: 100,
+      format: 'jpeg',
+      orientation: 'square'
+    })
+    const album = db.createAlbum('保留引用')
+    db.addAssetToAlbum(album.id, asset.assetId)
+    const work = db.createWork({ albumId: album.id, name: '保留作品', outputMode: 'pages', canvasWidth: 1080, canvasHeight: 1440, background: '#fff' })
+    const page = db.createPage(work.id, 0, '#fff')
+    db.createImageLayer(page.id, { assetId: asset.assetId, x: 0, y: 0, width: 1, height: 1, rotation: 0, zIndex: 1, fit: 'cover', radius: 0 })
+
+    const result = db.removeSourceRoot(root.id, 'library')
+
+    expect(result.removedLocations).toBe(1)
+    expect(result.removedAssets).toBe(0)
+    expect(db.searchAssets({ limit: 20, offset: 0 }).total).toBe(0)
+    expect(db.listAlbumAssets(album.id)).toHaveLength(1)
+    expect(db.listLayers(page.id)).toHaveLength(1)
+    expect(db.getAsset(asset.assetId)?.missing).toBe(true)
+    expect(db.isPathIgnored('F:\\removed\\photos\\one.jpg')).toBe(true)
+  })
+
+  it('fully removes photos from the library, albums, and image layers', () => {
+    const root = db.createSourceRoot('G:\\all\\photos')
+    const asset = db.upsertMediaLocation({
+      rootId: root.id,
+      absolutePath: 'G:\\all\\photos\\one.jpg',
+      relativePath: 'one.jpg',
+      contentHash: 'full-removed',
+      sizeBytes: 10,
+      modifiedAt: 1,
+      width: 100,
+      height: 100,
+      format: 'jpeg',
+      orientation: 'square'
+    })
+    const album = db.createAlbum('全部移除')
+    db.addAssetToAlbum(album.id, asset.assetId)
+    const work = db.createWork({ albumId: album.id, name: '全部移除作品', outputMode: 'pages', canvasWidth: 1080, canvasHeight: 1440, background: '#fff' })
+    const page = db.createPage(work.id, 0, '#fff')
+    db.createImageLayer(page.id, { assetId: asset.assetId, x: 0, y: 0, width: 1, height: 1, rotation: 0, zIndex: 1, fit: 'cover', radius: 0 })
+    db.createTextLayer(page.id, { x: 0, y: 0.8, width: 1, height: 0.1, rotation: 0, zIndex: 2, text: '保留文字', fontSize: 48, color: '#111', fontFamily: 'Microsoft YaHei', fontWeight: 'normal', align: 'left' })
+
+    const result = db.removeSourceRoot(root.id, 'all')
+
+    expect(result.removedAssets).toBe(1)
+    expect(result.removedAlbumItems).toBe(1)
+    expect(result.removedLayers).toBe(1)
+    expect(db.getAsset(asset.assetId)).toBeNull()
+    expect(db.listAlbumAssets(album.id)).toHaveLength(0)
+    expect(db.listLayers(page.id)).toHaveLength(1)
+    expect(db.listLayers(page.id)[0].type).toBe('text')
+    expect(db.countAssets()).toBe(0)
+  })
+
+  it('re-adds a removed source root and clears ignored paths', () => {
+    const root = db.createSourceRoot('H:\\readd\\photos')
+    db.upsertMediaLocation({
+      rootId: root.id,
+      absolutePath: 'H:\\readd\\photos\\one.jpg',
+      relativePath: 'one.jpg',
+      contentHash: 'readd-photo',
+      sizeBytes: 10,
+      modifiedAt: 1,
+      width: 100,
+      height: 100,
+      format: 'jpeg',
+      orientation: 'square'
+    })
+    db.removeSourceRoot(root.id, 'library')
+
+    const restored = db.createSourceRoot('H:\\readd\\photos')
+
+    expect(restored.enabled).toBe(true)
+    expect(db.isPathIgnored('H:\\readd\\photos\\one.jpg')).toBe(false)
+  })
+  it('replaces a custom template when its display name is reused', () => {
+    const firstId = db.saveTemplate({ id: 'custom:first', name: '统一版式', payload: { id: 'custom:first', name: '统一版式' } })
+    const secondId = db.saveTemplate({ id: 'custom:second', name: '统一版式', payload: { id: 'custom:second', name: '统一版式' } })
+
+    expect(secondId).toBe(firstId)
+    expect(db.listTemplates().filter((template) => template.name === '统一版式')).toHaveLength(1)
+  })
+  it('persists a work with multiple independently editable pages', () => {
+    const album = db.createAlbum('夜景')
+    const work = db.createWork({
+      albumId: album.id,
+      name: '小红书发布版',
+      outputMode: 'pages',
+      canvasWidth: 1080,
+      canvasHeight: 1440,
+      background: '#ffffff'
+    })
+
+    const cover = db.createPage(work.id, 0, '#111111')
+    const body = db.createPage(work.id, 1, '#ffffff')
+    db.createTextLayer(cover.id, {
+      x: 80,
+      y: 100,
+      width: 920,
+      height: 120,
+      rotation: 0,
+      zIndex: 2,
+      text: '{{album}}',
+      fontSize: 64,
+      color: '#ffffff',
+      fontFamily: 'Microsoft YaHei',
+      fontWeight: 'bold',
+      align: 'center'
+    })
+
+    expect(db.listWorks(album.id)).toHaveLength(1)
+    expect(db.listPages(work.id).map((page) => page.id)).toEqual([cover.id, body.id])
+    expect(db.listLayers(cover.id)[0].type).toBe('text')
+  })
+})

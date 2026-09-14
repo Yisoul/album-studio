@@ -1,1 +1,24 @@
-ewogICJjb21waWxlck9wdGlvbnMiOiB7CiAgICAidGFyZ2V0IjogIkVTMjAyMiIsCiAgICAidXNlRGVmaW5lRm9yQ2xhc3NGaWVsZHMiOiB0cnVlLAogICAgImxpYiI6IFsiRVMyMDIyIiwgIkRPTSIsICJET00uSXRlcmFibGUiXSwKICAgICJhbGxvd0pzIjogZmFsc2UsCiAgICAic2tpcExpYkNoZWNrIjogdHJ1ZSwKICAgICJlc01vZHVsZUludGVyb3AiOiB0cnVlLAogICAgImFsbG93U3ludGhldGljRGVmYXVsdEltcG9ydHMiOiB0cnVlLAogICAgInN0cmljdCI6IHRydWUsCiAgICAiZm9yY2VDb25zaXN0ZW50Q2FzaW5nSW5GaWxlTmFtZXMiOiB0cnVlLAogICAgIm1vZHVsZSI6ICJFU05leHQiLAogICAgIm1vZHVsZVJlc29sdXRpb24iOiAiQnVuZGxlciIsCiAgICAicmVzb2x2ZUpzb25Nb2R1bGUiOiB0cnVlLAogICAgImlzb2xhdGVkTW9kdWxlcyI6IHRydWUsCiAgICAibm9FbWl0IjogdHJ1ZSwKICAgICJqc3giOiAicmVhY3QtanN4IiwKICAgICJwYXRocyI6IHsKICAgICAgIkByZW5kZXJlci8qIjogWyIuL3NyYy9yZW5kZXJlci9zcmMvKiJdLAogICAgICAiQHNoYXJlZC8qIjogWyIuL3NyYy9zaGFyZWQvKiJdCiAgICB9CiAgfSwKICAiaW5jbHVkZSI6IFsic3JjL3JlbmRlcmVyL3NyYy8qKi8qLnRzIiwgInNyYy9yZW5kZXJlci9zcmMvKiovKi50c3giLCAic3JjL3NoYXJlZC8qKi8qLnRzIl0KfQ==
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "useDefineForClassFields": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "paths": {
+      "@renderer/*": ["./src/renderer/src/*"],
+      "@shared/*": ["./src/shared/*"]
+    }
+  },
+  "include": ["src/renderer/src/**/*.ts", "src/renderer/src/**/*.tsx", "src/shared/**/*.ts"]
+}

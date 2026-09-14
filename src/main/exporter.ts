@@ -1,1 +1,197 @@
-aW1wb3J0IHsgbWtkaXIgfSBmcm9tICdub2RlOmZzL3Byb21pc2VzJwppbXBvcnQgeyBqb2luIH0gZnJvbSAnbm9kZTpwYXRoJwppbXBvcnQgc2hhcnAgZnJvbSAnc2hhcnAnCmltcG9ydCB0eXBlIHsgQXBwRGF0YWJhc2UsIExheWVyLCBQYWdlLCBXb3JrIH0gZnJvbSAnLi9kYXRhYmFzZScKCmV4cG9ydCBpbnRlcmZhY2UgRXhwb3J0T3B0aW9ucyB7CiAgZGlyZWN0b3J5OiBzdHJpbmcKICBmb3JtYXQ6ICdqcGVnJyB8ICdwbmcnCiAgcXVhbGl0eTogbnVtYmVyCiAgbG9uZ0VkZ2U6IG51bWJlcgogIGdhcDogbnVtYmVyCiAgZmlsZU5hbWVQcmVmaXg6IHN0cmluZwp9CgpleHBvcnQgaW50ZXJmYWNlIEV4cG9ydFJlc3VsdCB7CiAgZmlsZXM6IHN0cmluZ1tdCiAgd2lkdGg6IG51bWJlcgogIHBhZ2VzOiBudW1iZXIKfQoKaW50ZXJmYWNlIENvbXBvc2l0ZUxheWVyIHsKICBpbnB1dDogQnVmZmVyCiAgbGVmdDogbnVtYmVyCiAgdG9wOiBudW1iZXIKfQoKZXhwb3J0IGNsYXNzIFdvcmtFeHBvcnRlciB7CiAgY29uc3RydWN0b3IocHJpdmF0ZSByZWFkb25seSBkYjogQXBwRGF0YWJhc2UpIHt9CgogIGFzeW5jIGV4cG9ydFdvcmsod29ya0lkOiBzdHJpbmcsIG9wdGlvbnM6IEV4cG9ydE9wdGlvbnMpOiBQcm9taXNlPEV4cG9ydFJlc3VsdD4gewogICAgY29uc3QgZG9jdW1lbnQgPSB0aGlzLmRiLmdldFdvcmtEb2N1bWVudCh3b3JrSWQpCiAgICBpZiAoIWRvY3VtZW50KSB0aHJvdyBuZXcgRXJyb3IoJ+S9nOWTgeS4jeWtmOWcqCcpCiAgICBpZiAoZG9jdW1lbnQucGFnZXMubGVuZ3RoID09PSAwKSB0aHJvdyBuZXcgRXJyb3IoJ+S9nOWTgeayoeacieWPr+WvvOWHuueahOmhtemdoicpCgogICAgYXdhaXQgbWtkaXIob3B0aW9ucy5kaXJlY3RvcnksIHsgcmVjdXJzaXZlOiB0cnVlIH0pCiAgICBjb25zdCBzY2FsZSA9IG9wdGlvbnMubG9uZ0VkZ2UgLyBkb2N1bWVudC53b3JrLmNhbnZhc1dpZHRoCiAgICBjb25zdCBwYWdlV2lkdGggPSBNYXRoLm1heCgxLCBNYXRoLnJvdW5kKGRvY3VtZW50LndvcmsuY2FudmFzV2lkdGggKiBzY2FsZSkpCiAgICBjb25zdCBwYWdlSGVpZ2h0ID0gTWF0aC5tYXgoMSwgTWF0aC5yb3VuZChkb2N1bWVudC53b3JrLmNhbnZhc0hlaWdodCAqIHNjYWxlKSkKICAgIGNvbnN0IGFsYnVtID0gdGhpcy5kYi5nZXRBbGJ1bShkb2N1bWVudC53b3JrLmFsYnVtSWQpCiAgICBjb25zdCByZW5kZXJlZFBhZ2VzOiBCdWZmZXJbXSA9IFtdCgogICAgZm9yIChjb25zdCBwYWdlIG9mIGRvY3VtZW50LnBhZ2VzKSB7CiAgICAgIHJlbmRlcmVkUGFnZXMucHVzaChhd2FpdCB0aGlzLnJlbmRlclBhZ2UocGFnZSwgZG9jdW1lbnQud29yaywgcGFnZVdpZHRoLCBwYWdlSGVpZ2h0LCBhbGJ1bT8ubmFtZSA/PyAnJykpCiAgICB9CgogICAgaWYgKGRvY3VtZW50Lndvcmsub3V0cHV0TW9kZSA9PT0gJ2xvbmdfaW1hZ2UnKSB7CiAgICAgIGNvbnN0IGdhcCA9IE1hdGgubWF4KDAsIE1hdGgucm91bmQob3B0aW9ucy5nYXApKQogICAgICBjb25zdCB0b3RhbEhlaWdodCA9IHJlbmRlcmVkUGFnZXMubGVuZ3RoICogcGFnZUhlaWdodCArIE1hdGgubWF4KDAsIHJlbmRlcmVkUGFnZXMubGVuZ3RoIC0gMSkgKiBnYXAKICAgICAgaWYgKHRvdGFsSGVpZ2h0ID4gNjU1MzUpIHRocm93IG5ldyBFcnJvcign6ZW/5Zu+6LaF6L+HIDY1LDUzNSDlg4/ntKDvvIzor7flh4/lsJHpobXpnaLmiJbpmY3kvY7liIbovqjnjocnKQogICAgICBjb25zdCBvdmVybGF5czogQ29tcG9zaXRlTGF5ZXJbXSA9IHJlbmRlcmVkUGFnZXMubWFwKChidWZmZXIsIGluZGV4KSA9PiAoewogICAgICAgIGlucHV0OiBidWZmZXIsCiAgICAgICAgbGVmdDogMCwKICAgICAgICB0b3A6IGluZGV4ICogKHBhZ2VIZWlnaHQgKyBnYXApCiAgICAgIH0pKQogICAgICBjb25zdCBtZXJnZWQgPSBhd2FpdCBzaGFycCh7CiAgICAgICAgY3JlYXRlOiB7IHdpZHRoOiBwYWdlV2lkdGgsIGhlaWdodDogdG90YWxIZWlnaHQsIGNoYW5uZWxzOiA0LCBiYWNrZ3JvdW5kOiBkb2N1bWVudC53b3JrLmJhY2tncm91bmQgfQogICAgICB9KS5jb21wb3NpdGUob3ZlcmxheXMpLnBuZygpLnRvQnVmZmVyKCkKICAgICAgY29uc3QgZmlsZSA9IGF3YWl0IHRoaXMud3JpdGVPdXRwdXQobWVyZ2VkLCBvcHRpb25zLCAxLCAxKQogICAgICByZXR1cm4geyBmaWxlczogW2ZpbGVdLCB3aWR0aDogcGFnZVdpZHRoLCBwYWdlczogMSB9CiAgICB9CgogICAgY29uc3QgZmlsZXM6IHN0cmluZ1tdID0gW10KICAgIGZvciAobGV0IGluZGV4ID0gMDsgaW5kZXggPCByZW5kZXJlZFBhZ2VzLmxlbmd0aDsgaW5kZXggKz0gMSkgewogICAgICBmaWxlcy5wdXNoKGF3YWl0IHRoaXMud3JpdGVPdXRwdXQocmVuZGVyZWRQYWdlc1tpbmRleF0sIG9wdGlvbnMsIGluZGV4ICsgMSwgcmVuZGVyZWRQYWdlcy5sZW5ndGgpKQogICAgfQogICAgcmV0dXJuIHsgZmlsZXMsIHdpZHRoOiBwYWdlV2lkdGgsIHBhZ2VzOiByZW5kZXJlZFBhZ2VzLmxlbmd0aCB9CiAgfQoKICBwcml2YXRlIGFzeW5jIHJlbmRlclBhZ2UocGFnZTogUGFnZSAmIHsgbGF5ZXJzOiBMYXllcltdIH0sIHdvcms6IFdvcmssIHdpZHRoOiBudW1iZXIsIGhlaWdodDogbnVtYmVyLCBhbGJ1bU5hbWU6IHN0cmluZyk6IFByb21pc2U8QnVmZmVyPiB7CiAgICBjb25zdCBvdmVybGF5czogQ29tcG9zaXRlTGF5ZXJbXSA9IFtdCgogICAgZm9yIChjb25zdCBsYXllciBvZiBbLi4ucGFnZS5sYXllcnNdLnNvcnQoKGxlZnQsIHJpZ2h0KSA9PiBsZWZ0LnpJbmRleCAtIHJpZ2h0LnpJbmRleCkpIHsKICAgICAgY29uc3QgbGVmdCA9IE1hdGgucm91bmQobGF5ZXIueCAqIHdpZHRoKQogICAgICBjb25zdCB0b3AgPSBNYXRoLnJvdW5kKGxheWVyLnkgKiBoZWlnaHQpCiAgICAgIGNvbnN0IGxheWVyV2lkdGggPSBNYXRoLm1heCgxLCBNYXRoLnJvdW5kKGxheWVyLndpZHRoICogd2lkdGgpKQogICAgICBjb25zdCBsYXllckhlaWdodCA9IE1hdGgubWF4KDEsIE1hdGgucm91bmQobGF5ZXIuaGVpZ2h0ICogaGVpZ2h0KSkKCiAgICAgIGlmIChsYXllci50eXBlID09PSAnaW1hZ2UnICYmIGxheWVyLmFzc2V0SWQpIHsKICAgICAgICBjb25zdCBsb2NhdGlvbiA9IHRoaXMuZGIuZ2V0UHJlZmVycmVkTG9jYXRpb24obGF5ZXIuYXNzZXRJZCkKICAgICAgICBpZiAoIWxvY2F0aW9uKSBjb250aW51ZQogICAgICAgIGNvbnN0IHJhZGl1cyA9IG51bWJlclN0eWxlKGxheWVyLnN0eWxlLnJhZGl1cykKICAgICAgICBjb25zdCByZXNpemVkID0gYXdhaXQgc2hhcnAobG9jYXRpb24uYWJzb2x1dGVQYXRoKQogICAgICAgICAgLnJvdGF0ZSgpCiAgICAgICAgICAucmVzaXplKGxheWVyV2lkdGgsIGxheWVySGVpZ2h0LCB7CiAgICAgICAgICAgIGZpdDogbGF5ZXIuc3R5bGUuZml0ID09PSAnY29udGFpbicgPyAnY29udGFpbicgOiAnY292ZXInLAogICAgICAgICAgICBwb3NpdGlvbjogJ2NlbnRyZScsCiAgICAgICAgICAgIGJhY2tncm91bmQ6IHsgcjogMCwgZzogMCwgYjogMCwgYWxwaGE6IDAgfQogICAgICAgICAgfSkKICAgICAgICAgIC5lbnN1cmVBbHBoYSgpCiAgICAgICAgICAucG5nKCkKICAgICAgICAgIC50b0J1ZmZlcigpCiAgICAgICAgbGV0IG91dHB1dCA9IHJhZGl1cyA+IDAgPyBhd2FpdCBhcHBseVJvdW5kZWRNYXNrKHJlc2l6ZWQsIGxheWVyV2lkdGgsIGxheWVySGVpZ2h0LCByYWRpdXMpIDogcmVzaXplZAogICAgICAgIGlmIChsYXllci5yb3RhdGlvbikgewogICAgICAgICAgb3V0cHV0ID0gYXdhaXQgc2hhcnAob3V0cHV0KS5yb3RhdGUobGF5ZXIucm90YXRpb24sIHsgYmFja2dyb3VuZDogeyByOiAwLCBnOiAwLCBiOiAwLCBhbHBoYTogMCB9IH0pLnBuZygpLnRvQnVmZmVyKCkKICAgICAgICB9CiAgICAgICAgb3ZlcmxheXMucHVzaCh7IGlucHV0OiBvdXRwdXQsIGxlZnQsIHRvcCB9KQogICAgICB9CgogICAgICBpZiAobGF5ZXIudHlwZSA9PT0gJ3RleHQnICYmIGxheWVyLnRleHQpIHsKICAgICAgICBjb25zdCB0ZXh0QnVmZmVyID0gcmVuZGVyVGV4dExheWVyKGxheWVyLCBsYXllcldpZHRoLCBsYXllckhlaWdodCwgYWxidW1OYW1lLCB3aWR0aCAvIHdvcmsuY2FudmFzV2lkdGgpCiAgICAgICAgbGV0IG91dHB1dCA9IHRleHRCdWZmZXIKICAgICAgICBpZiAobGF5ZXIucm90YXRpb24pIHsKICAgICAgICAgIG91dHB1dCA9IGF3YWl0IHNoYXJwKG91dHB1dCkucm90YXRlKGxheWVyLnJvdGF0aW9uLCB7IGJhY2tncm91bmQ6IHsgcjogMCwgZzogMCwgYjogMCwgYWxwaGE6IDAgfSB9KS5wbmcoKS50b0J1ZmZlcigpCiAgICAgICAgfQogICAgICAgIG92ZXJsYXlzLnB1c2goeyBpbnB1dDogb3V0cHV0LCBsZWZ0LCB0b3AgfSkKICAgICAgfQogICAgfQoKICAgIHJldHVybiBzaGFycCh7CiAgICAgIGNyZWF0ZTogewogICAgICAgIHdpZHRoLAogICAgICAgIGhlaWdodCwKICAgICAgICBjaGFubmVsczogNCwKICAgICAgICBiYWNrZ3JvdW5kOiBwYWdlLmJhY2tncm91bmQgfHwgd29yay5iYWNrZ3JvdW5kCiAgICAgIH0KICAgIH0pLmNvbXBvc2l0ZShvdmVybGF5cykucG5nKCkudG9CdWZmZXIoKQogIH0KCiAgcHJpdmF0ZSBhc3luYyB3cml0ZU91dHB1dChidWZmZXI6IEJ1ZmZlciwgb3B0aW9uczogRXhwb3J0T3B0aW9ucywgcGFnZU51bWJlcjogbnVtYmVyLCB0b3RhbFBhZ2VzOiBudW1iZXIpOiBQcm9taXNlPHN0cmluZz4gewogICAgY29uc3Qgc2FmZVByZWZpeCA9IHNhbml0aXplRmlsZU5hbWUob3B0aW9ucy5maWxlTmFtZVByZWZpeCB8fCAn5L2c5ZOBJykKICAgIGNvbnN0IHN1ZmZpeCA9IHRvdGFsUGFnZXMgPiAxID8gYF8ke1N0cmluZyhwYWdlTnVtYmVyKS5wYWRTdGFydCgyLCAnMCcpfWAgOiAnJwogICAgY29uc3QgZXh0ZW5zaW9uID0gb3B0aW9ucy5mb3JtYXQgPT09ICdwbmcnID8gJ3BuZycgOiAnanBnJwogICAgY29uc3QgZmlsZVBhdGggPSBqb2luKG9wdGlvbnMuZGlyZWN0b3J5LCBgJHtzYWZlUHJlZml4fSR7c3VmZml4fS4ke2V4dGVuc2lvbn1gKQogICAgY29uc3QgcGlwZWxpbmUgPSBzaGFycChidWZmZXIpCiAgICBpZiAob3B0aW9ucy5mb3JtYXQgPT09ICdwbmcnKSB7CiAgICAgIGF3YWl0IHBpcGVsaW5lLnBuZyh7IGNvbXByZXNzaW9uTGV2ZWw6IDkgfSkudG9GaWxlKGZpbGVQYXRoKQogICAgfSBlbHNlIHsKICAgICAgYXdhaXQgcGlwZWxpbmUuanBlZyh7IHF1YWxpdHk6IGNsYW1wKG9wdGlvbnMucXVhbGl0eSwgMSwgMTAwKSwgY2hyb21hU3Vic2FtcGxpbmc6ICc0OjQ6NCcgfSkudG9GaWxlKGZpbGVQYXRoKQogICAgfQogICAgcmV0dXJuIGZpbGVQYXRoCiAgfQp9CgpmdW5jdGlvbiByZW5kZXJUZXh0TGF5ZXIobGF5ZXI6IExheWVyLCB3aWR0aDogbnVtYmVyLCBoZWlnaHQ6IG51bWJlciwgYWxidW1OYW1lOiBzdHJpbmcsIHNjYWxlOiBudW1iZXIpOiBCdWZmZXIgewogIGNvbnN0IHN0eWxlID0gbGF5ZXIuc3R5bGUKICBjb25zdCBmb250U2l6ZSA9IE1hdGgubWF4KDEsIG51bWJlclN0eWxlKHN0eWxlLmZvbnRTaXplLCA0OCkgKiBzY2FsZSkKICBjb25zdCBsaW5lSGVpZ2h0ID0gbnVtYmVyU3R5bGUoc3R5bGUubGluZUhlaWdodCwgMS4yKSAqIGZvbnRTaXplCiAgY29uc3QgY29sb3IgPSBzdHJpbmdTdHlsZShzdHlsZS5jb2xvciwgJyMxMTExMTEnKQogIGNvbnN0IGZvbnRGYW1pbHkgPSBzdHJpbmdTdHlsZShzdHlsZS5mb250RmFtaWx5LCAnTWljcm9zb2Z0IFlhSGVpJykKICBjb25zdCBmb250V2VpZ2h0ID0gc3RyaW5nU3R5bGUoc3R5bGUuZm9udFdlaWdodCwgJ25vcm1hbCcpCiAgY29uc3QgYWxpZ24gPSBzdHJpbmdTdHlsZShzdHlsZS5hbGlnbiwgJ2xlZnQnKQogIGNvbnN0IGFuY2hvciA9IGFsaWduID09PSAnY2VudGVyJyA/ICdtaWRkbGUnIDogYWxpZ24gPT09ICdyaWdodCcgPyAnZW5kJyA6ICdzdGFydCcKICBjb25zdCB4ID0gYWxpZ24gPT09ICdjZW50ZXInID8gd2lkdGggLyAyIDogYWxpZ24gPT09ICdyaWdodCcgPyB3aWR0aCA6IDAKICBjb25zdCB2YXJpYWJsZVRleHQgPSBTdHJpbmcobGF5ZXIudGV4dCA/PyAnJykucmVwbGFjZUFsbCgne3thbGJ1bX19JywgYWxidW1OYW1lKQogIGNvbnN0IGxpbmVzID0gd3JhcFRleHQodmFyaWFibGVUZXh0LCB3aWR0aCwgZm9udFNpemUpCiAgY29uc3QgdHNwYW5zID0gbGluZXMubWFwKChsaW5lLCBpbmRleCkgPT4gYDx0c3BhbiB4PSIke3h9IiBkeT0iJHtpbmRleCA9PT0gMCA/IDAgOiBsaW5lSGVpZ2h0fSI+JHtlc2NhcGVYbWwobGluZSl9PC90c3Bhbj5gKS5qb2luKCcnKQogIGNvbnN0IHN2ZyA9IGAKICAgIDxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iJHt3aWR0aH0iIGhlaWdodD0iJHtoZWlnaHR9IiB2aWV3Qm94PSIwIDAgJHt3aWR0aH0gJHtoZWlnaHR9Ij4KICAgICAgPHRleHQgeD0iJHt4fSIgeT0iJHtmb250U2l6ZX0iIGZpbGw9IiR7ZXNjYXBlWG1sKGNvbG9yKX0iIGZvbnQtZmFtaWx5PSIke2VzY2FwZVhtbChmb250RmFtaWx5KX0iCiAgICAgICAgZm9udC1zaXplPSIke2ZvbnRTaXplfSIgZm9udC13ZWlnaHQ9IiR7ZXNjYXBlWG1sKGZvbnRXZWlnaHQpfSIgdGV4dC1hbmNob3I9IiR7YW5jaG9yfSI+JHt0c3BhbnN9PC90ZXh0PgogICAgPC9zdmc+YAogIHJldHVybiBCdWZmZXIuZnJvbShzdmcpCn0KCmFzeW5jIGZ1bmN0aW9uIGFwcGx5Um91bmRlZE1hc2soYnVmZmVyOiBCdWZmZXIsIHdpZHRoOiBudW1iZXIsIGhlaWdodDogbnVtYmVyLCByYWRpdXM6IG51bWJlcik6IFByb21pc2U8QnVmZmVyPiB7CiAgY29uc3Qgc2FmZVJhZGl1cyA9IE1hdGgubWluKHJhZGl1cywgd2lkdGggLyAyLCBoZWlnaHQgLyAyKQogIGNvbnN0IG1hc2sgPSBCdWZmZXIuZnJvbShgCiAgICA8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IiR7d2lkdGh9IiBoZWlnaHQ9IiR7aGVpZ2h0fSI+CiAgICAgIDxyZWN0IHdpZHRoPSIke3dpZHRofSIgaGVpZ2h0PSIke2hlaWdodH0iIHJ4PSIke3NhZmVSYWRpdXN9IiByeT0iJHtzYWZlUmFkaXVzfSIgZmlsbD0iI2ZmZmZmZiIgLz4KICAgIDwvc3ZnPmApCiAgcmV0dXJuIHNoYXJwKGJ1ZmZlcikuZW5zdXJlQWxwaGEoKS5jb21wb3NpdGUoW3sgaW5wdXQ6IG1hc2ssIGJsZW5kOiAnZGVzdC1pbicgfV0pLnBuZygpLnRvQnVmZmVyKCkKfQoKZnVuY3Rpb24gd3JhcFRleHQodGV4dDogc3RyaW5nLCB3aWR0aDogbnVtYmVyLCBmb250U2l6ZTogbnVtYmVyKTogc3RyaW5nW10gewogIGNvbnN0IG1heENoYXJzID0gTWF0aC5tYXgoMSwgTWF0aC5mbG9vcih3aWR0aCAvIE1hdGgubWF4KDEsIGZvbnRTaXplICogMC42MikpKQogIHJldHVybiB0ZXh0LnNwbGl0KC9ccj9cbi8pLmZsYXRNYXAoKGxpbmUpID0+IHsKICAgIGlmICghbGluZSkgcmV0dXJuIFsnJ10KICAgIGNvbnN0IGNodW5rczogc3RyaW5nW10gPSBbXQogICAgZm9yIChsZXQgaW5kZXggPSAwOyBpbmRleCA8IGxpbmUubGVuZ3RoOyBpbmRleCArPSBtYXhDaGFycykgY2h1bmtzLnB1c2gobGluZS5zbGljZShpbmRleCwgaW5kZXggKyBtYXhDaGFycykpCiAgICByZXR1cm4gY2h1bmtzCiAgfSkKfQoKZnVuY3Rpb24gbnVtYmVyU3R5bGUodmFsdWU6IHVua25vd24sIGZhbGxiYWNrID0gMCk6IG51bWJlciB7CiAgcmV0dXJuIHR5cGVvZiB2YWx1ZSA9PT0gJ251bWJlcicgJiYgTnVtYmVyLmlzRmluaXRlKHZhbHVlKSA/IHZhbHVlIDogZmFsbGJhY2sKfQoKZnVuY3Rpb24gc3RyaW5nU3R5bGUodmFsdWU6IHVua25vd24sIGZhbGxiYWNrOiBzdHJpbmcpOiBzdHJpbmcgewogIHJldHVybiB0eXBlb2YgdmFsdWUgPT09ICdzdHJpbmcnICYmIHZhbHVlID8gdmFsdWUgOiBmYWxsYmFjawp9CgpmdW5jdGlvbiBjbGFtcCh2YWx1ZTogbnVtYmVyLCBtaW46IG51bWJlciwgbWF4OiBudW1iZXIpOiBudW1iZXIgewogIHJldHVybiBNYXRoLm1pbihtYXgsIE1hdGgubWF4KG1pbiwgdmFsdWUpKQp9CgpmdW5jdGlvbiBzYW5pdGl6ZUZpbGVOYW1lKHZhbHVlOiBzdHJpbmcpOiBzdHJpbmcgewogIHJldHVybiB2YWx1ZS5yZXBsYWNlKC9bPD46Ii9cXHw/Klx1MDAwMC1cdTAwMWZdL2csICdfJykudHJpbSgpIHx8ICfkvZzlk4EnCn0KCmZ1bmN0aW9uIGVzY2FwZVhtbCh2YWx1ZTogc3RyaW5nKTogc3RyaW5nIHsKICByZXR1cm4gdmFsdWUKICAgIC5yZXBsYWNlQWxsKCcmJywgJyZhbXA7JykKICAgIC5yZXBsYWNlQWxsKCc8JywgJyZsdDsnKQogICAgLnJlcGxhY2VBbGwoJz4nLCAnJmd0OycpCiAgICAucmVwbGFjZUFsbCgnIicsICcmcXVvdDsnKQogICAgLnJlcGxhY2VBbGwoIiciLCAnJmFwb3M7JykKfQ==
+import { mkdir } from 'node:fs/promises'
+import { join } from 'node:path'
+import sharp from 'sharp'
+import type { AppDatabase, Layer, Page, Work } from './database'
+
+export interface ExportOptions {
+  directory: string
+  format: 'jpeg' | 'png'
+  quality: number
+  longEdge: number
+  gap: number
+  fileNamePrefix: string
+}
+
+export interface ExportResult {
+  files: string[]
+  width: number
+  pages: number
+}
+
+interface CompositeLayer {
+  input: Buffer
+  left: number
+  top: number
+}
+
+export class WorkExporter {
+  constructor(private readonly db: AppDatabase) {}
+
+  async exportWork(workId: string, options: ExportOptions): Promise<ExportResult> {
+    const document = this.db.getWorkDocument(workId)
+    if (!document) throw new Error('作品不存在')
+    if (document.pages.length === 0) throw new Error('作品没有可导出的页面')
+
+    await mkdir(options.directory, { recursive: true })
+    const scale = options.longEdge / document.work.canvasWidth
+    const pageWidth = Math.max(1, Math.round(document.work.canvasWidth * scale))
+    const pageHeight = Math.max(1, Math.round(document.work.canvasHeight * scale))
+    const album = this.db.getAlbum(document.work.albumId)
+    const renderedPages: Buffer[] = []
+
+    for (const page of document.pages) {
+      renderedPages.push(await this.renderPage(page, document.work, pageWidth, pageHeight, album?.name ?? ''))
+    }
+
+    if (document.work.outputMode === 'long_image') {
+      const gap = Math.max(0, Math.round(options.gap))
+      const totalHeight = renderedPages.length * pageHeight + Math.max(0, renderedPages.length - 1) * gap
+      if (totalHeight > 65535) throw new Error('长图超过 65,535 像素，请减少页面或降低分辨率')
+      const overlays: CompositeLayer[] = renderedPages.map((buffer, index) => ({
+        input: buffer,
+        left: 0,
+        top: index * (pageHeight + gap)
+      }))
+      const merged = await sharp({
+        create: { width: pageWidth, height: totalHeight, channels: 4, background: document.work.background }
+      }).composite(overlays).png().toBuffer()
+      const file = await this.writeOutput(merged, options, 1, 1)
+      return { files: [file], width: pageWidth, pages: 1 }
+    }
+
+    const files: string[] = []
+    for (let index = 0; index < renderedPages.length; index += 1) {
+      files.push(await this.writeOutput(renderedPages[index], options, index + 1, renderedPages.length))
+    }
+    return { files, width: pageWidth, pages: renderedPages.length }
+  }
+
+  private async renderPage(page: Page & { layers: Layer[] }, work: Work, width: number, height: number, albumName: string): Promise<Buffer> {
+    const overlays: CompositeLayer[] = []
+
+    for (const layer of [...page.layers].sort((left, right) => left.zIndex - right.zIndex)) {
+      const left = Math.round(layer.x * width)
+      const top = Math.round(layer.y * height)
+      const layerWidth = Math.max(1, Math.round(layer.width * width))
+      const layerHeight = Math.max(1, Math.round(layer.height * height))
+
+      if (layer.type === 'image' && layer.assetId) {
+        const location = this.db.getPreferredLocation(layer.assetId)
+        if (!location) continue
+        const radius = numberStyle(layer.style.radius)
+        const resized = await sharp(location.absolutePath)
+          .rotate()
+          .resize(layerWidth, layerHeight, {
+            fit: layer.style.fit === 'contain' ? 'contain' : 'cover',
+            position: 'centre',
+            background: { r: 0, g: 0, b: 0, alpha: 0 }
+          })
+          .ensureAlpha()
+          .png()
+          .toBuffer()
+        let output = radius > 0 ? await applyRoundedMask(resized, layerWidth, layerHeight, radius) : resized
+        if (layer.rotation) {
+          output = await sharp(output).rotate(layer.rotation, { background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toBuffer()
+        }
+        overlays.push({ input: output, left, top })
+      }
+
+      if (layer.type === 'text' && layer.text) {
+        const textBuffer = renderTextLayer(layer, layerWidth, layerHeight, albumName, width / work.canvasWidth)
+        let output = textBuffer
+        if (layer.rotation) {
+          output = await sharp(output).rotate(layer.rotation, { background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toBuffer()
+        }
+        overlays.push({ input: output, left, top })
+      }
+    }
+
+    return sharp({
+      create: {
+        width,
+        height,
+        channels: 4,
+        background: page.background || work.background
+      }
+    }).composite(overlays).png().toBuffer()
+  }
+
+  private async writeOutput(buffer: Buffer, options: ExportOptions, pageNumber: number, totalPages: number): Promise<string> {
+    const safePrefix = sanitizeFileName(options.fileNamePrefix || '作品')
+    const suffix = totalPages > 1 ? `_${String(pageNumber).padStart(2, '0')}` : ''
+    const extension = options.format === 'png' ? 'png' : 'jpg'
+    const filePath = join(options.directory, `${safePrefix}${suffix}.${extension}`)
+    const pipeline = sharp(buffer)
+    if (options.format === 'png') {
+      await pipeline.png({ compressionLevel: 9 }).toFile(filePath)
+    } else {
+      await pipeline.jpeg({ quality: clamp(options.quality, 1, 100), chromaSubsampling: '4:4:4' }).toFile(filePath)
+    }
+    return filePath
+  }
+}
+
+function renderTextLayer(layer: Layer, width: number, height: number, albumName: string, scale: number): Buffer {
+  const style = layer.style
+  const fontSize = Math.max(1, numberStyle(style.fontSize, 48) * scale)
+  const lineHeight = numberStyle(style.lineHeight, 1.2) * fontSize
+  const color = stringStyle(style.color, '#111111')
+  const fontFamily = stringStyle(style.fontFamily, 'Microsoft YaHei')
+  const fontWeight = stringStyle(style.fontWeight, 'normal')
+  const align = stringStyle(style.align, 'left')
+  const anchor = align === 'center' ? 'middle' : align === 'right' ? 'end' : 'start'
+  const x = align === 'center' ? width / 2 : align === 'right' ? width : 0
+  const variableText = String(layer.text ?? '').replaceAll('{{album}}', albumName)
+  const lines = wrapText(variableText, width, fontSize)
+  const tspans = lines.map((line, index) => `<tspan x="${x}" dy="${index === 0 ? 0 : lineHeight}">${escapeXml(line)}</tspan>`).join('')
+  const svg = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
+      <text x="${x}" y="${fontSize}" fill="${escapeXml(color)}" font-family="${escapeXml(fontFamily)}"
+        font-size="${fontSize}" font-weight="${escapeXml(fontWeight)}" text-anchor="${anchor}">${tspans}</text>
+    </svg>`
+  return Buffer.from(svg)
+}
+
+async function applyRoundedMask(buffer: Buffer, width: number, height: number, radius: number): Promise<Buffer> {
+  const safeRadius = Math.min(radius, width / 2, height / 2)
+  const mask = Buffer.from(`
+    <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">
+      <rect width="${width}" height="${height}" rx="${safeRadius}" ry="${safeRadius}" fill="#ffffff" />
+    </svg>`)
+  return sharp(buffer).ensureAlpha().composite([{ input: mask, blend: 'dest-in' }]).png().toBuffer()
+}
+
+function wrapText(text: string, width: number, fontSize: number): string[] {
+  const maxChars = Math.max(1, Math.floor(width / Math.max(1, fontSize * 0.62)))
+  return text.split(/\r?\n/).flatMap((line) => {
+    if (!line) return ['']
+    const chunks: string[] = []
+    for (let index = 0; index < line.length; index += maxChars) chunks.push(line.slice(index, index + maxChars))
+    return chunks
+  })
+}
+
+function numberStyle(value: unknown, fallback = 0): number {
+  return typeof value === 'number' && Number.isFinite(value) ? value : fallback
+}
+
+function stringStyle(value: unknown, fallback: string): string {
+  return typeof value === 'string' && value ? value : fallback
+}
+
+function clamp(value: number, min: number, max: number): number {
+  return Math.min(max, Math.max(min, value))
+}
+
+function sanitizeFileName(value: string): string {
+  return value.replace(/[<>:"/\\|?*\u0000-\u001f]/g, '_').trim() || '作品'
+}
+
+function escapeXml(value: string): string {
+  return value
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&apos;')
+}

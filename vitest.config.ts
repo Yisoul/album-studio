@@ -1,1 +1,9 @@
-aW1wb3J0IHsgZGVmaW5lQ29uZmlnIH0gZnJvbSAndml0ZXN0L2NvbmZpZycKCmV4cG9ydCBkZWZhdWx0IGRlZmluZUNvbmZpZyh7CiAgdGVzdDogewogICAgZW52aXJvbm1lbnQ6ICdub2RlJywKICAgIGluY2x1ZGU6IFsndGVzdHMvKiovKi50ZXN0Lnt0cyx0c3h9J10sCiAgICB0ZXN0VGltZW91dDogMzBfMDAwCiAgfQp9KQ==
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  test: {
+    environment: 'node',
+    include: ['tests/**/*.test.{ts,tsx}'],
+    testTimeout: 30_000
+  }
+})

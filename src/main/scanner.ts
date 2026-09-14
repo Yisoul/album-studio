@@ -1,1 +1,257 @@
-aW1wb3J0IHsgY3JlYXRlSGFzaCB9IGZyb20gJ25vZGU6Y3J5cHRvJwppbXBvcnQgeyBjcmVhdGVSZWFkU3RyZWFtIH0gZnJvbSAnbm9kZTpmcycKaW1wb3J0IHsgYWNjZXNzLCBvcGVuZGlyLCBzdGF0IH0gZnJvbSAnbm9kZTpmcy9wcm9taXNlcycKaW1wb3J0IHsgYmFzZW5hbWUsIGV4dG5hbWUsIGpvaW4sIHJlbGF0aXZlIH0gZnJvbSAnbm9kZTpwYXRoJwppbXBvcnQgeyB3YXRjaCwgdHlwZSBGU1dhdGNoZXIgfSBmcm9tICdjaG9raWRhcicKaW1wb3J0ICogYXMgZXhpZnIgZnJvbSAnZXhpZnInCmltcG9ydCBzaGFycCBmcm9tICdzaGFycCcKaW1wb3J0IHR5cGUgeyBBcHBEYXRhYmFzZSwgTWVkaWFMb2NhdGlvbklucHV0LCBPcmllbnRhdGlvbiwgU291cmNlUm9vdCB9IGZyb20gJy4vZGF0YWJhc2UnCgpjb25zdCBTVVBQT1JURURfRVhURU5TSU9OUyA9IG5ldyBTZXQoWycuanBnJywgJy5qcGVnJywgJy5wbmcnXSkKY29uc3QgSUdOT1JFRF9ESVJFQ1RPUklFUyA9IG5ldyBTZXQoWycuZ2l0JywgJ25vZGVfbW9kdWxlcycsICckcmVjeWNsZS5iaW4nLCAnc3lzdGVtIHZvbHVtZSBpbmZvcm1hdGlvbiddKQoKZXhwb3J0IGludGVyZmFjZSBTY2FuUHJvZ3Jlc3MgewogIHJvb3RJZDogc3RyaW5nCiAgcGhhc2U6ICdzY2FubmluZycgfCAncmVhZGluZycgfCAnY29tcGxldGUnIHwgJ2Vycm9yJyB8ICdlcnJvcicKICBkaXNjb3ZlcmVkOiBudW1iZXIKICBwcm9jZXNzZWQ6IG51bWJlcgogIGluZGV4ZWQ6IG51bWJlcgogIGVycm9yczogbnVtYmVyCiAgbWVzc2FnZT86IHN0cmluZwp9CgpleHBvcnQgaW50ZXJmYWNlIFNjYW5SZXN1bHQgewogIGRpc2NvdmVyZWQ6IG51bWJlcgogIGluZGV4ZWQ6IG51bWJlcgogIGVycm9yczogc3RyaW5nW10KfQoKaW50ZXJmYWNlIEV4aWZSZWNvcmQgewogIERhdGVUaW1lT3JpZ2luYWw/OiBEYXRlCiAgQ3JlYXRlRGF0ZT86IERhdGUKICBNYWtlPzogc3RyaW5nCiAgTW9kZWw/OiBzdHJpbmcKICBMZW5zTW9kZWw/OiBzdHJpbmcKICBGb2NhbExlbmd0aD86IG51bWJlcgogIEZOdW1iZXI/OiBudW1iZXIKICBFeHBvc3VyZVRpbWU/OiBudW1iZXIKICBJU08/OiBudW1iZXIKfQoKZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIGhhc2hGaWxlKHBhdGg6IHN0cmluZyk6IFByb21pc2U8c3RyaW5nPiB7CiAgY29uc3QgaGFzaCA9IGNyZWF0ZUhhc2goJ3NoYTI1NicpCiAgYXdhaXQgbmV3IFByb21pc2U8dm9pZD4oKHJlc29sdmUsIHJlamVjdCkgPT4gewogICAgY29uc3Qgc3RyZWFtID0gY3JlYXRlUmVhZFN0cmVhbShwYXRoKQogICAgc3RyZWFtLm9uKCdkYXRhJywgKGNodW5rKSA9PiBoYXNoLnVwZGF0ZShjaHVuaykpCiAgICBzdHJlYW0ub24oJ2Vycm9yJywgcmVqZWN0KQogICAgc3RyZWFtLm9uKCdlbmQnLCByZXNvbHZlKQogIH0pCiAgcmV0dXJuIGhhc2guZGlnZXN0KCdoZXgnKQp9CgpleHBvcnQgY2xhc3MgTGlicmFyeVNjYW5uZXIgewogIHByaXZhdGUgcmVhZG9ubHkgd2F0Y2hlcnMgPSBuZXcgTWFwPHN0cmluZywgRlNXYXRjaGVyPigpCiAgcHJpdmF0ZSByZWFkb25seSBzY2FuVGltZXJzID0gbmV3IE1hcDxzdHJpbmcsIE5vZGVKUy5UaW1lb3V0PigpCgogIGNvbnN0cnVjdG9yKHByaXZhdGUgcmVhZG9ubHkgZGI6IEFwcERhdGFiYXNlKSB7fQoKICBhc3luYyBzY2FuUm9vdCgKICAgIHJvb3Q6IFNvdXJjZVJvb3QsCiAgICBvblByb2dyZXNzPzogKHByb2dyZXNzOiBTY2FuUHJvZ3Jlc3MpID0+IHZvaWQKICApOiBQcm9taXNlPFNjYW5SZXN1bHQ+IHsKICAgIGNvbnN0IGVycm9yczogc3RyaW5nW10gPSBbXQogICAgbGV0IGRpc2NvdmVyZWQgPSAwCiAgICBsZXQgcHJvY2Vzc2VkID0gMAogICAgbGV0IGluZGV4ZWQgPSAwCgogICAgdHJ5IHsKICAgICAgYXdhaXQgYWNjZXNzKHJvb3QucGF0aCkKICAgIH0gY2F0Y2ggKGVycm9yKSB7CiAgICAgIGVycm9ycy5wdXNoKGAke3Jvb3QucGF0aH06ICR7ZXJyb3IgaW5zdGFuY2VvZiBFcnJvciA/IGVycm9yLm1lc3NhZ2UgOiBTdHJpbmcoZXJyb3IpfWApCiAgICAgIG9uUHJvZ3Jlc3M/Lih7IHJvb3RJZDogcm9vdC5pZCwgcGhhc2U6ICdlcnJvcicsIGRpc2NvdmVyZWQsIHByb2Nlc3NlZCwgaW5kZXhlZCwgZXJyb3JzOiBlcnJvcnMubGVuZ3RoLCBtZXNzYWdlOiAn5p2l5rqQ55uu5b2V5b2T5YmN5LiN5Y+v55SoJyB9KQogICAgICByZXR1cm4geyBkaXNjb3ZlcmVkLCBpbmRleGVkLCBlcnJvcnMgfQogICAgfQoKICAgIHRoaXMuZGIubWFya1Jvb3RMb2NhdGlvbnNNaXNzaW5nKHJvb3QuaWQpCiAgICBjb25zdCBmaWxlcyA9IGF3YWl0IHRoaXMuY29sbGVjdFN1cHBvcnRlZEZpbGVzKHJvb3QucGF0aCwgZXJyb3JzKQogICAgZGlzY292ZXJlZCA9IGZpbGVzLmxlbmd0aAogICAgb25Qcm9ncmVzcz8uKHsgcm9vdElkOiByb290LmlkLCBwaGFzZTogJ3NjYW5uaW5nJywgZGlzY292ZXJlZCwgcHJvY2Vzc2VkLCBpbmRleGVkLCBlcnJvcnM6IGVycm9ycy5sZW5ndGggfSkKCiAgICBhd2FpdCBtYXBMaW1pdChmaWxlcywgTWF0aC5tYXgoMSwgTWF0aC5taW4oNCwgKGF3YWl0IGltcG9ydCgnbm9kZTpvcycpKS5jcHVzKCkubGVuZ3RoIC0gMSkpLCBhc3luYyAoZmlsZVBhdGgpID0+IHsKICAgICAgdHJ5IHsKICAgICAgICBhd2FpdCB0aGlzLmluZGV4RmlsZShyb290LCBmaWxlUGF0aCkKICAgICAgICBpbmRleGVkICs9IDEKICAgICAgfSBjYXRjaCAoZXJyb3IpIHsKICAgICAgICBlcnJvcnMucHVzaChgJHtmaWxlUGF0aH06ICR7ZXJyb3IgaW5zdGFuY2VvZiBFcnJvciA/IGVycm9yLm1lc3NhZ2UgOiBTdHJpbmcoZXJyb3IpfWApCiAgICAgIH0gZmluYWxseSB7CiAgICAgICAgcHJvY2Vzc2VkICs9IDEKICAgICAgICBvblByb2dyZXNzPy4oeyByb290SWQ6IHJvb3QuaWQsIHBoYXNlOiAncmVhZGluZycsIGRpc2NvdmVyZWQsIHByb2Nlc3NlZCwgaW5kZXhlZCwgZXJyb3JzOiBlcnJvcnMubGVuZ3RoIH0pCiAgICAgIH0KICAgIH0pCgogICAgb25Qcm9ncmVzcz8uKHsgcm9vdElkOiByb290LmlkLCBwaGFzZTogJ2NvbXBsZXRlJywgZGlzY292ZXJlZCwgcHJvY2Vzc2VkLCBpbmRleGVkLCBlcnJvcnM6IGVycm9ycy5sZW5ndGggfSkKICAgIHJldHVybiB7IGRpc2NvdmVyZWQsIGluZGV4ZWQsIGVycm9ycyB9CiAgfQoKICBhc3luYyBzY2FuQWxsKAogICAgcm9vdHM6IFNvdXJjZVJvb3RbXSwKICAgIG9uUHJvZ3Jlc3M/OiAocHJvZ3Jlc3M6IFNjYW5Qcm9ncmVzcykgPT4gdm9pZAogICk6IFByb21pc2U8U2NhblJlc3VsdFtdPiB7CiAgICBjb25zdCByZXN1bHRzOiBTY2FuUmVzdWx0W10gPSBbXQogICAgZm9yIChjb25zdCByb290IG9mIHJvb3RzKSB7CiAgICAgIGlmIChyb290LmVuYWJsZWQpIHJlc3VsdHMucHVzaChhd2FpdCB0aGlzLnNjYW5Sb290KHJvb3QsIG9uUHJvZ3Jlc3MpKQogICAgfQogICAgcmV0dXJuIHJlc3VsdHMKICB9CgogIHdhdGNoUm9vdChyb290OiBTb3VyY2VSb290LCBvbkNoYW5nZWQ/OiAocm9vdDogU291cmNlUm9vdCkgPT4gdm9pZCk6IHZvaWQgewogICAgdGhpcy51bndhdGNoUm9vdChyb290LmlkKQogICAgaWYgKCFyb290LmVuYWJsZWQpIHJldHVybgogICAgY29uc3Qgd2F0Y2hlciA9IHdhdGNoKHJvb3QucGF0aCwgewogICAgICBpZ25vcmVJbml0aWFsOiB0cnVlLAogICAgICBwZXJzaXN0ZW50OiB0cnVlLAogICAgICBhd2FpdFdyaXRlRmluaXNoOiB7IHN0YWJpbGl0eVRocmVzaG9sZDogODAwLCBwb2xsSW50ZXJ2YWw6IDEwMCB9LAogICAgICBpZ25vcmVkOiAocGF0aCkgPT4gewogICAgICAgIGNvbnN0IG5hbWUgPSBiYXNlbmFtZShwYXRoKS50b0xvd2VyQ2FzZSgpCiAgICAgICAgcmV0dXJuIElHTk9SRURfRElSRUNUT1JJRVMuaGFzKG5hbWUpCiAgICAgIH0KICAgIH0pCgogICAgd2F0Y2hlci5vbignYWxsJywgKF9ldmVudCwgY2hhbmdlZFBhdGgpID0+IHsKICAgICAgaWYgKGNoYW5nZWRQYXRoICYmICFTVVBQT1JURURfRVhURU5TSU9OUy5oYXMoZXh0bmFtZShjaGFuZ2VkUGF0aCkudG9Mb3dlckNhc2UoKSkpIHJldHVybgogICAgICBjb25zdCBleGlzdGluZyA9IHRoaXMuc2NhblRpbWVycy5nZXQocm9vdC5pZCkKICAgICAgaWYgKGV4aXN0aW5nKSBjbGVhclRpbWVvdXQoZXhpc3RpbmcpCiAgICAgIHRoaXMuc2NhblRpbWVycy5zZXQocm9vdC5pZCwgc2V0VGltZW91dCgoKSA9PiB7CiAgICAgICAgdGhpcy5zY2FuVGltZXJzLmRlbGV0ZShyb290LmlkKQogICAgICAgIHZvaWQgdGhpcy5zY2FuUm9vdChyb290KS50aGVuKCgpID0+IG9uQ2hhbmdlZD8uKHJvb3QpKQogICAgICB9LCA5MDApKQogICAgfSkKCiAgICB0aGlzLndhdGNoZXJzLnNldChyb290LmlkLCB3YXRjaGVyKQogIH0KCiAgYXN5bmMgY2xvc2UoKTogUHJvbWlzZTx2b2lkPiB7CiAgICBmb3IgKGNvbnN0IHRpbWVyIG9mIHRoaXMuc2NhblRpbWVycy52YWx1ZXMoKSkgY2xlYXJUaW1lb3V0KHRpbWVyKQogICAgdGhpcy5zY2FuVGltZXJzLmNsZWFyKCkKICAgIGF3YWl0IFByb21pc2UuYWxsKFsuLi50aGlzLndhdGNoZXJzLnZhbHVlcygpXS5tYXAoKHdhdGNoZXIpID0+IHdhdGNoZXIuY2xvc2UoKSkpCiAgICB0aGlzLndhdGNoZXJzLmNsZWFyKCkKICB9CgogIHByaXZhdGUgdW53YXRjaFJvb3Qocm9vdElkOiBzdHJpbmcpOiB2b2lkIHsKICAgIGNvbnN0IHRpbWVyID0gdGhpcy5zY2FuVGltZXJzLmdldChyb290SWQpCiAgICBpZiAodGltZXIpIGNsZWFyVGltZW91dCh0aW1lcikKICAgIHRoaXMuc2NhblRpbWVycy5kZWxldGUocm9vdElkKQogICAgY29uc3Qgd2F0Y2hlciA9IHRoaXMud2F0Y2hlcnMuZ2V0KHJvb3RJZCkKICAgIGlmICh3YXRjaGVyKSB2b2lkIHdhdGNoZXIuY2xvc2UoKQogICAgdGhpcy53YXRjaGVycy5kZWxldGUocm9vdElkKQogIH0KCiAgcHJpdmF0ZSBhc3luYyBjb2xsZWN0U3VwcG9ydGVkRmlsZXMocm9vdFBhdGg6IHN0cmluZywgZXJyb3JzOiBzdHJpbmdbXSk6IFByb21pc2U8c3RyaW5nW10+IHsKICAgIGNvbnN0IGZpbGVzOiBzdHJpbmdbXSA9IFtdCiAgICBjb25zdCB2aXNpdCA9IGFzeW5jIChkaXJlY3Rvcnk6IHN0cmluZyk6IFByb21pc2U8dm9pZD4gPT4gewogICAgICBsZXQgaGFuZGxlCiAgICAgIHRyeSB7CiAgICAgICAgaGFuZGxlID0gYXdhaXQgb3BlbmRpcihkaXJlY3RvcnkpCiAgICAgIH0gY2F0Y2ggKGVycm9yKSB7CiAgICAgICAgZXJyb3JzLnB1c2goYCR7ZGlyZWN0b3J5fTogJHtlcnJvciBpbnN0YW5jZW9mIEVycm9yID8gZXJyb3IubWVzc2FnZSA6IFN0cmluZyhlcnJvcil9YCkKICAgICAgICByZXR1cm4KICAgICAgfQoKICAgICAgdHJ5IHsKICAgICAgICBmb3IgYXdhaXQgKGNvbnN0IGVudHJ5IG9mIGhhbmRsZSkgewogICAgICAgICAgaWYgKGVudHJ5Lm5hbWUuc3RhcnRzV2l0aCgnLicpIHx8IElHTk9SRURfRElSRUNUT1JJRVMuaGFzKGVudHJ5Lm5hbWUudG9Mb3dlckNhc2UoKSkpIGNvbnRpbnVlCiAgICAgICAgICBjb25zdCBjaGlsZFBhdGggPSBqb2luKGRpcmVjdG9yeSwgZW50cnkubmFtZSkKICAgICAgICAgIGlmIChlbnRyeS5pc0RpcmVjdG9yeSgpKSB7CiAgICAgICAgICAgIGF3YWl0IHZpc2l0KGNoaWxkUGF0aCkKICAgICAgICAgIH0gZWxzZSBpZiAoZW50cnkuaXNGaWxlKCkgJiYgU1VQUE9SVEVEX0VYVEVOU0lPTlMuaGFzKGV4dG5hbWUoZW50cnkubmFtZSkudG9Mb3dlckNhc2UoKSkpIHsKICAgICAgICAgICAgZmlsZXMucHVzaChjaGlsZFBhdGgpCiAgICAgICAgICB9CiAgICAgICAgfQogICAgICB9IGNhdGNoIChlcnJvcikgewogICAgICAgIGVycm9ycy5wdXNoKGAke2RpcmVjdG9yeX06ICR7ZXJyb3IgaW5zdGFuY2VvZiBFcnJvciA/IGVycm9yLm1lc3NhZ2UgOiBTdHJpbmcoZXJyb3IpfWApCiAgICAgIH0KICAgIH0KCiAgICBhd2FpdCB2aXNpdChyb290UGF0aCkKICAgIHJldHVybiBmaWxlcwogIH0KCiAgcHJpdmF0ZSBhc3luYyBpbmRleEZpbGUocm9vdDogU291cmNlUm9vdCwgZmlsZVBhdGg6IHN0cmluZyk6IFByb21pc2U8dm9pZD4gewogICAgaWYgKHRoaXMuZGIuaXNQYXRoSWdub3JlZChmaWxlUGF0aCkpIHJldHVybgogICAgY29uc3QgZmlsZVN0YXQgPSBhd2FpdCBzdGF0KGZpbGVQYXRoKQogICAgY29uc3QgbWV0YWRhdGEgPSBhd2FpdCBzaGFycChmaWxlUGF0aCwgeyBmYWlsT246ICdub25lJyB9KS5tZXRhZGF0YSgpCiAgICBpZiAoIW1ldGFkYXRhLndpZHRoIHx8ICFtZXRhZGF0YS5oZWlnaHQpIHRocm93IG5ldyBFcnJvcign5peg5rOV6K+75Y+W5Zu+54mH5bC65a+4JykKCiAgICBjb25zdCBleGlmID0gYXdhaXQgdGhpcy5yZWFkRXhpZihmaWxlUGF0aCkKICAgIGNvbnN0IGNvbnRlbnRIYXNoID0gYXdhaXQgaGFzaEZpbGUoZmlsZVBhdGgpCiAgICBjb25zdCBvcmllbnRhdGlvbiA9IG5vcm1hbGl6ZU9yaWVudGF0aW9uKG1ldGFkYXRhLm9yaWVudGF0aW9uLCBtZXRhZGF0YS53aWR0aCwgbWV0YWRhdGEuaGVpZ2h0KQogICAgY29uc3QgaW5wdXQ6IE1lZGlhTG9jYXRpb25JbnB1dCA9IHsKICAgICAgcm9vdElkOiByb290LmlkLAogICAgICBhYnNvbHV0ZVBhdGg6IGZpbGVQYXRoLAogICAgICByZWxhdGl2ZVBhdGg6IHJlbGF0aXZlKHJvb3QucGF0aCwgZmlsZVBhdGgpLAogICAgICBjb250ZW50SGFzaCwKICAgICAgc2l6ZUJ5dGVzOiBmaWxlU3RhdC5zaXplLAogICAgICBtb2RpZmllZEF0OiBmaWxlU3RhdC5tdGltZU1zLAogICAgICB3aWR0aDogbWV0YWRhdGEud2lkdGgsCiAgICAgIGhlaWdodDogbWV0YWRhdGEuaGVpZ2h0LAogICAgICBmb3JtYXQ6IG1ldGFkYXRhLmZvcm1hdCA/PyBleHRuYW1lKGZpbGVQYXRoKS5zbGljZSgxKS50b0xvd2VyQ2FzZSgpLAogICAgICBjYXB0dXJlZEF0OiBub3JtYWxpemVEYXRlKGV4aWYuRGF0ZVRpbWVPcmlnaW5hbCA/PyBleGlmLkNyZWF0ZURhdGUpLAogICAgICBjYW1lcmFNYWtlOiBleGlmLk1ha2UgPz8gbnVsbCwKICAgICAgY2FtZXJhTW9kZWw6IGV4aWYuTW9kZWwgPz8gbnVsbCwKICAgICAgbGVuczogZXhpZi5MZW5zTW9kZWwgPz8gbnVsbCwKICAgICAgZm9jYWxMZW5ndGg6IGZpbml0ZU9yTnVsbChleGlmLkZvY2FsTGVuZ3RoKSwKICAgICAgYXBlcnR1cmU6IGZpbml0ZU9yTnVsbChleGlmLkZOdW1iZXIpLAogICAgICBzaHV0dGVyU3BlZWQ6IGZvcm1hdEV4cG9zdXJlKGV4aWYuRXhwb3N1cmVUaW1lKSwKICAgICAgaXNvOiBmaW5pdGVPck51bGwoZXhpZi5JU08pLAogICAgICBvcmllbnRhdGlvbgogICAgfQogICAgdGhpcy5kYi51cHNlcnRNZWRpYUxvY2F0aW9uKGlucHV0KQogIH0KCiAgcHJpdmF0ZSBhc3luYyByZWFkRXhpZihwYXRoOiBzdHJpbmcpOiBQcm9taXNlPEV4aWZSZWNvcmQ+IHsKICAgIHRyeSB7CiAgICAgIGNvbnN0IHBhcnNlZCA9IGF3YWl0IGV4aWZyLnBhcnNlKHBhdGgsIHsKICAgICAgICB0aWZmOiB0cnVlLAogICAgICAgIGV4aWY6IHRydWUsCiAgICAgICAgZ3BzOiBmYWxzZSwKICAgICAgICBpbnRlcm9wOiBmYWxzZSwKICAgICAgICBpZmQxOiBmYWxzZQogICAgICB9KQogICAgICByZXR1cm4gKHBhcnNlZCA/PyB7fSkgYXMgRXhpZlJlY29yZAogICAgfSBjYXRjaCB7CiAgICAgIHJldHVybiB7fQogICAgfQogIH0KfQoKZnVuY3Rpb24gbm9ybWFsaXplT3JpZW50YXRpb24odmFsdWU6IG51bWJlciB8IHVuZGVmaW5lZCwgd2lkdGg6IG51bWJlciwgaGVpZ2h0OiBudW1iZXIpOiBPcmllbnRhdGlvbiB7CiAgaWYgKHZhbHVlICYmIFs1LCA2LCA3LCA4XS5pbmNsdWRlcyh2YWx1ZSkpIHJldHVybiAncG9ydHJhaXQnCiAgaWYgKHdpZHRoID09PSBoZWlnaHQpIHJldHVybiAnc3F1YXJlJwogIHJldHVybiB3aWR0aCA+IGhlaWdodCA/ICdsYW5kc2NhcGUnIDogJ3BvcnRyYWl0Jwp9CgpmdW5jdGlvbiBub3JtYWxpemVEYXRlKHZhbHVlOiBEYXRlIHwgdW5kZWZpbmVkKTogc3RyaW5nIHwgbnVsbCB7CiAgcmV0dXJuIHZhbHVlIGluc3RhbmNlb2YgRGF0ZSAmJiAhTnVtYmVyLmlzTmFOKHZhbHVlLmdldFRpbWUoKSkgPyB2YWx1ZS50b0lTT1N0cmluZygpIDogbnVsbAp9CgpmdW5jdGlvbiBmaW5pdGVPck51bGwodmFsdWU6IHVua25vd24pOiBudW1iZXIgfCBudWxsIHsKICByZXR1cm4gdHlwZW9mIHZhbHVlID09PSAnbnVtYmVyJyAmJiBOdW1iZXIuaXNGaW5pdGUodmFsdWUpID8gdmFsdWUgOiBudWxsCn0KCmZ1bmN0aW9uIGZvcm1hdEV4cG9zdXJlKHZhbHVlOiB1bmtub3duKTogc3RyaW5nIHwgbnVsbCB7CiAgaWYgKHR5cGVvZiB2YWx1ZSAhPT0gJ251bWJlcicgfHwgIU51bWJlci5pc0Zpbml0ZSh2YWx1ZSkgfHwgdmFsdWUgPD0gMCkgcmV0dXJuIG51bGwKICBpZiAodmFsdWUgPj0gMSkgcmV0dXJuIGAke051bWJlcih2YWx1ZS50b0ZpeGVkKDIpKX1zYAogIHJldHVybiBgMS8ke01hdGgubWF4KDEsIE1hdGgucm91bmQoMSAvIHZhbHVlKSl9YAp9Cgphc3luYyBmdW5jdGlvbiBtYXBMaW1pdDxUPihpdGVtczogVFtdLCBsaW1pdDogbnVtYmVyLCB3b3JrZXI6IChpdGVtOiBUKSA9PiBQcm9taXNlPHZvaWQ+KTogUHJvbWlzZTx2b2lkPiB7CiAgbGV0IG5leHQgPSAwCiAgY29uc3QgcnVubmVycyA9IEFycmF5LmZyb20oeyBsZW5ndGg6IE1hdGgubWluKE1hdGgubWF4KDEsIGxpbWl0KSwgaXRlbXMubGVuZ3RoIHx8IDEpIH0sIGFzeW5jICgpID0+IHsKICAgIHdoaWxlIChuZXh0IDwgaXRlbXMubGVuZ3RoKSB7CiAgICAgIGNvbnN0IGluZGV4ID0gbmV4dAogICAgICBuZXh0ICs9IDEKICAgICAgYXdhaXQgd29ya2VyKGl0ZW1zW2luZGV4XSkKICAgIH0KICB9KQogIGF3YWl0IFByb21pc2UuYWxsKHJ1bm5lcnMpCn0=
+import { createHash } from 'node:crypto'
+import { createReadStream } from 'node:fs'
+import { access, opendir, stat } from 'node:fs/promises'
+import { basename, extname, join, relative } from 'node:path'
+import { watch, type FSWatcher } from 'chokidar'
+import * as exifr from 'exifr'
+import sharp from 'sharp'
+import type { AppDatabase, MediaLocationInput, Orientation, SourceRoot } from './database'
+
+const SUPPORTED_EXTENSIONS = new Set(['.jpg', '.jpeg', '.png'])
+const IGNORED_DIRECTORIES = new Set(['.git', 'node_modules', '$recycle.bin', 'system volume information'])
+
+export interface ScanProgress {
+  rootId: string
+  phase: 'scanning' | 'reading' | 'complete' | 'error' | 'error'
+  discovered: number
+  processed: number
+  indexed: number
+  errors: number
+  message?: string
+}
+
+export interface ScanResult {
+  discovered: number
+  indexed: number
+  errors: string[]
+}
+
+interface ExifRecord {
+  DateTimeOriginal?: Date
+  CreateDate?: Date
+  Make?: string
+  Model?: string
+  LensModel?: string
+  FocalLength?: number
+  FNumber?: number
+  ExposureTime?: number
+  ISO?: number
+}
+
+export async function hashFile(path: string): Promise<string> {
+  const hash = createHash('sha256')
+  await new Promise<void>((resolve, reject) => {
+    const stream = createReadStream(path)
+    stream.on('data', (chunk) => hash.update(chunk))
+    stream.on('error', reject)
+    stream.on('end', resolve)
+  })
+  return hash.digest('hex')
+}
+
+export class LibraryScanner {
+  private readonly watchers = new Map<string, FSWatcher>()
+  private readonly scanTimers = new Map<string, NodeJS.Timeout>()
+
+  constructor(private readonly db: AppDatabase) {}
+
+  async scanRoot(
+    root: SourceRoot,
+    onProgress?: (progress: ScanProgress) => void
+  ): Promise<ScanResult> {
+    const errors: string[] = []
+    let discovered = 0
+    let processed = 0
+    let indexed = 0
+
+    try {
+      await access(root.path)
+    } catch (error) {
+      errors.push(`${root.path}: ${error instanceof Error ? error.message : String(error)}`)
+      onProgress?.({ rootId: root.id, phase: 'error', discovered, processed, indexed, errors: errors.length, message: '来源目录当前不可用' })
+      return { discovered, indexed, errors }
+    }
+
+    this.db.markRootLocationsMissing(root.id)
+    const files = await this.collectSupportedFiles(root.path, errors)
+    discovered = files.length
+    onProgress?.({ rootId: root.id, phase: 'scanning', discovered, processed, indexed, errors: errors.length })
+
+    await mapLimit(files, Math.max(1, Math.min(4, (await import('node:os')).cpus().length - 1)), async (filePath) => {
+      try {
+        await this.indexFile(root, filePath)
+        indexed += 1
+      } catch (error) {
+        errors.push(`${filePath}: ${error instanceof Error ? error.message : String(error)}`)
+      } finally {
+        processed += 1
+        onProgress?.({ rootId: root.id, phase: 'reading', discovered, processed, indexed, errors: errors.length })
+      }
+    })
+
+    onProgress?.({ rootId: root.id, phase: 'complete', discovered, processed, indexed, errors: errors.length })
+    return { discovered, indexed, errors }
+  }
+
+  async scanAll(
+    roots: SourceRoot[],
+    onProgress?: (progress: ScanProgress) => void
+  ): Promise<ScanResult[]> {
+    const results: ScanResult[] = []
+    for (const root of roots) {
+      if (root.enabled) results.push(await this.scanRoot(root, onProgress))
+    }
+    return results
+  }
+
+  watchRoot(root: SourceRoot, onChanged?: (root: SourceRoot) => void): void {
+    this.unwatchRoot(root.id)
+    if (!root.enabled) return
+    const watcher = watch(root.path, {
+      ignoreInitial: true,
+      persistent: true,
+      awaitWriteFinish: { stabilityThreshold: 800, pollInterval: 100 },
+      ignored: (path) => {
+        const name = basename(path).toLowerCase()
+        return IGNORED_DIRECTORIES.has(name)
+      }
+    })
+
+    watcher.on('all', (_event, changedPath) => {
+      if (changedPath && !SUPPORTED_EXTENSIONS.has(extname(changedPath).toLowerCase())) return
+      const existing = this.scanTimers.get(root.id)
+      if (existing) clearTimeout(existing)
+      this.scanTimers.set(root.id, setTimeout(() => {
+        this.scanTimers.delete(root.id)
+        void this.scanRoot(root).then(() => onChanged?.(root))
+      }, 900))
+    })
+
+    this.watchers.set(root.id, watcher)
+  }
+
+  async close(): Promise<void> {
+    for (const timer of this.scanTimers.values()) clearTimeout(timer)
+    this.scanTimers.clear()
+    await Promise.all([...this.watchers.values()].map((watcher) => watcher.close()))
+    this.watchers.clear()
+  }
+
+  private unwatchRoot(rootId: string): void {
+    const timer = this.scanTimers.get(rootId)
+    if (timer) clearTimeout(timer)
+    this.scanTimers.delete(rootId)
+    const watcher = this.watchers.get(rootId)
+    if (watcher) void watcher.close()
+    this.watchers.delete(rootId)
+  }
+
+  private async collectSupportedFiles(rootPath: string, errors: string[]): Promise<string[]> {
+    const files: string[] = []
+    const visit = async (directory: string): Promise<void> => {
+      let handle
+      try {
+        handle = await opendir(directory)
+      } catch (error) {
+        errors.push(`${directory}: ${error instanceof Error ? error.message : String(error)}`)
+        return
+      }
+
+      try {
+        for await (const entry of handle) {
+          if (entry.name.startsWith('.') || IGNORED_DIRECTORIES.has(entry.name.toLowerCase())) continue
+          const childPath = join(directory, entry.name)
+          if (entry.isDirectory()) {
+            await visit(childPath)
+          } else if (entry.isFile() && SUPPORTED_EXTENSIONS.has(extname(entry.name).toLowerCase())) {
+            files.push(childPath)
+          }
+        }
+      } catch (error) {
+        errors.push(`${directory}: ${error instanceof Error ? error.message : String(error)}`)
+      }
+    }
+
+    await visit(rootPath)
+    return files
+  }
+
+  private async indexFile(root: SourceRoot, filePath: string): Promise<void> {
+    if (this.db.isPathIgnored(filePath)) return
+    const fileStat = await stat(filePath)
+    const metadata = await sharp(filePath, { failOn: 'none' }).metadata()
+    if (!metadata.width || !metadata.height) throw new Error('无法读取图片尺寸')
+
+    const exif = await this.readExif(filePath)
+    const contentHash = await hashFile(filePath)
+    const orientation = normalizeOrientation(metadata.orientation, metadata.width, metadata.height)
+    const input: MediaLocationInput = {
+      rootId: root.id,
+      absolutePath: filePath,
+      relativePath: relative(root.path, filePath),
+      contentHash,
+      sizeBytes: fileStat.size,
+      modifiedAt: fileStat.mtimeMs,
+      width: metadata.width,
+      height: metadata.height,
+      format: metadata.format ?? extname(filePath).slice(1).toLowerCase(),
+      capturedAt: normalizeDate(exif.DateTimeOriginal ?? exif.CreateDate),
+      cameraMake: exif.Make ?? null,
+      cameraModel: exif.Model ?? null,
+      lens: exif.LensModel ?? null,
+      focalLength: finiteOrNull(exif.FocalLength),
+      aperture: finiteOrNull(exif.FNumber),
+      shutterSpeed: formatExposure(exif.ExposureTime),
+      iso: finiteOrNull(exif.ISO),
+      orientation
+    }
+    this.db.upsertMediaLocation(input)
+  }
+
+  private async readExif(path: string): Promise<ExifRecord> {
+    try {
+      const parsed = await exifr.parse(path, {
+        tiff: true,
+        exif: true,
+        gps: false,
+        interop: false,
+        ifd1: false
+      })
+      return (parsed ?? {}) as ExifRecord
+    } catch {
+      return {}
+    }
+  }
+}
+
+function normalizeOrientation(value: number | undefined, width: number, height: number): Orientation {
+  if (value && [5, 6, 7, 8].includes(value)) return 'portrait'
+  if (width === height) return 'square'
+  return width > height ? 'landscape' : 'portrait'
+}
+
+function normalizeDate(value: Date | undefined): string | null {
+  return value instanceof Date && !Number.isNaN(value.getTime()) ? value.toISOString() : null
+}
+
+function finiteOrNull(value: unknown): number | null {
+  return typeof value === 'number' && Number.isFinite(value) ? value : null
+}
+
+function formatExposure(value: unknown): string | null {
+  if (typeof value !== 'number' || !Number.isFinite(value) || value <= 0) return null
+  if (value >= 1) return `${Number(value.toFixed(2))}s`
+  return `1/${Math.max(1, Math.round(1 / value))}`
+}
+
+async function mapLimit<T>(items: T[], limit: number, worker: (item: T) => Promise<void>): Promise<void> {
+  let next = 0
+  const runners = Array.from({ length: Math.min(Math.max(1, limit), items.length || 1) }, async () => {
+    while (next < items.length) {
+      const index = next
+      next += 1
+      await worker(items[index])
+    }
+  })
+  await Promise.all(runners)
+}

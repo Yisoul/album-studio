@@ -1,1 +1,9 @@
-aW1wb3J0IHR5cGUgeyBBbGJ1bVN0dWRpb0FwaSB9IGZyb20gJy4uLy4uL3NoYXJlZC9hcGknCgpkZWNsYXJlIGdsb2JhbCB7CiAgaW50ZXJmYWNlIFdpbmRvdyB7CiAgICBhbGJ1bUFwaTogQWxidW1TdHVkaW9BcGkKICB9Cn0KCmV4cG9ydCB7fQ==
+import type { AlbumStudioApi } from '../../shared/api'
+
+declare global {
+  interface Window {
+    albumApi: AlbumStudioApi
+  }
+}
+
+export {}

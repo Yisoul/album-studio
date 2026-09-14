@@ -1,1 +1,70 @@
-aW1wb3J0IHsgY29udGV4dEJyaWRnZSwgaXBjUmVuZGVyZXIgfSBmcm9tICdlbGVjdHJvbicKaW1wb3J0IHR5cGUgeyBBbGJ1bVN0dWRpb0FwaSB9IGZyb20gJy4uL3NoYXJlZC9hcGknCmltcG9ydCB0eXBlIHsgQXBwU2V0dGluZ3MsIEV4cG9ydE9wdGlvbnMsIFNjYW5Qcm9ncmVzcywgU2VhcmNoRmlsdGVycywgU291cmNlUmVtb3ZhbE1vZGUsIFRlbXBsYXRlRGVmaW5pdGlvbiB9IGZyb20gJy4uL3NoYXJlZC90eXBlcycKCmNvbnN0IGFwaTogQWxidW1TdHVkaW9BcGkgPSB7CiAgYXBwOiB7CiAgICBnZXRTdGF0czogKCkgPT4gaXBjUmVuZGVyZXIuaW52b2tlKCdhcHA6Z2V0LXN0YXRzJyksCiAgICBnZXRTZXR0aW5nczogKCkgPT4gaXBjUmVuZGVyZXIuaW52b2tlKCdhcHA6Z2V0LXNldHRpbmdzJyksCiAgICBzYXZlU2V0dGluZ3M6IChzZXR0aW5nczogQXBwU2V0dGluZ3MpID0+IGlwY1JlbmRlcmVyLmludm9rZSgnYXBwOnNhdmUtc2V0dGluZ3MnLCBzZXR0aW5ncyksCiAgICBjaG9vc2VGb2xkZXJzOiAoKSA9PiBpcGNSZW5kZXJlci5pbnZva2UoJ2FwcDpjaG9vc2UtZm9sZGVycycpLAogICAgY2hvb3NlRXhwb3J0RGlyZWN0b3J5OiAoKSA9PiBpcGNSZW5kZXJlci5pbnZva2UoJ2FwcDpjaG9vc2UtZXhwb3J0LWRpcmVjdG9yeScpLAogICAgc2NhbkFsbDogKCkgPT4gaXBjUmVuZGVyZXIuaW52b2tlKCdhcHA6c2Nhbi1hbGwnKSwKICAgIGJhY2t1cE5vdzogKCkgPT4gaXBjUmVuZGVyZXIuaW52b2tlKCdhcHA6YmFja3VwLW5vdycpLAogICAgb25TY2FuUHJvZ3Jlc3M6IChjYWxsYmFjazogKHByb2dyZXNzOiBTY2FuUHJvZ3Jlc3MpID0+IHZvaWQpID0+IHsKICAgICAgY29uc3QgbGlzdGVuZXIgPSAoX2V2ZW50OiBFbGVjdHJvbi5JcGNSZW5kZXJlckV2ZW50LCBwcm9ncmVzczogU2NhblByb2dyZXNzKTogdm9pZCA9PiBjYWxsYmFjayhwcm9ncmVzcykKICAgICAgaXBjUmVuZGVyZXIub24oJ2FwcDpzY2FuLXByb2dyZXNzJywgbGlzdGVuZXIpCiAgICAgIHJldHVybiAoKSA9PiBpcGNSZW5kZXJlci5yZW1vdmVMaXN0ZW5lcignYXBwOnNjYW4tcHJvZ3Jlc3MnLCBsaXN0ZW5lcikKICAgIH0KICB9LAogIGxpYnJhcnk6IHsKICAgIGxpc3RSb290czogKCkgPT4gaXBjUmVuZGVyZXIuaW52b2tlKCdsaWJyYXJ5Omxpc3Qtcm9vdHMnKSwKICAgIGFkZFJvb3RzOiAocGF0aHM6IHN0cmluZ1tdKSA9PiBpcGNSZW5kZXJlci5pbnZva2UoJ2xpYnJhcnk6YWRkLXJvb3RzJywgcGF0aHMpLAogICAgcmVtb3ZlUm9vdDogKHJvb3RJZDogc3RyaW5nLCBtb2RlOiBTb3VyY2VSZW1vdmFsTW9kZSkgPT4gaXBjUmVuZGVyZXIuaW52b2tlKCdsaWJyYXJ5OnJlbW92ZS1yb290Jywgcm9vdElkLCBtb2RlKSwKICAgIHNldFJvb3RFbmFibGVkOiAocm9vdElkOiBzdHJpbmcsIGVuYWJsZWQ6IGJvb2xlYW4pID0+IGlwY1JlbmRlcmVyLmludm9rZSgnbGlicmFyeTpzZXQtcm9vdC1lbmFibGVkJywgcm9vdElkLCBlbmFibGVkKSwKICAgIGdldFJvb3RJbXBhY3Q6IChyb290SWQ6IHN0cmluZykgPT4gaXBjUmVuZGVyZXIuaW52b2tlKCdsaWJyYXJ5OmdldC1yb290LWltcGFjdCcsIHJvb3RJZCksCiAgICBzY2FuUm9vdDogKHJvb3RJZDogc3RyaW5nKSA9PiBpcGNSZW5kZXJlci5pbnZva2UoJ2xpYnJhcnk6c2Nhbi1yb290Jywgcm9vdElkKSwKICAgIHNlYXJjaDogKGZpbHRlcnM6IFNlYXJjaEZpbHRlcnMpID0+IGlwY1JlbmRlcmVyLmludm9rZSgnbGlicmFyeTpzZWFyY2gnLCBmaWx0ZXJzKSwKICAgIGdldDogKGFzc2V0SWQ6IHN0cmluZykgPT4gaXBjUmVuZGVyZXIuaW52b2tlKCdsaWJyYXJ5OmdldC1hc3NldCcsIGFzc2V0SWQpLAogICAgbGlzdER1cGxpY2F0ZXM6ICgpID0+IGlwY1JlbmRlcmVyLmludm9rZSgnbGlicmFyeTpsaXN0LWR1cGxpY2F0ZXMnKSwKICAgIGxpc3RMb2NhdGlvbnM6IChhc3NldElkOiBzdHJpbmcpID0+IGlwY1JlbmRlcmVyLmludm9rZSgnbGlicmFyeTpsaXN0LWxvY2F0aW9ucycsIGFzc2V0SWQpLAogICAgc2V0UHJlZmVycmVkTG9jYXRpb246IChhc3NldElkOiBzdHJpbmcsIGxvY2F0aW9uSWQ6IHN0cmluZykgPT4gaXBjUmVuZGVyZXIuaW52b2tlKCdsaWJyYXJ5OnNldC1wcmVmZXJyZWQtbG9jYXRpb24nLCBhc3NldElkLCBsb2NhdGlvbklkKSwKICAgIHNldEZhdm9yaXRlOiAoYXNzZXRJZDogc3RyaW5nLCBmYXZvcml0ZTogYm9vbGVhbikgPT4gaXBjUmVuZGVyZXIuaW52b2tlKCdsaWJyYXJ5OnNldC1mYXZvcml0ZScsIGFzc2V0SWQsIGZhdm9yaXRlKSwKICAgIGlnbm9yZUFzc2V0OiAoYXNzZXRJZDogc3RyaW5nKSA9PiBpcGNSZW5kZXJlci5pbnZva2UoJ2xpYnJhcnk6aWdub3JlLWFzc2V0JywgYXNzZXRJZCksCiAgICBkZWxldGVPcmlnaW5hbDogKGxvY2F0aW9uSWQ6IHN0cmluZykgPT4gaXBjUmVuZGVyZXIuaW52b2tlKCdsaWJyYXJ5OmRlbGV0ZS1vcmlnaW5hbCcsIGxvY2F0aW9uSWQpLAogICAgc2hvd0luRm9sZGVyOiAobG9jYXRpb25JZDogc3RyaW5nKSA9PiBpcGNSZW5kZXJlci5pbnZva2UoJ2xpYnJhcnk6c2hvdy1pbi1mb2xkZXInLCBsb2NhdGlvbklkKQogIH0sCiAgYWxidW1zOiB7CiAgICBsaXN0OiAoKSA9PiBpcGNSZW5kZXJlci5pbnZva2UoJ2FsYnVtczpsaXN0JyksCiAgICBjcmVhdGU6IChuYW1lOiBzdHJpbmcpID0+IGlwY1JlbmRlcmVyLmludm9rZSgnYWxidW1zOmNyZWF0ZScsIG5hbWUpLAogICAgcmVtb3ZlOiAoYWxidW1JZDogc3RyaW5nKSA9PiBpcGNSZW5kZXJlci5pbnZva2UoJ2FsYnVtczpyZW1vdmUnLCBhbGJ1bUlkKSwKICAgIGxpc3RBc3NldHM6IChhbGJ1bUlkOiBzdHJpbmcpID0+IGlwY1JlbmRlcmVyLmludm9rZSgnYWxidW1zOmxpc3QtYXNzZXRzJywgYWxidW1JZCksCiAgICBhZGRBc3NldHM6IChhbGJ1bUlkOiBzdHJpbmcsIGFzc2V0SWRzOiBzdHJpbmdbXSkgPT4gaXBjUmVuZGVyZXIuaW52b2tlKCdhbGJ1bXM6YWRkLWFzc2V0cycsIGFsYnVtSWQsIGFzc2V0SWRzKSwKICAgIHJlbW92ZUFzc2V0OiAoYWxidW1JZDogc3RyaW5nLCBhc3NldElkOiBzdHJpbmcpID0+IGlwY1JlbmRlcmVyLmludm9rZSgnYWxidW1zOnJlbW92ZS1hc3NldCcsIGFsYnVtSWQsIGFzc2V0SWQpLAogICAgcmVvcmRlcjogKGFsYnVtSWQ6IHN0cmluZywgYXNzZXRJZHM6IHN0cmluZ1tdKSA9PiBpcGNSZW5kZXJlci5pbnZva2UoJ2FsYnVtczpyZW9yZGVyJywgYWxidW1JZCwgYXNzZXRJZHMpLAogICAgc2V0Q292ZXI6IChhbGJ1bUlkOiBzdHJpbmcsIGFzc2V0SWQ6IHN0cmluZykgPT4gaXBjUmVuZGVyZXIuaW52b2tlKCdhbGJ1bXM6c2V0LWNvdmVyJywgYWxidW1JZCwgYXNzZXRJZCkKICB9LAogIHdvcmtzOiB7CiAgICBsaXN0OiAoYWxidW1JZDogc3RyaW5nKSA9PiBpcGNSZW5kZXJlci5pbnZva2UoJ3dvcmtzOmxpc3QnLCBhbGJ1bUlkKSwKICAgIGNyZWF0ZTogKHJlcXVlc3QpID0+IGlwY1JlbmRlcmVyLmludm9rZSgnd29ya3M6Y3JlYXRlJywgcmVxdWVzdCksCiAgICBnZXQ6ICh3b3JrSWQ6IHN0cmluZykgPT4gaXBjUmVuZGVyZXIuaW52b2tlKCd3b3JrczpnZXQnLCB3b3JrSWQpLAogICAgdXBkYXRlOiAod29ya0lkOiBzdHJpbmcsIGNoYW5nZXMpID0+IGlwY1JlbmRlcmVyLmludm9rZSgnd29ya3M6dXBkYXRlJywgd29ya0lkLCBjaGFuZ2VzKSwKICAgIHJlbW92ZTogKHdvcmtJZDogc3RyaW5nKSA9PiBpcGNSZW5kZXJlci5pbnZva2UoJ3dvcmtzOnJlbW92ZScsIHdvcmtJZCksCiAgICBjcmVhdGVQYWdlOiAod29ya0lkOiBzdHJpbmcsIHBvc2l0aW9uOiBudW1iZXIsIGJhY2tncm91bmQ6IHN0cmluZykgPT4gaXBjUmVuZGVyZXIuaW52b2tlKCd3b3JrczpjcmVhdGUtcGFnZScsIHdvcmtJZCwgcG9zaXRpb24sIGJhY2tncm91bmQpLAogICAgZGVsZXRlUGFnZTogKHBhZ2VJZDogc3RyaW5nKSA9PiBpcGNSZW5kZXJlci5pbnZva2UoJ3dvcmtzOmRlbGV0ZS1wYWdlJywgcGFnZUlkKSwKICAgIGNyZWF0ZUltYWdlTGF5ZXI6IChwYWdlSWQ6IHN0cmluZywgaW5wdXQpID0+IGlwY1JlbmRlcmVyLmludm9rZSgnd29ya3M6Y3JlYXRlLWltYWdlLWxheWVyJywgcGFnZUlkLCBpbnB1dCksCiAgICBjcmVhdGVUZXh0TGF5ZXI6IChwYWdlSWQ6IHN0cmluZywgaW5wdXQpID0+IGlwY1JlbmRlcmVyLmludm9rZSgnd29ya3M6Y3JlYXRlLXRleHQtbGF5ZXInLCBwYWdlSWQsIGlucHV0KSwKICAgIHVwZGF0ZUxheWVyOiAobGF5ZXJJZDogc3RyaW5nLCBjaGFuZ2VzOiBSZWNvcmQ8c3RyaW5nLCB1bmtub3duPikgPT4gaXBjUmVuZGVyZXIuaW52b2tlKCd3b3Jrczp1cGRhdGUtbGF5ZXInLCBsYXllcklkLCBjaGFuZ2VzKSwKICAgIHVwZGF0ZVRleHRMYXllcjogKGxheWVySWQ6IHN0cmluZywgdGV4dDogc3RyaW5nLCBzdHlsZTogUmVjb3JkPHN0cmluZywgdW5rbm93bj4pID0+IGlwY1JlbmRlcmVyLmludm9rZSgnd29ya3M6dXBkYXRlLXRleHQtbGF5ZXInLCBsYXllcklkLCB0ZXh0LCBzdHlsZSksCiAgICBkZWxldGVMYXllcjogKGxheWVySWQ6IHN0cmluZykgPT4gaXBjUmVuZGVyZXIuaW52b2tlKCd3b3JrczpkZWxldGUtbGF5ZXInLCBsYXllcklkKQogIH0sCiAgdGVtcGxhdGVzOiB7CiAgICBsaXN0OiAoKSA9PiBpcGNSZW5kZXJlci5pbnZva2UoJ3RlbXBsYXRlczpsaXN0JyksCiAgICBzYXZlOiAobmFtZTogc3RyaW5nLCBwYXlsb2FkOiBUZW1wbGF0ZURlZmluaXRpb24pID0+IGlwY1JlbmRlcmVyLmludm9rZSgndGVtcGxhdGVzOnNhdmUnLCBuYW1lLCBwYXlsb2FkKQogIH0sCiAgZXhwb3J0ZXI6IHsKICAgIHJ1bjogKHdvcmtJZDogc3RyaW5nLCBvcHRpb25zOiBFeHBvcnRPcHRpb25zKSA9PiBpcGNSZW5kZXJlci5pbnZva2UoJ2V4cG9ydGVyOnJ1bicsIHdvcmtJZCwgb3B0aW9ucykKICB9Cn0KCmNvbnRleHRCcmlkZ2UuZXhwb3NlSW5NYWluV29ybGQoJ2FsYnVtQXBpJywgYXBpKQ==
+import { contextBridge, ipcRenderer } from 'electron'
+import type { AlbumStudioApi } from '../shared/api'
+import type { AppSettings, ExportOptions, ScanProgress, SearchFilters, SourceRemovalMode, TemplateDefinition } from '../shared/types'
+
+const api: AlbumStudioApi = {
+  app: {
+    getStats: () => ipcRenderer.invoke('app:get-stats'),
+    getSettings: () => ipcRenderer.invoke('app:get-settings'),
+    saveSettings: (settings: AppSettings) => ipcRenderer.invoke('app:save-settings', settings),
+    chooseFolders: () => ipcRenderer.invoke('app:choose-folders'),
+    chooseExportDirectory: () => ipcRenderer.invoke('app:choose-export-directory'),
+    scanAll: () => ipcRenderer.invoke('app:scan-all'),
+    backupNow: () => ipcRenderer.invoke('app:backup-now'),
+    onScanProgress: (callback: (progress: ScanProgress) => void) => {
+      const listener = (_event: Electron.IpcRendererEvent, progress: ScanProgress): void => callback(progress)
+      ipcRenderer.on('app:scan-progress', listener)
+      return () => ipcRenderer.removeListener('app:scan-progress', listener)
+    }
+  },
+  library: {
+    listRoots: () => ipcRenderer.invoke('library:list-roots'),
+    addRoots: (paths: string[]) => ipcRenderer.invoke('library:add-roots', paths),
+    removeRoot: (rootId: string, mode: SourceRemovalMode) => ipcRenderer.invoke('library:remove-root', rootId, mode),
+    setRootEnabled: (rootId: string, enabled: boolean) => ipcRenderer.invoke('library:set-root-enabled', rootId, enabled),
+    getRootImpact: (rootId: string) => ipcRenderer.invoke('library:get-root-impact', rootId),
+    scanRoot: (rootId: string) => ipcRenderer.invoke('library:scan-root', rootId),
+    search: (filters: SearchFilters) => ipcRenderer.invoke('library:search', filters),
+    get: (assetId: string) => ipcRenderer.invoke('library:get-asset', assetId),
+    listDuplicates: () => ipcRenderer.invoke('library:list-duplicates'),
+    listLocations: (assetId: string) => ipcRenderer.invoke('library:list-locations', assetId),
+    setPreferredLocation: (assetId: string, locationId: string) => ipcRenderer.invoke('library:set-preferred-location', assetId, locationId),
+    setFavorite: (assetId: string, favorite: boolean) => ipcRenderer.invoke('library:set-favorite', assetId, favorite),
+    ignoreAsset: (assetId: string) => ipcRenderer.invoke('library:ignore-asset', assetId),
+    deleteOriginal: (locationId: string) => ipcRenderer.invoke('library:delete-original', locationId),
+    showInFolder: (locationId: string) => ipcRenderer.invoke('library:show-in-folder', locationId)
+  },
+  albums: {
+    list: () => ipcRenderer.invoke('albums:list'),
+    create: (name: string) => ipcRenderer.invoke('albums:create', name),
+    remove: (albumId: string) => ipcRenderer.invoke('albums:remove', albumId),
+    listAssets: (albumId: string) => ipcRenderer.invoke('albums:list-assets', albumId),
+    addAssets: (albumId: string, assetIds: string[]) => ipcRenderer.invoke('albums:add-assets', albumId, assetIds),
+    removeAsset: (albumId: string, assetId: string) => ipcRenderer.invoke('albums:remove-asset', albumId, assetId),
+    reorder: (albumId: string, assetIds: string[]) => ipcRenderer.invoke('albums:reorder', albumId, assetIds),
+    setCover: (albumId: string, assetId: string) => ipcRenderer.invoke('albums:set-cover', albumId, assetId)
+  },
+  works: {
+    list: (albumId: string) => ipcRenderer.invoke('works:list', albumId),
+    create: (request) => ipcRenderer.invoke('works:create', request),
+    get: (workId: string) => ipcRenderer.invoke('works:get', workId),
+    update: (workId: string, changes) => ipcRenderer.invoke('works:update', workId, changes),
+    remove: (workId: string) => ipcRenderer.invoke('works:remove', workId),
+    createPage: (workId: string, position: number, background: string) => ipcRenderer.invoke('works:create-page', workId, position, background),
+    deletePage: (pageId: string) => ipcRenderer.invoke('works:delete-page', pageId),
+    createImageLayer: (pageId: string, input) => ipcRenderer.invoke('works:create-image-layer', pageId, input),
+    createTextLayer: (pageId: string, input) => ipcRenderer.invoke('works:create-text-layer', pageId, input),
+    updateLayer: (layerId: string, changes: Record<string, unknown>) => ipcRenderer.invoke('works:update-layer', layerId, changes),
+    updateTextLayer: (layerId: string, text: string, style: Record<string, unknown>) => ipcRenderer.invoke('works:update-text-layer', layerId, text, style),
+    deleteLayer: (layerId: string) => ipcRenderer.invoke('works:delete-layer', layerId)
+  },
+  templates: {
+    list: () => ipcRenderer.invoke('templates:list'),
+    save: (name: string, payload: TemplateDefinition) => ipcRenderer.invoke('templates:save', name, payload)
+  },
+  exporter: {
+    run: (workId: string, options: ExportOptions) => ipcRenderer.invoke('exporter:run', workId, options)
+  }
+}
+
+contextBridge.exposeInMainWorld('albumApi', api)

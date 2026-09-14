@@ -1,1 +1,117 @@
-aW1wb3J0IHR5cGUgeyBUZW1wbGF0ZURlZmluaXRpb24gfSBmcm9tICcuL3R5cGVzJwoKY29uc3QgaW1hZ2UgPSAoeDogbnVtYmVyLCB5OiBudW1iZXIsIHdpZHRoOiBudW1iZXIsIGhlaWdodDogbnVtYmVyLCB6SW5kZXg6IG51bWJlcik6IFRlbXBsYXRlRGVmaW5pdGlvblsnbGF5ZXJzJ11bbnVtYmVyXSA9PiAoewogIHR5cGU6ICdpbWFnZScsCiAgeCwKICB5LAogIHdpZHRoLAogIGhlaWdodCwKICByb3RhdGlvbjogMCwKICB6SW5kZXgsCiAgc3R5bGU6IHsgZml0OiAnY292ZXInLCByYWRpdXM6IDAgfQp9KQoKY29uc3QgdGl0bGUgPSAoeDogbnVtYmVyLCB5OiBudW1iZXIsIHdpZHRoOiBudW1iZXIsIHRleHQgPSAne3thbGJ1bX19Jyk6IFRlbXBsYXRlRGVmaW5pdGlvblsnbGF5ZXJzJ11bbnVtYmVyXSA9PiAoewogIHR5cGU6ICd0ZXh0JywKICB4LAogIHksCiAgd2lkdGgsCiAgaGVpZ2h0OiAwLjEyLAogIHJvdGF0aW9uOiAwLAogIHpJbmRleDogMjAsCiAgdGV4dCwKICBzdHlsZTogewogICAgZm9udFNpemU6IDY0LAogICAgY29sb3I6ICcjZmZmZmZmJywKICAgIGZvbnRGYW1pbHk6ICdNaWNyb3NvZnQgWWFIZWknLAogICAgZm9udFdlaWdodDogJ2JvbGQnLAogICAgYWxpZ246ICdsZWZ0JywKICAgIGxldHRlclNwYWNpbmc6IDAsCiAgICBsaW5lSGVpZ2h0OiAxLjIKICB9Cn0pCgpleHBvcnQgY29uc3QgQlVJTFRfSU5fVEVNUExBVEVTOiBUZW1wbGF0ZURlZmluaXRpb25bXSA9IFsKICB7CiAgICBpZDogJ3NpbmdsZScsCiAgICBuYW1lOiAn5Y2V5Zu+5YWo5bmFJywKICAgIGNhdGVnb3J5OiAncGFnZXMnLAogICAgY2FudmFzV2lkdGg6IDEwODAsCiAgICBjYW52YXNIZWlnaHQ6IDE0NDAsCiAgICBiYWNrZ3JvdW5kOiAnI2ZmZmZmZicsCiAgICBsYXllcnM6IFtpbWFnZSgwLCAwLCAxLCAxLCAxKV0KICB9LAogIHsKICAgIGlkOiAndHdvLWhvcml6b250YWwnLAogICAgbmFtZTogJ+S4pOW8oOaoquaOkicsCiAgICBjYXRlZ29yeTogJ3BhZ2VzJywKICAgIGNhbnZhc1dpZHRoOiAxMDgwLAogICAgY2FudmFzSGVpZ2h0OiAxNDQwLAogICAgYmFja2dyb3VuZDogJyNmNGYxZWEnLAogICAgbGF5ZXJzOiBbaW1hZ2UoMC4wMywgMC4wNCwgMC40NTUsIDAuOTIsIDEpLCBpbWFnZSgwLjUxNSwgMC4wNCwgMC40NTUsIDAuOTIsIDIpXQogIH0sCiAgewogICAgaWQ6ICd0d28tdmVydGljYWwnLAogICAgbmFtZTogJ+S4pOW8oOerluaOkicsCiAgICBjYXRlZ29yeTogJ3BhZ2VzJywKICAgIGNhbnZhc1dpZHRoOiAxMDgwLAogICAgY2FudmFzSGVpZ2h0OiAxNDQwLAogICAgYmFja2dyb3VuZDogJyNmNGYxZWEnLAogICAgbGF5ZXJzOiBbaW1hZ2UoMC4wNSwgMC4wMzUsIDAuOSwgMC40NCwgMSksIGltYWdlKDAuMDUsIDAuNTI1LCAwLjksIDAuNDQsIDIpXQogIH0sCiAgewogICAgaWQ6ICdoZXJvLXR3bycsCiAgICBuYW1lOiAn5Li75Zu+5Yqg5Lik5Ymv5Zu+JywKICAgIGNhdGVnb3J5OiAncGFnZXMnLAogICAgY2FudmFzV2lkdGg6IDEwODAsCiAgICBjYW52YXNIZWlnaHQ6IDE0NDAsCiAgICBiYWNrZ3JvdW5kOiAnI2Y0ZjFlYScsCiAgICBsYXllcnM6IFtpbWFnZSgwLjA1LCAwLjA0LCAwLjksIDAuNTgsIDEpLCBpbWFnZSgwLjA1LCAwLjY1LCAwLjQzNSwgMC4zMSwgMiksIGltYWdlKDAuNTE1LCAwLjY1LCAwLjQzNSwgMC4zMSwgMyldCiAgfSwKICB7CiAgICBpZDogJ2dyaWQtZm91cicsCiAgICBuYW1lOiAn5Zub5a6r5qC8JywKICAgIGNhdGVnb3J5OiAncGFnZXMnLAogICAgY2FudmFzV2lkdGg6IDEwODAsCiAgICBjYW52YXNIZWlnaHQ6IDE0NDAsCiAgICBiYWNrZ3JvdW5kOiAnI2Y0ZjFlYScsCiAgICBsYXllcnM6IFsKICAgICAgaW1hZ2UoMC4wNCwgMC4wNCwgMC40NDUsIDAuNDQ1LCAxKSwgaW1hZ2UoMC41MTUsIDAuMDQsIDAuNDQ1LCAwLjQ0NSwgMiksCiAgICAgIGltYWdlKDAuMDQsIDAuNTE1LCAwLjQ0NSwgMC40NDUsIDMpLCBpbWFnZSgwLjUxNSwgMC41MTUsIDAuNDQ1LCAwLjQ0NSwgNCkKICAgIF0KICB9LAogIHsKICAgIGlkOiAnZ3JpZC1zaXgnLAogICAgbmFtZTogJ+WFreWuq+agvCcsCiAgICBjYXRlZ29yeTogJ3BhZ2VzJywKICAgIGNhbnZhc1dpZHRoOiAxMDgwLAogICAgY2FudmFzSGVpZ2h0OiAxNDQwLAogICAgYmFja2dyb3VuZDogJyNmNGYxZWEnLAogICAgbGF5ZXJzOiBbCiAgICAgIGltYWdlKDAuMDQsIDAuMDQsIDAuNDQ1LCAwLjI5LCAxKSwgaW1hZ2UoMC41MTUsIDAuMDQsIDAuNDQ1LCAwLjI5LCAyKSwKICAgICAgaW1hZ2UoMC4wNCwgMC4zNTUsIDAuNDQ1LCAwLjI5LCAzKSwgaW1hZ2UoMC41MTUsIDAuMzU1LCAwLjQ0NSwgMC4yOSwgNCksCiAgICAgIGltYWdlKDAuMDQsIDAuNjcsIDAuNDQ1LCAwLjI5LCA1KSwgaW1hZ2UoMC41MTUsIDAuNjcsIDAuNDQ1LCAwLjI5LCA2KQogICAgXQogIH0sCiAgewogICAgaWQ6ICdjb3Zlci10aXRsZScsCiAgICBuYW1lOiAn5bCB6Z2i5Yqg5qCH6aKYJywKICAgIGNhdGVnb3J5OiAncGFnZXMnLAogICAgY2FudmFzV2lkdGg6IDEwODAsCiAgICBjYW52YXNIZWlnaHQ6IDE0NDAsCiAgICBiYWNrZ3JvdW5kOiAnIzExMTExMScsCiAgICBsYXllcnM6IFtpbWFnZSgwLCAwLCAxLCAxLCAxKSwgdGl0bGUoMC4wNywgMC43OSwgMC44NildCiAgfSwKICB7CiAgICBpZDogJ3N0cmlwLWZvdXInLAogICAgbmFtZTogJ+Wbm+WbvumVv+adoScsCiAgICBjYXRlZ29yeTogJ2xvbmdfaW1hZ2UnLAogICAgY2FudmFzV2lkdGg6IDEwODAsCiAgICBjYW52YXNIZWlnaHQ6IDQzMjAsCiAgICBiYWNrZ3JvdW5kOiAnI2Y0ZjFlYScsCiAgICBsYXllcnM6IFsKICAgICAgaW1hZ2UoMC4wNCwgMC4wMTIsIDAuOTIsIDAuMjM1LCAxKSwgaW1hZ2UoMC4wNCwgMC4yNTcsIDAuOTIsIDAuMjM1LCAyKSwKICAgICAgaW1hZ2UoMC4wNCwgMC41MDIsIDAuOTIsIDAuMjM1LCAzKSwgaW1hZ2UoMC4wNCwgMC43NDcsIDAuOTIsIDAuMjM1LCA0KQogICAgXQogIH0KXQ==
+import type { TemplateDefinition } from './types'
+
+const image = (x: number, y: number, width: number, height: number, zIndex: number): TemplateDefinition['layers'][number] => ({
+  type: 'image',
+  x,
+  y,
+  width,
+  height,
+  rotation: 0,
+  zIndex,
+  style: { fit: 'cover', radius: 0 }
+})
+
+const title = (x: number, y: number, width: number, text = '{{album}}'): TemplateDefinition['layers'][number] => ({
+  type: 'text',
+  x,
+  y,
+  width,
+  height: 0.12,
+  rotation: 0,
+  zIndex: 20,
+  text,
+  style: {
+    fontSize: 64,
+    color: '#ffffff',
+    fontFamily: 'Microsoft YaHei',
+    fontWeight: 'bold',
+    align: 'left',
+    letterSpacing: 0,
+    lineHeight: 1.2
+  }
+})
+
+export const BUILT_IN_TEMPLATES: TemplateDefinition[] = [
+  {
+    id: 'single',
+    name: '单图全幅',
+    category: 'pages',
+    canvasWidth: 1080,
+    canvasHeight: 1440,
+    background: '#ffffff',
+    layers: [image(0, 0, 1, 1, 1)]
+  },
+  {
+    id: 'two-horizontal',
+    name: '两张横排',
+    category: 'pages',
+    canvasWidth: 1080,
+    canvasHeight: 1440,
+    background: '#f4f1ea',
+    layers: [image(0.03, 0.04, 0.455, 0.92, 1), image(0.515, 0.04, 0.455, 0.92, 2)]
+  },
+  {
+    id: 'two-vertical',
+    name: '两张竖排',
+    category: 'pages',
+    canvasWidth: 1080,
+    canvasHeight: 1440,
+    background: '#f4f1ea',
+    layers: [image(0.05, 0.035, 0.9, 0.44, 1), image(0.05, 0.525, 0.9, 0.44, 2)]
+  },
+  {
+    id: 'hero-two',
+    name: '主图加两副图',
+    category: 'pages',
+    canvasWidth: 1080,
+    canvasHeight: 1440,
+    background: '#f4f1ea',
+    layers: [image(0.05, 0.04, 0.9, 0.58, 1), image(0.05, 0.65, 0.435, 0.31, 2), image(0.515, 0.65, 0.435, 0.31, 3)]
+  },
+  {
+    id: 'grid-four',
+    name: '四宫格',
+    category: 'pages',
+    canvasWidth: 1080,
+    canvasHeight: 1440,
+    background: '#f4f1ea',
+    layers: [
+      image(0.04, 0.04, 0.445, 0.445, 1), image(0.515, 0.04, 0.445, 0.445, 2),
+      image(0.04, 0.515, 0.445, 0.445, 3), image(0.515, 0.515, 0.445, 0.445, 4)
+    ]
+  },
+  {
+    id: 'grid-six',
+    name: '六宫格',
+    category: 'pages',
+    canvasWidth: 1080,
+    canvasHeight: 1440,
+    background: '#f4f1ea',
+    layers: [
+      image(0.04, 0.04, 0.445, 0.29, 1), image(0.515, 0.04, 0.445, 0.29, 2),
+      image(0.04, 0.355, 0.445, 0.29, 3), image(0.515, 0.355, 0.445, 0.29, 4),
+      image(0.04, 0.67, 0.445, 0.29, 5), image(0.515, 0.67, 0.445, 0.29, 6)
+    ]
+  },
+  {
+    id: 'cover-title',
+    name: '封面加标题',
+    category: 'pages',
+    canvasWidth: 1080,
+    canvasHeight: 1440,
+    background: '#111111',
+    layers: [image(0, 0, 1, 1, 1), title(0.07, 0.79, 0.86)]
+  },
+  {
+    id: 'strip-four',
+    name: '四图长条',
+    category: 'long_image',
+    canvasWidth: 1080,
+    canvasHeight: 4320,
+    background: '#f4f1ea',
+    layers: [
+      image(0.04, 0.012, 0.92, 0.235, 1), image(0.04, 0.257, 0.92, 0.235, 2),
+      image(0.04, 0.502, 0.92, 0.235, 3), image(0.04, 0.747, 0.92, 0.235, 4)
+    ]
+  }
+]

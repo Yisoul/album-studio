@@ -1,1 +1,70 @@
-aW1wb3J0IHsgbWtkdGVtcCwgcm0gfSBmcm9tICdub2RlOmZzL3Byb21pc2VzJwppbXBvcnQgeyB0bXBkaXIgfSBmcm9tICdub2RlOm9zJwppbXBvcnQgeyBqb2luIH0gZnJvbSAnbm9kZTpwYXRoJwppbXBvcnQgc2hhcnAgZnJvbSAnc2hhcnAnCmltcG9ydCB7IGFmdGVyRWFjaCwgYmVmb3JlRWFjaCwgZGVzY3JpYmUsIGV4cGVjdCwgaXQgfSBmcm9tICd2aXRlc3QnCmltcG9ydCB7IEFwcERhdGFiYXNlIH0gZnJvbSAnLi4vc3JjL21haW4vZGF0YWJhc2UnCmltcG9ydCB7IFdvcmtFeHBvcnRlciB9IGZyb20gJy4uL3NyYy9tYWluL2V4cG9ydGVyJwoKZGVzY3JpYmUoJ1dvcmtFeHBvcnRlcicsICgpID0+IHsKICBsZXQgZGlyZWN0b3J5OiBzdHJpbmcKICBsZXQgZGI6IEFwcERhdGFiYXNlCiAgbGV0IGV4cG9ydGVyOiBXb3JrRXhwb3J0ZXIKICBsZXQgYXNzZXRJZDogc3RyaW5nCiAgbGV0IGFsYnVtSWQ6IHN0cmluZwoKICBiZWZvcmVFYWNoKGFzeW5jICgpID0+IHsKICAgIGRpcmVjdG9yeSA9IGF3YWl0IG1rZHRlbXAoam9pbih0bXBkaXIoKSwgJ2FsYnVtLWV4cG9ydC0nKSkKICAgIGRiID0gbmV3IEFwcERhdGFiYXNlKCc6bWVtb3J5OicpCiAgICBkYi5taWdyYXRlKCkKICAgIGNvbnN0IHJvb3QgPSBkYi5jcmVhdGVTb3VyY2VSb290KGRpcmVjdG9yeSkKICAgIGNvbnN0IHNvdXJjZSA9IGpvaW4oZGlyZWN0b3J5LCAnc291cmNlLmpwZycpCiAgICBhd2FpdCBzaGFycCh7IGNyZWF0ZTogeyB3aWR0aDogNDAwLCBoZWlnaHQ6IDYwMCwgY2hhbm5lbHM6IDMsIGJhY2tncm91bmQ6ICcjZDk3NzU3JyB9IH0pLmpwZWcoKS50b0ZpbGUoc291cmNlKQogICAgYXNzZXRJZCA9IGRiLnVwc2VydE1lZGlhTG9jYXRpb24oewogICAgICByb290SWQ6IHJvb3QuaWQsCiAgICAgIGFic29sdXRlUGF0aDogc291cmNlLAogICAgICByZWxhdGl2ZVBhdGg6ICdzb3VyY2UuanBnJywKICAgICAgY29udGVudEhhc2g6ICdleHBvcnQtc291cmNlJywKICAgICAgc2l6ZUJ5dGVzOiAxMDAsCiAgICAgIG1vZGlmaWVkQXQ6IDEsCiAgICAgIHdpZHRoOiA0MDAsCiAgICAgIGhlaWdodDogNjAwLAogICAgICBmb3JtYXQ6ICdqcGVnJywKICAgICAgb3JpZW50YXRpb246ICdwb3J0cmFpdCcKICAgIH0pLmFzc2V0SWQKICAgIGFsYnVtSWQgPSBkYi5jcmVhdGVBbGJ1bSgn5a+85Ye65rWL6K+VJykuaWQKICAgIGRiLmFkZEFzc2V0VG9BbGJ1bShhbGJ1bUlkLCBhc3NldElkKQogICAgZXhwb3J0ZXIgPSBuZXcgV29ya0V4cG9ydGVyKGRiKQogIH0pCgogIGFmdGVyRWFjaChhc3luYyAoKSA9PiB7CiAgICBkYi5jbG9zZSgpCiAgICBhd2FpdCBybShkaXJlY3RvcnksIHsgcmVjdXJzaXZlOiB0cnVlLCBmb3JjZTogdHJ1ZSB9KQogIH0pCgogIGl0KCdleHBvcnRzIGEgbXVsdGktcGFnZSB3b3JrIGFzIGNvcnJlY3RseSBzaXplZCBpbWFnZSBmaWxlcycsIGFzeW5jICgpID0+IHsKICAgIGNvbnN0IHdvcmsgPSBkYi5jcmVhdGVXb3JrKHsgYWxidW1JZCwgbmFtZTogJ+WkmumhtScsIG91dHB1dE1vZGU6ICdwYWdlcycsIGNhbnZhc1dpZHRoOiAxMDgwLCBjYW52YXNIZWlnaHQ6IDE0NDAsIGJhY2tncm91bmQ6ICcjZmZmZmZmJyB9KQogICAgY29uc3QgcGFnZSA9IGRiLmNyZWF0ZVBhZ2Uod29yay5pZCwgMCwgJyNmZmZmZmYnKQogICAgZGIuY3JlYXRlSW1hZ2VMYXllcihwYWdlLmlkLCB7IGFzc2V0SWQsIHg6IDAuMSwgeTogMC4xLCB3aWR0aDogMC44LCBoZWlnaHQ6IDAuOCwgcm90YXRpb246IDAsIHpJbmRleDogMSwgZml0OiAnY292ZXInLCByYWRpdXM6IDAgfSkKCiAgICBjb25zdCByZXN1bHQgPSBhd2FpdCBleHBvcnRlci5leHBvcnRXb3JrKHdvcmsuaWQsIHsgZGlyZWN0b3J5LCBmb3JtYXQ6ICdqcGVnJywgcXVhbGl0eTogOTIsIGxvbmdFZGdlOiAxMDgwLCBnYXA6IDAsIGZpbGVOYW1lUHJlZml4OiAn5rWL6K+VJyB9KQogICAgZXhwZWN0KHJlc3VsdC5maWxlcykudG9IYXZlTGVuZ3RoKDEpCiAgICBjb25zdCBtZXRhZGF0YSA9IGF3YWl0IHNoYXJwKHJlc3VsdC5maWxlc1swXSkubWV0YWRhdGEoKQogICAgZXhwZWN0KG1ldGFkYXRhLndpZHRoKS50b0JlKDEwODApCiAgICBleHBlY3QobWV0YWRhdGEuaGVpZ2h0KS50b0JlKDE0NDApCiAgfSkKCiAgaXQoJ2NvbWJpbmVzIHBhZ2VzIGludG8gYSBsb25nIGltYWdlIHdpdGggdGhlIHJlcXVlc3RlZCBnYXAnLCBhc3luYyAoKSA9PiB7CiAgICBjb25zdCB3b3JrID0gZGIuY3JlYXRlV29yayh7IGFsYnVtSWQsIG5hbWU6ICfplb/lm74nLCBvdXRwdXRNb2RlOiAnbG9uZ19pbWFnZScsIGNhbnZhc1dpZHRoOiAxMDgwLCBjYW52YXNIZWlnaHQ6IDE0NDAsIGJhY2tncm91bmQ6ICcjZmZmZmZmJyB9KQogICAgY29uc3QgZmlyc3RQYWdlID0gZGIuY3JlYXRlUGFnZSh3b3JrLmlkLCAwLCAnI2ZmZmZmZicpCiAgICBjb25zdCBzZWNvbmRQYWdlID0gZGIuY3JlYXRlUGFnZSh3b3JrLmlkLCAxLCAnI2VlZWVlZScpCiAgICBkYi5jcmVhdGVJbWFnZUxheWVyKGZpcnN0UGFnZS5pZCwgeyBhc3NldElkLCB4OiAwLCB5OiAwLCB3aWR0aDogMSwgaGVpZ2h0OiAxLCByb3RhdGlvbjogMCwgekluZGV4OiAxLCBmaXQ6ICdjb3ZlcicsIHJhZGl1czogMCB9KQogICAgZGIuY3JlYXRlSW1hZ2VMYXllcihzZWNvbmRQYWdlLmlkLCB7IGFzc2V0SWQsIHg6IDAsIHk6IDAsIHdpZHRoOiAxLCBoZWlnaHQ6IDEsIHJvdGF0aW9uOiAwLCB6SW5kZXg6IDEsIGZpdDogJ2NvdmVyJywgcmFkaXVzOiAwIH0pCgogICAgY29uc3QgcmVzdWx0ID0gYXdhaXQgZXhwb3J0ZXIuZXhwb3J0V29yayh3b3JrLmlkLCB7IGRpcmVjdG9yeSwgZm9ybWF0OiAncG5nJywgcXVhbGl0eTogOTIsIGxvbmdFZGdlOiAxMDgwLCBnYXA6IDI0LCBmaWxlTmFtZVByZWZpeDogJ+mVv+Wbvua1i+ivlScgfSkKICAgIGV4cGVjdChyZXN1bHQuZmlsZXMpLnRvSGF2ZUxlbmd0aCgxKQogICAgY29uc3QgbWV0YWRhdGEgPSBhd2FpdCBzaGFycChyZXN1bHQuZmlsZXNbMF0pLm1ldGFkYXRhKCkKICAgIGV4cGVjdChtZXRhZGF0YS53aWR0aCkudG9CZSgxMDgwKQogICAgZXhwZWN0KG1ldGFkYXRhLmhlaWdodCkudG9CZSgyOTA0KQogIH0pCn0p
+import { mkdtemp, rm } from 'node:fs/promises'
+import { tmpdir } from 'node:os'
+import { join } from 'node:path'
+import sharp from 'sharp'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { AppDatabase } from '../src/main/database'
+import { WorkExporter } from '../src/main/exporter'
+
+describe('WorkExporter', () => {
+  let directory: string
+  let db: AppDatabase
+  let exporter: WorkExporter
+  let assetId: string
+  let albumId: string
+
+  beforeEach(async () => {
+    directory = await mkdtemp(join(tmpdir(), 'album-export-'))
+    db = new AppDatabase(':memory:')
+    db.migrate()
+    const root = db.createSourceRoot(directory)
+    const source = join(directory, 'source.jpg')
+    await sharp({ create: { width: 400, height: 600, channels: 3, background: '#d97757' } }).jpeg().toFile(source)
+    assetId = db.upsertMediaLocation({
+      rootId: root.id,
+      absolutePath: source,
+      relativePath: 'source.jpg',
+      contentHash: 'export-source',
+      sizeBytes: 100,
+      modifiedAt: 1,
+      width: 400,
+      height: 600,
+      format: 'jpeg',
+      orientation: 'portrait'
+    }).assetId
+    albumId = db.createAlbum('导出测试').id
+    db.addAssetToAlbum(albumId, assetId)
+    exporter = new WorkExporter(db)
+  })
+
+  afterEach(async () => {
+    db.close()
+    await rm(directory, { recursive: true, force: true })
+  })
+
+  it('exports a multi-page work as correctly sized image files', async () => {
+    const work = db.createWork({ albumId, name: '多页', outputMode: 'pages', canvasWidth: 1080, canvasHeight: 1440, background: '#ffffff' })
+    const page = db.createPage(work.id, 0, '#ffffff')
+    db.createImageLayer(page.id, { assetId, x: 0.1, y: 0.1, width: 0.8, height: 0.8, rotation: 0, zIndex: 1, fit: 'cover', radius: 0 })
+
+    const result = await exporter.exportWork(work.id, { directory, format: 'jpeg', quality: 92, longEdge: 1080, gap: 0, fileNamePrefix: '测试' })
+    expect(result.files).toHaveLength(1)
+    const metadata = await sharp(result.files[0]).metadata()
+    expect(metadata.width).toBe(1080)
+    expect(metadata.height).toBe(1440)
+  })
+
+  it('combines pages into a long image with the requested gap', async () => {
+    const work = db.createWork({ albumId, name: '长图', outputMode: 'long_image', canvasWidth: 1080, canvasHeight: 1440, background: '#ffffff' })
+    const firstPage = db.createPage(work.id, 0, '#ffffff')
+    const secondPage = db.createPage(work.id, 1, '#eeeeee')
+    db.createImageLayer(firstPage.id, { assetId, x: 0, y: 0, width: 1, height: 1, rotation: 0, zIndex: 1, fit: 'cover', radius: 0 })
+    db.createImageLayer(secondPage.id, { assetId, x: 0, y: 0, width: 1, height: 1, rotation: 0, zIndex: 1, fit: 'cover', radius: 0 })
+
+    const result = await exporter.exportWork(work.id, { directory, format: 'png', quality: 92, longEdge: 1080, gap: 24, fileNamePrefix: '长图测试' })
+    expect(result.files).toHaveLength(1)
+    const metadata = await sharp(result.files[0]).metadata()
+    expect(metadata.width).toBe(1080)
+    expect(metadata.height).toBe(2904)
+  })
+})

@@ -1,1 +1,30 @@
-aW1wb3J0IHsgY29weUZpbGUsIG1rZGlyLCByZWFkZGlyLCBybSB9IGZyb20gJ25vZGU6ZnMvcHJvbWlzZXMnCmltcG9ydCB7IGpvaW4gfSBmcm9tICdub2RlOnBhdGgnCmltcG9ydCB0eXBlIHsgQXBwRGF0YWJhc2UgfSBmcm9tICcuL2RhdGFiYXNlJwoKZXhwb3J0IGNsYXNzIEJhY2t1cFNlcnZpY2UgewogIGNvbnN0cnVjdG9yKAogICAgcHJpdmF0ZSByZWFkb25seSBkYjogQXBwRGF0YWJhc2UsCiAgICBwcml2YXRlIHJlYWRvbmx5IGRhdGFiYXNlUGF0aDogc3RyaW5nLAogICAgcHJpdmF0ZSByZWFkb25seSBiYWNrdXBEaXJlY3Rvcnk6IHN0cmluZywKICAgIHByaXZhdGUgcmVhZG9ubHkga2VlcCA9IDcKICApIHt9CgogIGFzeW5jIGNyZWF0ZUJhY2t1cChhdCA9IG5ldyBEYXRlKCkpOiBQcm9taXNlPHN0cmluZz4gewogICAgYXdhaXQgbWtkaXIodGhpcy5iYWNrdXBEaXJlY3RvcnksIHsgcmVjdXJzaXZlOiB0cnVlIH0pCiAgICB0aGlzLmRiLmNoZWNrcG9pbnQoKQogICAgY29uc3QgdGltZXN0YW1wID0gYXQudG9JU09TdHJpbmcoKS5yZXBsYWNlQWxsKCc6JywgJy0nKS5yZXBsYWNlQWxsKCcuJywgJy0nKQogICAgY29uc3QgZGVzdGluYXRpb24gPSBqb2luKHRoaXMuYmFja3VwRGlyZWN0b3J5LCBgbGlicmFyeS0ke3RpbWVzdGFtcH0uc3FsaXRlYCkKICAgIGF3YWl0IGNvcHlGaWxlKHRoaXMuZGF0YWJhc2VQYXRoLCBkZXN0aW5hdGlvbikKICAgIGF3YWl0IHRoaXMucHJ1bmUoKQogICAgcmV0dXJuIGRlc3RpbmF0aW9uCiAgfQoKICBwcml2YXRlIGFzeW5jIHBydW5lKCk6IFByb21pc2U8dm9pZD4gewogICAgY29uc3QgZmlsZXMgPSAoYXdhaXQgcmVhZGRpcih0aGlzLmJhY2t1cERpcmVjdG9yeSkpCiAgICAgIC5maWx0ZXIoKGZpbGUpID0+IC9ebGlicmFyeS0uKlwuc3FsaXRlJC8udGVzdChmaWxlKSkKICAgICAgLnNvcnQoKQogICAgICAucmV2ZXJzZSgpCiAgICBhd2FpdCBQcm9taXNlLmFsbChmaWxlcy5zbGljZSh0aGlzLmtlZXApLm1hcCgoZmlsZSkgPT4gcm0oam9pbih0aGlzLmJhY2t1cERpcmVjdG9yeSwgZmlsZSksIHsgZm9yY2U6IHRydWUgfSkpKQogIH0KfQ==
+import { copyFile, mkdir, readdir, rm } from 'node:fs/promises'
+import { join } from 'node:path'
+import type { AppDatabase } from './database'
+
+export class BackupService {
+  constructor(
+    private readonly db: AppDatabase,
+    private readonly databasePath: string,
+    private readonly backupDirectory: string,
+    private readonly keep = 7
+  ) {}
+
+  async createBackup(at = new Date()): Promise<string> {
+    await mkdir(this.backupDirectory, { recursive: true })
+    this.db.checkpoint()
+    const timestamp = at.toISOString().replaceAll(':', '-').replaceAll('.', '-')
+    const destination = join(this.backupDirectory, `library-${timestamp}.sqlite`)
+    await copyFile(this.databasePath, destination)
+    await this.prune()
+    return destination
+  }
+
+  private async prune(): Promise<void> {
+    const files = (await readdir(this.backupDirectory))
+      .filter((file) => /^library-.*\.sqlite$/.test(file))
+      .sort()
+      .reverse()
+    await Promise.all(files.slice(this.keep).map((file) => rm(join(this.backupDirectory, file), { force: true })))
+  }
+}

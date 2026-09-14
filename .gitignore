@@ -1,1 +1,6 @@
-bm9kZV9tb2R1bGVzLwpvdXQvCmRpc3QvCmNvdmVyYWdlLwoqLmxvZwouRFNfU3RvcmU=
+node_modules/
+out/
+dist/
+coverage/
+*.log
+.DS_Store
