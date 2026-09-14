@@ -186,9 +186,12 @@ export interface ExportResult {
   pages: number
 }
 
+export type AppTheme = 'warm' | 'ocean' | 'forest' | 'rose'
+
 export interface AppSettings {
   thumbnailCacheLimitGb: number
   autoWatch: boolean
+  theme: AppTheme
 }
 
 export interface ScanSummary {

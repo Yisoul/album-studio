@@ -60,6 +60,7 @@ export class LibraryScanner {
     onProgress?: (progress: ScanProgress) => void
   ): Promise<ScanResult> {
     const errors: string[] = []
+    const unchangedLocations: Array<{ id: string; assetId: string }> = []
     let discovered = 0
     let processed = 0
     let indexed = 0
@@ -79,8 +80,9 @@ export class LibraryScanner {
 
     await mapLimit(files, Math.max(1, Math.min(4, (await import('node:os')).cpus().length - 1)), async (filePath) => {
       try {
-        await this.indexFile(root, filePath)
-        indexed += 1
+        const unchanged = await this.indexFile(root, filePath)
+        if (unchanged) unchangedLocations.push(unchanged)
+        else indexed += 1
       } catch (error) {
         errors.push(`${filePath}: ${error instanceof Error ? error.message : String(error)}`)
       } finally {
@@ -89,6 +91,7 @@ export class LibraryScanner {
       }
     })
 
+    this.db.markLocationsAvailable(unchangedLocations)
     onProgress?.({ rootId: root.id, phase: 'complete', discovered, processed, indexed, errors: errors.length })
     return { discovered, indexed, errors }
   }
@@ -176,9 +179,13 @@ export class LibraryScanner {
     return files
   }
 
-  private async indexFile(root: SourceRoot, filePath: string): Promise<void> {
-    if (this.db.isPathIgnored(filePath)) return
+  private async indexFile(root: SourceRoot, filePath: string): Promise<{ id: string; assetId: string } | null> {
+    if (this.db.isPathIgnored(filePath)) return null
     const fileStat = await stat(filePath)
+    const existing = this.db.getLocationByPath(filePath)
+    if (existing && existing.rootId === root.id && existing.sizeBytes === fileStat.size && Math.abs(existing.modifiedAt - fileStat.mtimeMs) <= 1) {
+      return { id: existing.id, assetId: existing.assetId }
+    }
     const metadata = await sharp(filePath, { failOn: 'none' }).metadata()
     if (!metadata.width || !metadata.height) throw new Error('无法读取图片尺寸')
 
@@ -206,6 +213,7 @@ export class LibraryScanner {
       orientation
     }
     this.db.upsertMediaLocation(input)
+    return null
   }
 
   private async readExif(path: string): Promise<ExifRecord> {

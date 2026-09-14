@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { AppStats, CreateWorkRequest } from '../../shared/api'
 import type {
-  Album, AppSettings, DuplicateGroup, FolderSummary, MediaAssetSummary, MediaLocation, OutputMode,
+  Album, AppSettings, AppTheme, DuplicateGroup, FolderSummary, MediaAssetSummary, MediaLocation, OutputMode,
   ScanProgress, SearchFilters, SourceRemovalMode, SourceRemovalResult, SourceRoot, SourceRootImpact,
   TemplateDefinition, Work
 } from '../../shared/types'
+import ContextMenu from './ContextMenu'
 import Editor from './Editor'
 import TextInputDialog from './TextInputDialog'
 import { errorMessage, formatCamera, formatDate, previewUrl, thumbnailUrl } from './helpers'
@@ -23,6 +24,7 @@ export default function App() {
   const [scanProgress, setScanProgress] = useState<ScanProgress | null>(null)
   const [toast, setToast] = useState<{ kind: 'info' | 'error'; text: string } | null>(null)
   const [albumDialogOpen, setAlbumDialogOpen] = useState(false)
+  const [theme, setTheme] = useState<AppTheme>('warm')
 
   const refreshStats = useCallback(async () => setStats(await window.albumApi.app.getStats()), [])
   const refreshRoots = useCallback(async () => setRoots(await window.albumApi.library.listRoots()), [])
@@ -33,6 +35,8 @@ export default function App() {
     await Promise.all([refreshStats(), refreshRoots(), refreshAlbums(), refreshTemplates()])
   }, [refreshAlbums, refreshRoots, refreshStats, refreshTemplates])
 
+  useEffect(() => { void window.albumApi.app.getSettings().then((settings) => setTheme(settings.theme)).catch(() => undefined) }, [])
+  useEffect(() => { document.documentElement.dataset.theme = theme }, [theme])
   useEffect(() => {
     void refreshAll().catch((error) => setToast({ kind: 'error', text: errorMessage(error) }))
     return window.albumApi.app.onScanProgress((progress) => {
@@ -108,7 +112,7 @@ export default function App() {
           <NavButton icon="▤" label="相册" count={albums.length} active={nav === 'albums'} onClick={() => setNav('albums')} />
           <NavButton icon="⚙" label="设置" active={nav === 'settings'} onClick={() => setNav('settings')} />
         </nav>
-        <div className="sidebar-stats"><span>{stats.assets.toLocaleString()} 张照片</span><span>{stats.roots} 个来源目录</span>{stats.missing > 0 && <span className="warning">{stats.missing} 张缺失</span>}</div>
+        <div className="sidebar-stats"><span>{stats.assets.toLocaleString()} 张照片</span><span>{stats.roots} 个来源目录</span></div>
       </aside>
       <main className="main-content">
         {scanProgress && scanProgress.phase !== 'complete' && (
@@ -143,6 +147,7 @@ function LibraryPage(props: { roots: SourceRoot[]; albums: Album[]; onAddRoots: 
   const [total, setTotal] = useState(0)
   const [selected, setSelected] = useState<Set<string>>(new Set())
   const [detail, setDetail] = useState<MediaAssetSummary | null>(null)
+  const [contextMenu, setContextMenu] = useState<{ x: number; y: number; asset: MediaAssetSummary } | null>(null)
   const [loading, setLoading] = useState(false)
   const [loadingMore, setLoadingMore] = useState(false)
   const requestIdRef = useRef(0)
@@ -199,6 +204,32 @@ function LibraryPage(props: { roots: SourceRoot[]; albums: Album[]; onAddRoots: 
     }
   }
 
+  const addAssetToAlbum = async (album: Album, assetId: string) => {
+    try { await window.albumApi.albums.addAssets(album.id, [assetId]); props.onToast({ kind: 'info', text: `已加入“${album.name}”` }) } catch (error) { props.onToast({ kind: 'error', text: errorMessage(error) }) }
+  }
+  const toggleFavorite = async (asset: MediaAssetSummary) => {
+    try {
+      await window.albumApi.library.setFavorite(asset.id, !asset.favorite)
+      setPhotos((current) => current.map((item) => item.id === asset.id ? { ...item, favorite: !asset.favorite } : item))
+    } catch (error) { props.onToast({ kind: 'error', text: errorMessage(error) }) }
+  }
+  const showAssetInFolder = async (asset: MediaAssetSummary) => {
+    try {
+      const locations = await window.albumApi.library.listLocations(asset.id)
+      const available = locations.find((location) => location.status === 'available')
+      if (available) await window.albumApi.library.showInFolder(available.id)
+    } catch (error) { props.onToast({ kind: 'error', text: errorMessage(error) }) }
+  }
+  const removeFromLibrary = async (asset: MediaAssetSummary) => {
+    if (!window.confirm('从图库移除这张照片？相册和作品中的引用会保留，磁盘原图不会删除。')) return
+    try {
+      await window.albumApi.library.ignoreAsset(asset.id)
+      setPhotos((current) => current.filter((item) => item.id !== asset.id))
+      setTotal((current) => Math.max(0, current - 1))
+      await props.onRefreshStats()
+    } catch (error) { props.onToast({ kind: 'error', text: errorMessage(error) }) }
+  }
+
   return (
     <section className="page">
       <header className="page-header"><div><p className="eyebrow">PHOTO LIBRARY</p><h1>图库</h1><p className="subtle">原图只在磁盘保存一份，相册和作品都使用引用。</p></div><div className="header-actions"><button className="button secondary" onClick={() => void props.onScanAll()}>重新扫描</button><button className="button primary" onClick={() => void props.onAddRoots()}>＋ 添加文件夹</button></div></header>
@@ -211,18 +242,28 @@ function LibraryPage(props: { roots: SourceRoot[]; albums: Album[]; onAddRoots: 
             <input placeholder="镜头型号" value={filters.lens ?? ''} onChange={(event) => updateFilters({ lens: event.target.value || undefined })} />
             <label className="check-label"><input type="checkbox" checked={filters.favorite ?? false} onChange={(event) => updateFilters({ favorite: event.target.checked || undefined })} /> 仅收藏</label><select value={filters.sort ?? 'captured_desc'} onChange={(event) => updateFilters({ sort: event.target.value as SearchFilters['sort'] })}><option value="captured_desc">拍摄时间：新到旧（默认）</option><option value="captured_asc">拍摄时间：旧到新</option><option value="added_desc">导入时间：新到旧</option><option value="added_asc">导入时间：旧到新</option><option value="filename_asc">文件名：A-Z</option><option value="filename_desc">文件名：Z-A</option></select>
           </div>
-          <FolderBrowser folders={folders} viewMode={viewMode} selectedFolderPaths={filters.folderPaths ?? []} onViewModeChange={(mode) => { setViewMode(mode); if (mode === 'all') updateFilters({ folderPaths: undefined }) }} onSelectedFolderPathsChange={(folderPaths) => updateFilters({ folderPaths: folderPaths.length ? folderPaths : undefined })}>
-            <div className="selection-bar">
-              <span>共 {total.toLocaleString()} 张{selected.size > 0 ? `，已选 ${selected.size} 张` : ''}</span>
-              {selected.size > 0 && <><select defaultValue="" onChange={(event) => { void addToAlbum(event.target.value); event.target.value = '' }}><option value="" disabled>加入相册…</option>{props.albums.map((album) => <option key={album.id} value={album.id}>{album.name}</option>)}</select><button className="text-button" onClick={() => setSelected(new Set())}>取消选择</button></>}
+          <div className="selection-bar">
+            <span className="selection-summary">共 {total.toLocaleString()} 张{selected.size > 0 ? `，已选 ${selected.size} 张` : ''}</span>
+            <div className="selection-actions">
+              {photos.length > 0 && <button className="button secondary compact" onClick={() => setSelected(new Set(photos.map((photo) => photo.id)))}>全选已加载</button>}
+              {selected.size > 0 && <><select defaultValue="" onChange={(event) => { void addToAlbum(event.target.value); event.target.value = '' }}><option value="" disabled>加入相册…</option>{props.albums.map((album) => <option key={album.id} value={album.id}>{album.name}</option>)}</select><button className="button secondary compact" onClick={() => setSelected(new Set())}>取消选择</button></>}
             </div>
-            {loading && photos.length === 0 ? <div className="loading">正在读取图库…</div> : <PhotoCollection photos={photos} folders={folders} viewMode={viewMode} renderPhoto={(photo) => <PhotoCard key={photo.id} asset={photo} selected={selected.has(photo.id)} onToggle={() => setSelected((current) => toggleSet(current, photo.id))} onOpen={() => setDetail(photo)} />} />}
+          </div>
+          <FolderBrowser folders={folders} viewMode={viewMode} selectedFolderPaths={filters.folderPaths ?? []} onViewModeChange={(mode) => { setViewMode(mode); if (mode === 'all') updateFilters({ folderPaths: undefined }) }} onSelectedFolderPathsChange={(folderPaths) => updateFilters({ folderPaths: folderPaths.length ? folderPaths : undefined })}>
+            {loading && photos.length === 0 ? <div className="loading">正在读取图库…</div> : <PhotoCollection photos={photos} folders={folders} viewMode={viewMode} renderPhoto={(photo) => <PhotoCard key={photo.id} asset={photo} selected={selected.has(photo.id)} onToggle={() => setSelected((current) => toggleSet(current, photo.id))} onOpen={() => setDetail(photo)} onContextMenu={(event) => { event.preventDefault(); setContextMenu({ x: event.clientX, y: event.clientY, asset: photo }) }} />} />}
             {photos.length === 0 && !loading && <EmptyState title="没有匹配的照片" text="换个关键词或清空筛选条件。" />}
             {photos.length > 0 && <div className="load-more" ref={sentinelRef}>{hasMore ? <button className="button secondary" disabled={loadingMore} onClick={() => setPage((current) => current + 1)}>{loadingMore ? '正在加载…' : '加载更多'}</button> : <span>已显示全部 {total.toLocaleString()} 张</span>}</div>}
           </FolderBrowser>
         </>
       )}
       {detail && <PhotoDetail asset={detail} assets={photos} onChange={setDetail} onClose={() => setDetail(null)} onToast={props.onToast} />}
+      {contextMenu && <ContextMenu x={contextMenu.x} y={contextMenu.y} onClose={() => setContextMenu(null)} items={[
+        { label: '查看大图', onClick: () => setDetail(contextMenu.asset) },
+        { label: contextMenu.asset.favorite ? '取消收藏' : '加入收藏', onClick: () => void toggleFavorite(contextMenu.asset) },
+        { label: '在文件夹中显示', disabled: contextMenu.asset.missing, onClick: () => void showAssetInFolder(contextMenu.asset) },
+        ...props.albums.map((album) => ({ label: `加入相册：${album.name}`, onClick: () => void addAssetToAlbum(album, contextMenu.asset.id) })),
+        { label: '从图库移除', separator: true, danger: true, onClick: () => void removeFromLibrary(contextMenu.asset) }
+      ]} />}
     </section>
   )
 }
@@ -287,20 +328,18 @@ function PhotoCollection(props: { photos: MediaAssetSummary[]; folders: FolderSu
   return <div className="folder-sections">{[...groups.values()].map((group) => <section className="folder-section" key={group.folder.path}><header><div><strong>{group.folder.name}</strong><span>{group.folder.path}</span></div><b>{group.photos.length}</b></header><div className="photo-grid">{group.photos.map(props.renderPhoto)}</div></section>)}{ungrouped.length > 0 && <section className="folder-section"><header><div><strong>其他</strong><span>未归入可用文件夹</span></div><b>{ungrouped.length}</b></header><div className="photo-grid">{ungrouped.map(props.renderPhoto)}</div></section>}</div>
 }
 
-function PhotoCard(props: { asset: MediaAssetSummary; selected: boolean; onToggle: () => void; onOpen: () => void; cover?: boolean; onSetCover?: () => void }) {
+function PhotoCard(props: { asset: MediaAssetSummary; selected: boolean; onToggle: () => void; onOpen: () => void; onContextMenu?: (event: React.MouseEvent) => void }) {
   const [imageFailed, setImageFailed] = useState(false)
   useEffect(() => setImageFailed(false), [props.asset.id])
   const unavailable = props.asset.missing || imageFailed
   return (
-    <article className={`photo-card ${props.selected ? 'selected' : ''}`} onClick={props.onToggle} onDoubleClick={props.onOpen}>
+    <article className={`photo-card ${props.selected ? 'selected' : ''}`} onClick={props.onToggle} onDoubleClick={props.onOpen} onContextMenu={props.onContextMenu}>
       <div className="photo-image">
         {unavailable ? <div className="photo-placeholder"><span>▧</span><small>来源已移除</small></div> : <img loading="lazy" src={thumbnailUrl(props.asset.id)} alt={props.asset.primaryPath ?? '照片'} onError={() => setImageFailed(true)} />}
         <button type="button" className={`select-dot ${props.selected ? 'active' : ''}`} aria-label="选择照片" onClick={(event) => { event.stopPropagation(); props.onToggle() }}>{props.selected ? '✓' : ''}</button>
         {props.asset.favorite && <span className="favorite-mark">★</span>}
         {props.asset.missing && <span className="missing-mark">文件缺失</span>}
         {props.asset.locationCount > 1 && <span className="duplicate-mark">{props.asset.locationCount} 份副本</span>}
-        {props.cover && <span className="cover-mark">封面</span>}
-        {props.onSetCover && <button type="button" className={`cover-action ${props.cover ? 'active' : ''}`} disabled={props.cover} onClick={(event) => { event.stopPropagation(); if (!props.cover) props.onSetCover?.() }}>{props.cover ? '当前封面' : '设为封面'}</button>}
       </div>
       <div className="photo-meta"><strong>{unavailable ? '来源不可用' : fileName(props.asset.primaryPath)}</strong><span>{formatDate(props.asset.capturedAt)}</span></div>
     </article>
@@ -310,6 +349,8 @@ function PhotoCard(props: { asset: MediaAssetSummary; selected: boolean; onToggl
 function PhotoDetail(props: { asset: MediaAssetSummary; assets: MediaAssetSummary[]; onChange: (asset: MediaAssetSummary) => void; onClose: () => void; onToast: (toast: { kind: 'info' | 'error'; text: string }) => void }) {
   const [locations, setLocations] = useState<MediaLocation[]>([])
   const [fullscreen, setFullscreen] = useState(false)
+  const [previewLoaded, setPreviewLoaded] = useState(false)
+  const [previewFailed, setPreviewFailed] = useState(false)
   const previewRef = useRef<HTMLDivElement>(null)
   const lastNavigationRef = useRef(0)
   const currentIndex = Math.max(0, props.assets.findIndex((asset) => asset.id === props.asset.id))
@@ -321,6 +362,16 @@ function PhotoDetail(props: { asset: MediaAssetSummary; assets: MediaAssetSummar
     if (nextIndex !== index) props.onChange(props.assets[nextIndex])
   }, [props.asset.id, props.assets, props.onChange])
   useEffect(() => { void window.albumApi.library.listLocations(props.asset.id).then(setLocations) }, [props.asset.id])
+  useEffect(() => { setPreviewLoaded(false); setPreviewFailed(false) }, [props.asset.id])
+  useEffect(() => {
+    for (const offset of [-1, 1]) {
+      const asset = props.assets[(currentIndex + offset + props.assets.length) % props.assets.length]
+      if (!asset || asset.missing || asset.id === props.asset.id) continue
+      const image = new window.Image()
+      image.decoding = 'async'
+      image.src = previewUrl(asset.id, 1600)
+    }
+  }, [currentIndex, props.asset.id, props.assets])
   useEffect(() => {
     const update = () => setFullscreen(document.fullscreenElement === previewRef.current)
     document.addEventListener('fullscreenchange', update)
@@ -329,6 +380,7 @@ function PhotoDetail(props: { asset: MediaAssetSummary; assets: MediaAssetSummar
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement || event.target instanceof HTMLSelectElement) return
+      if (event.key === 'Escape' && !document.fullscreenElement) { event.preventDefault(); props.onClose(); return }
       const delta = event.key === 'ArrowLeft' || event.key === 'ArrowUp' ? -1 : event.key === 'ArrowRight' || event.key === 'ArrowDown' ? 1 : 0
       if (!delta || !multiple) return
       const now = Date.now()
@@ -354,9 +406,12 @@ function PhotoDetail(props: { asset: MediaAssetSummary; assets: MediaAssetSummar
       <div className="detail-layout">
         <div className="detail-preview" ref={previewRef}>
           <div className="preview-counter">{currentIndex + 1} / {props.assets.length}</div>
-          <button className="fullscreen-button" onClick={() => void toggleFullscreen()}>{fullscreen ? '退出全屏' : '全屏查看'}</button>
+          <button className="fullscreen-button" disabled={props.asset.missing || previewFailed} onClick={() => void toggleFullscreen()}>{fullscreen ? '退出全屏' : '全屏查看'}</button>
           {multiple && <><button className="preview-nav previous" aria-label="上一张" onClick={() => navigate(-1)}>‹</button><button className="preview-nav next" aria-label="下一张" onClick={() => navigate(1)}>›</button></>}
-          <img src={previewUrl(props.asset.id)} alt="照片预览" onDoubleClick={() => void toggleFullscreen()} />
+          <div className="preview-image-wrap">
+            {!props.asset.missing && !previewFailed && <img key={props.asset.id} className={`preview-full ${previewLoaded ? 'loaded' : ''}`} src={previewUrl(props.asset.id, 1600)} alt="照片预览" decoding="async" onLoad={() => setPreviewLoaded(true)} onError={() => setPreviewFailed(true)} onDoubleClick={() => void toggleFullscreen()} />}
+            {(props.asset.missing || previewFailed) && <div className="preview-missing-message"><strong>原图不可用</strong><span>{props.asset.primaryPath ?? '文件位置已移除或磁盘离线'}</span></div>}
+          </div>
         </div>
         <div className="detail-info"><dl><dt>拍摄时间</dt><dd>{formatDate(props.asset.capturedAt)}</dd><dt>尺寸</dt><dd>{props.asset.width} × {props.asset.height}</dd><dt>拍摄参数</dt><dd>{formatCamera(props.asset)}</dd></dl><button className="button secondary" onClick={() => void favorite()}>{props.asset.favorite ? '取消收藏' : '加入收藏'}</button><h3>文件位置</h3>{locations.map((location) => <div className={`location-row ${location.status === 'missing' ? 'missing' : ''}`} key={location.id}><span title={location.absolutePath}>{location.absolutePath}</span>{location.status === 'available' && <button className="text-button" onClick={() => void window.albumApi.library.showInFolder(location.id)}>定位</button>}</div>)}</div>
       </div>
@@ -373,17 +428,37 @@ function DuplicatesPage(props: { onToast: (toast: { kind: 'info' | 'error'; text
 
 function DuplicateCard(props: { group: DuplicateGroup; onChanged: () => Promise<void>; onToast: (toast: { kind: 'info' | 'error'; text: string }) => void }) {
   const [locations, setLocations] = useState<MediaLocation[]>([])
+  const [dialog, setDialog] = useState<{ kind: 'location'; location: MediaLocation } | { kind: 'group' } | null>(null)
+  const [busy, setBusy] = useState(false)
   useEffect(() => { void window.albumApi.library.listLocations(props.group.assetId).then(setLocations) }, [props.group.assetId])
   const run = async (action: () => Promise<void>) => { try { await action(); await props.onChanged() } catch (error) { props.onToast({ kind: 'error', text: errorMessage(error) }) } }
+  const confirmDelete = async () => {
+    if (!dialog) return
+    setBusy(true)
+    try {
+      if (dialog.kind === 'location') await window.albumApi.library.deleteOriginal(dialog.location.id)
+      else await window.albumApi.library.ignoreAsset(props.group.assetId)
+      await props.onChanged()
+      setDialog(null)
+    } catch (error) { props.onToast({ kind: 'error', text: errorMessage(error) }) } finally { setBusy(false) }
+  }
   return (
-    <article className="duplicate-card"><img src={thumbnailUrl(props.group.assetId)} alt="重复照片" /><div className="duplicate-content"><div className="duplicate-title"><strong>{props.group.locationCount} 个相同副本</strong><span>磁盘仅保留原文件，不额外复制</span></div>{locations.map((location) => <div className={`location-row ${location.status === 'missing' ? 'missing' : ''}`} key={location.id}><span title={location.absolutePath}>{location.absolutePath}</span>{location.status === 'available' && <button className="text-button" onClick={() => void run(() => window.albumApi.library.setPreferredLocation(props.group.assetId, location.id))}>设为原图</button>}{location.status === 'available' && <button className="text-button danger" onClick={() => { if (window.confirm('将这份原图移入系统回收站？')) void run(() => window.albumApi.library.deleteOriginal(location.id)) }}>删除到回收站</button>}</div>)}<button className="text-button danger" onClick={() => { if (window.confirm('从图库移除这组照片？磁盘文件不会删除。')) void run(() => window.albumApi.library.ignoreAsset(props.group.assetId)) }}>从图库移除</button></div></article>
+    <>
+      <article className="duplicate-card"><img src={thumbnailUrl(props.group.assetId)} alt="重复照片" /><div className="duplicate-content"><div className="duplicate-title"><strong>{props.group.locationCount} 个相同副本</strong><span>磁盘仅保留原文件，不额外复制</span></div>{locations.map((location) => <div className={`location-row ${location.status === 'missing' ? 'missing' : ''}`} key={location.id}><span title={location.absolutePath}>{location.absolutePath}</span>{location.status === 'available' && <button className="text-button" onClick={() => void run(() => window.albumApi.library.setPreferredLocation(props.group.assetId, location.id))}>设为原图</button>}{location.status === 'available' && <button className="text-button danger" onClick={() => setDialog({ kind: 'location', location })}>删除到回收站</button>}</div>)}<button className="text-button danger" onClick={() => setDialog({ kind: 'group' })}>从图库移除</button></div></article>
+      {dialog && <Modal title={dialog.kind === 'location' ? '删除原图' : '从图库移除'} onClose={() => { if (!busy) setDialog(null) }}><div className="confirm-dialog"><div className="confirm-icon">{dialog.kind === 'location' ? '⌫' : '−'}</div><div><strong>{dialog.kind === 'location' ? '将原图移入系统回收站？' : '从图库移除整组照片？'}</strong><p>{dialog.kind === 'location' ? '文件会进入 Windows 回收站，可从回收站恢复。' : '只删除应用中的记录，磁盘文件不会删除。'}</p></div><div className="dialog-actions"><button className="button secondary" disabled={busy} onClick={() => setDialog(null)}>取消</button><button className="button danger-solid" disabled={busy} onClick={() => void confirmDelete()}>{busy ? '处理中…' : '确认'}</button></div></div></Modal>}
+    </>
   )
 }
 
 function AlbumsPage(props: { albums: Album[]; selectedAlbumId: string | null; onSelectAlbum: (albumId: string | null) => void; onRefreshAlbums: () => Promise<void>; templates: TemplateDefinition[]; onOpenWork: (workId: string) => void; onToast: (toast: { kind: 'info' | 'error'; text: string }) => void; onCreateAlbum: () => void }) {
   const selected = props.albums.find((album) => album.id === props.selectedAlbumId)
+  const [contextMenu, setContextMenu] = useState<{ x: number; y: number; album: Album } | null>(null)
+  const removeAlbum = async (album: Album) => {
+    if (!window.confirm(`删除相册“${album.name}”？作品和相册关系会一起删除，磁盘原图不受影响。`)) return
+    try { await window.albumApi.albums.remove(album.id); await props.onRefreshAlbums(); props.onToast({ kind: 'info', text: '相册已删除' }) } catch (error) { props.onToast({ kind: 'error', text: errorMessage(error) }) }
+  }
   if (selected) return <AlbumDetail album={selected} onBack={() => props.onSelectAlbum(null)} onRefreshAlbums={props.onRefreshAlbums} templates={props.templates} onOpenWork={props.onOpenWork} onToast={props.onToast} />
-  return <section className="page"><header className="page-header"><div><p className="eyebrow">ALBUMS</p><h1>相册</h1><p className="subtle">同一张照片可放入多个相册，不会产生额外副本。</p></div><button className="button primary" onClick={() => void props.onCreateAlbum()}>＋ 新建相册</button></header>{props.albums.length === 0 ? <EmptyState title="还没有相册" text="创建相册后，可以从图库批量选图加入。" action="新建相册" onAction={() => void props.onCreateAlbum()} /> : <div className="album-grid">{props.albums.map((album) => <button className="album-card" key={album.id} onClick={() => props.onSelectAlbum(album.id)}>{album.coverAssetId ? <img src={thumbnailUrl(album.coverAssetId, 640)} alt={album.name} /> : <div className="album-placeholder">▤</div>}<span><strong>{album.name}</strong><small>{formatDate(new Date(album.updatedAt).toISOString())} 更新</small></span></button>)}</div>}</section>
+  return <section className="page"><header className="page-header"><div><p className="eyebrow">ALBUMS</p><h1>相册</h1><p className="subtle">同一张照片可放入多个相册，不会产生额外副本。</p></div><button className="button primary" onClick={() => void props.onCreateAlbum()}>＋ 新建相册</button></header>{props.albums.length === 0 ? <EmptyState title="还没有相册" text="创建相册后，可以从图库批量选图加入。" action="新建相册" onAction={() => void props.onCreateAlbum()} /> : <div className="album-grid">{props.albums.map((album) => <button className="album-card" key={album.id} onClick={() => props.onSelectAlbum(album.id)} onContextMenu={(event) => { event.preventDefault(); setContextMenu({ x: event.clientX, y: event.clientY, album }) }}>{album.coverAssetId ? <img src={thumbnailUrl(album.coverAssetId, 640)} alt={album.name} /> : <div className="album-placeholder">▤</div>}<span><strong>{album.name}</strong><small>{formatDate(new Date(album.updatedAt).toISOString())} 更新</small></span></button>)}</div>}{contextMenu && <ContextMenu x={contextMenu.x} y={contextMenu.y} onClose={() => setContextMenu(null)} items={[{ label: '打开相册', onClick: () => props.onSelectAlbum(contextMenu.album.id) }, { label: '删除相册', separator: true, danger: true, onClick: () => void removeAlbum(contextMenu.album) }]} />}</section>
 }
 
 function AlbumDetail(props: { album: Album; onBack: () => void; onRefreshAlbums: () => Promise<void>; templates: TemplateDefinition[]; onOpenWork: (workId: string) => void; onToast: (toast: { kind: 'info' | 'error'; text: string }) => void }) {
@@ -393,6 +468,8 @@ function AlbumDetail(props: { album: Album; onBack: () => void; onRefreshAlbums:
   const [pickerOpen, setPickerOpen] = useState(false)
   const [workDialogOpen, setWorkDialogOpen] = useState(false)
   const [coverAssetId, setCoverAssetId] = useState(props.album.coverAssetId)
+  const [detail, setDetail] = useState<MediaAssetSummary | null>(null)
+  const [contextMenu, setContextMenu] = useState<{ x: number; y: number; asset: MediaAssetSummary } | null>(null)
   const load = useCallback(async () => { const [nextAssets, nextWorks] = await Promise.all([window.albumApi.albums.listAssets(props.album.id), window.albumApi.works.list(props.album.id)]); setAssets(nextAssets); setWorks(nextWorks) }, [props.album.id])
   useEffect(() => { void load() }, [load])
   useEffect(() => setCoverAssetId(props.album.coverAssetId), [props.album.coverAssetId])
@@ -406,6 +483,10 @@ function AlbumDetail(props: { album: Album; onBack: () => void; onRefreshAlbums:
   }
   const removeAlbum = async () => { if (!window.confirm(`删除相册“${props.album.name}”？作品和相册关系会一起删除，磁盘原图不受影响。`)) return; try { await window.albumApi.albums.remove(props.album.id); await props.onRefreshAlbums(); props.onBack() } catch (error) { props.onToast({ kind: 'error', text: errorMessage(error) }) } }
   const removeSelected = async () => { if (!selected.size) return; try { for (const assetId of selected) await window.albumApi.albums.removeAsset(props.album.id, assetId); setSelected(new Set()); await load() } catch (error) { props.onToast({ kind: 'error', text: errorMessage(error) }) } }
+  const removeAsset = async (asset: MediaAssetSummary) => {
+    if (!window.confirm('从相册移除这张照片？磁盘原图不会删除。')) return
+    try { await window.albumApi.albums.removeAsset(props.album.id, asset.id); await load(); await props.onRefreshAlbums() } catch (error) { props.onToast({ kind: 'error', text: errorMessage(error) }) }
+  }
   const removeWork = async (work: Work) => {
     if (!window.confirm(`删除作品“${work.name}”？作品排版会删除，磁盘原图不受影响。`)) return
     try { await window.albumApi.works.remove(work.id); await load() } catch (error) { props.onToast({ kind: 'error', text: errorMessage(error) }) }
@@ -413,9 +494,15 @@ function AlbumDetail(props: { album: Album; onBack: () => void; onRefreshAlbums:
   return (
     <section className="page">
       <header className="page-header album-header"><button className="back-button" onClick={props.onBack}>← 全部相册</button><div><p className="eyebrow">ALBUM</p><h1>{props.album.name}</h1><p className="subtle">{assets.length} 张照片 · {works.length} 套作品</p></div><div className="header-actions"><button className="button secondary danger" onClick={() => void removeAlbum()}>删除相册</button><button className="button secondary" onClick={() => setPickerOpen(true)}>＋ 选择照片</button><button className="button primary" onClick={() => setWorkDialogOpen(true)}>开始排版</button></div></header>
-      <section className="section-block"><div className="section-heading"><h2>照片</h2>{selected.size > 0 && <button className="text-button danger" onClick={() => void removeSelected()}>从相册移除 {selected.size} 张</button>}</div>{assets.length === 0 ? <EmptyState title="相册还是空的" text="从图库选择照片加入，不会复制原文件。" action="选择照片" onAction={() => setPickerOpen(true)} /> : <div className="photo-grid compact">{assets.map((asset) => <PhotoCard key={asset.id} asset={asset} selected={selected.has(asset.id)} cover={asset.id === coverAssetId} onSetCover={() => void setCover(asset.id)} onToggle={() => setSelected((current) => toggleSet(current, asset.id))} onOpen={() => undefined} />)}</div>}</section>
+      <section className="section-block"><div className="section-heading"><h2>照片</h2><div className="button-row">{assets.length > 0 && <button className="text-button" onClick={() => setSelected(selected.size === assets.length ? new Set() : new Set(assets.map((asset) => asset.id)))}>{selected.size === assets.length ? '取消全选' : '全选'}</button>}{selected.size > 0 && <button className="text-button danger" onClick={() => void removeSelected()}>从相册移除 {selected.size} 张</button>}</div></div>{assets.length === 0 ? <EmptyState title="相册还是空的" text="从图库选择照片加入，不会复制原文件。" action="选择照片" onAction={() => setPickerOpen(true)} /> : <div className="photo-grid compact">{assets.map((asset) => <PhotoCard key={asset.id} asset={asset} selected={selected.has(asset.id)} onToggle={() => setSelected((current) => toggleSet(current, asset.id))} onOpen={() => setDetail(asset)} onContextMenu={(event) => { event.preventDefault(); setContextMenu({ x: event.clientX, y: event.clientY, asset }) }} />)}</div>}</section>
       <section className="section-block"><div className="section-heading"><h2>作品版本</h2></div>{works.length === 0 ? <p className="subtle">还没有作品。一个相册可以保存多套不同排版。</p> : <div className="work-grid">{works.map((work) => <article className="work-card" key={work.id}><button className="work-open" onClick={() => props.onOpenWork(work.id)}><div className="work-preview"><span>{work.outputMode === 'long_image' ? '长图' : '多页'}</span></div><strong>{work.name}</strong><small>{work.canvasWidth} × {work.canvasHeight}</small></button><button className="work-delete" onClick={() => void removeWork(work)}>删除作品</button></article>)}</div>}</section>
       {pickerOpen && <AssetPicker title="选择照片加入相册" onClose={() => setPickerOpen(false)} onConfirm={async (ids) => { try { await window.albumApi.albums.addAssets(props.album.id, ids); setPickerOpen(false); await load() } catch (error) { props.onToast({ kind: 'error', text: errorMessage(error) }) } }} />}
+      {detail && <PhotoDetail asset={detail} assets={assets} onChange={setDetail} onClose={() => setDetail(null)} onToast={props.onToast} />}
+      {contextMenu && <ContextMenu x={contextMenu.x} y={contextMenu.y} onClose={() => setContextMenu(null)} items={[
+        { label: '查看大图', onClick: () => setDetail(contextMenu.asset) },
+        { label: contextMenu.asset.id === coverAssetId ? '当前已是封面' : '设为相册封面', disabled: contextMenu.asset.id === coverAssetId, onClick: () => void setCover(contextMenu.asset.id) },
+        { label: '从相册移除', separator: true, danger: true, onClick: () => void removeAsset(contextMenu.asset) }
+      ]} />}
       {workDialogOpen && <WorkCreateDialog album={props.album} existingWorks={works} templates={props.templates} onClose={() => setWorkDialogOpen(false)} onCreate={async (request) => { try { const document = await window.albumApi.works.create(request); await load(); setWorkDialogOpen(false); props.onOpenWork(document.work.id) } catch (error) { props.onToast({ kind: 'error', text: errorMessage(error) }) } }} />}
     </section>
   )
@@ -483,7 +570,7 @@ function AssetPicker(props: { title: string; onClose: () => void; onConfirm: (id
         <PhotoCollection photos={assets} folders={folders} viewMode={viewMode} renderPhoto={(asset) => <PhotoCard key={asset.id} asset={asset} selected={selected.has(asset.id)} onToggle={() => setSelected((current) => toggleSet(current, asset.id))} onOpen={() => setDetail(asset)} />} />
         {assets.length > 0 && <div className="load-more" ref={sentinelRef}>{hasMore ? <button className="button secondary" disabled={loadingMore} onClick={() => setPage((current) => current + 1)}>{loadingMore ? '正在加载…' : '加载更多'}</button> : <span>已显示全部 {total.toLocaleString()} 张</span>}</div>}
       </FolderBrowser>
-      <div className="modal-actions"><span>已选 {selected.size} 张，双击照片可看大图</span><button className="button primary" disabled={!selected.size} onClick={() => void props.onConfirm([...selected])}>确认加入</button></div>
+      <div className="modal-actions"><div className="button-row"><button className="text-button" onClick={() => setSelected(selected.size === assets.length ? new Set() : new Set(assets.map((asset) => asset.id)))}>{selected.size === assets.length ? '取消全选' : '全选已加载'}</button><span>已选 {selected.size} 张</span></div><button className="button primary" disabled={!selected.size} onClick={() => void props.onConfirm([...selected])}>确认加入</button></div>
       {detail && <PhotoDetail asset={detail} assets={assets} onChange={setDetail} onClose={() => setDetail(null)} onToast={() => undefined} />}
     </Modal>
   )
@@ -497,11 +584,11 @@ function SettingsPage(props: {
   onRefreshStats: () => Promise<void>
   onToast: (toast: { kind: 'info' | 'error'; text: string }) => void
 }) {
-  const [settings, setSettings] = useState<AppSettings>({ thumbnailCacheLimitGb: 10, autoWatch: true })
+  const [settings, setSettings] = useState<AppSettings>({ thumbnailCacheLimitGb: 10, autoWatch: true, theme: 'warm' })
   const [removeTarget, setRemoveTarget] = useState<SourceRoot | null>(null)
   const [impact, setImpact] = useState<SourceRootImpact | null>(null)
   useEffect(() => { void window.albumApi.app.getSettings().then(setSettings) }, [])
-  const save = async (next: AppSettings) => { try { setSettings(await window.albumApi.app.saveSettings(next)); props.onToast({ kind: 'info', text: '设置已保存' }) } catch (error) { props.onToast({ kind: 'error', text: errorMessage(error) }) } }
+  const save = async (next: AppSettings) => { try { const saved = await window.albumApi.app.saveSettings(next); setSettings(saved); document.documentElement.dataset.theme = saved.theme; props.onToast({ kind: 'info', text: '设置已保存' }) } catch (error) { props.onToast({ kind: 'error', text: errorMessage(error) }) } }
   const backup = async () => { try { const path = await window.albumApi.app.backupNow(); props.onToast({ kind: 'info', text: `备份已保存：${path}` }); await props.onRefreshStats() } catch (error) { props.onToast({ kind: 'error', text: errorMessage(error) }) } }
   const openRemove = async (root: SourceRoot) => {
     setRemoveTarget(root)
@@ -516,7 +603,17 @@ function SettingsPage(props: {
       <header className="page-header"><div><p className="eyebrow">SETTINGS</p><h1>设置</h1><p className="subtle">所有数据保存在本机应用目录，原图始终留在原位置。</p></div></header>
       <section className="settings-card">
         <div className="section-heading"><h2>照片来源目录</h2><button className="button secondary" onClick={() => void props.onAddRoots()}>添加文件夹</button></div>
-        {props.roots.map((root) => <div className={`settings-row source-row ${root.enabled ? '' : 'disabled'}`} key={root.id}><span title={root.path}><strong>{sourceName(root.path)}</strong><small>{root.path}</small></span><span className="settings-actions"><i className={`status-badge ${root.enabled ? '' : 'disabled'}`}>{root.enabled ? '已启用' : '已停用'}</i><button className="text-button" onClick={() => void toggleRoot(root)}>{root.enabled ? '停用' : '重新启用'}</button><button className="text-button danger" onClick={() => void openRemove(root)}>移除</button></span></div>)}
+        <div className="source-list">{props.roots.map((root) => <div className={`settings-row source-row ${root.enabled ? '' : 'disabled'}`} key={root.id}><span title={root.path}><strong>{sourceName(root.path)}</strong><small>{root.path}</small></span><span className="settings-actions"><i className={`status-badge ${root.enabled ? '' : 'disabled'}`}>{root.enabled ? '已启用' : '已停用'}</i><button className="text-button" onClick={() => void toggleRoot(root)}>{root.enabled ? '停用' : '重新启用'}</button><button className="text-button danger" onClick={() => void openRemove(root)}>移除</button></span></div>)}</div>
+      </section>
+      <section className="settings-card">
+        <h2>界面主题</h2>
+        <p className="subtle">主题会立即应用，并保存在本机设置文件。</p>
+        <div className="theme-grid">{([
+          ['warm', '暖棕', '经典摄影工作台'],
+          ['ocean', '海蓝', '冷静清爽的蓝色'],
+          ['forest', '森林', '自然低饱和绿色'],
+          ['rose', '玫瑰', '柔和暖红色系']
+        ] as Array<[AppTheme, string, string]>).map(([value, label, description]) => <button key={value} className={`theme-option theme-${value} ${settings.theme === value ? 'active' : ''}`} onClick={() => void save({ ...settings, theme: value })}><i /><span><strong>{label}</strong><small>{description}</small></span></button>)}</div>
       </section>
       <section className="settings-card">
         <h2>扫描与缓存</h2>

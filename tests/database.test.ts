@@ -144,6 +144,12 @@ describe('AppDatabase', () => {
     expect(db.searchAssets({ limit: 20, offset: 0, cameraModel: 'Sony' }).items.map((item) => item.cameraModel)).toEqual(['ILCE-7M4'])
     expect(db.searchAssets({ limit: 20, offset: 0, cameraModel: '7M4' }).items.map((item) => item.primaryPath)).toEqual(['C:\\filter-photos\\sunset-a.jpg'])
     expect(db.searchAssets({ limit: 20, offset: 0, lens: 'RF 50mm' }).items.map((item) => item.primaryPath)).toEqual(['C:\\filter-photos\\portrait-b.jpg'])
+    db.upsertMediaLocation({
+      rootId: root.id, absolutePath: 'C:\\filter-photos\\nikon-c.jpg', relativePath: 'nikon-c.jpg', contentHash: 'filter-c',
+      sizeBytes: 10, modifiedAt: 1, width: 100, height: 100, format: 'jpeg', cameraMake: 'NIKON CORPORATION', cameraModel: 'Z8', lens: 'NIKKOR Z 24-120mm f/4 S', orientation: 'square'
+    })
+    expect(db.searchAssets({ limit: 20, offset: 0, cameraModel: 'nikon' }).items.map((item) => item.cameraModel)).toEqual(['Z8'])
+    expect(db.searchAssets({ limit: 20, offset: 0, cameraModel: '尼康' }).items.map((item) => item.cameraModel)).toEqual(['Z8'])
   })
 
   it('lists physical folders and filters photos by selected folder', () => {

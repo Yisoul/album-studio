@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type Konva from 'konva'
-import { Group as KonvaGroup, Image as KonvaImage, Layer as KonvaLayer, Rect, Stage, Text as KonvaText, Transformer } from 'react-konva'
+import { Group as KonvaGroup, Image as KonvaImage, Layer as KonvaLayer, Line, Rect, Stage, Text as KonvaText, Transformer } from 'react-konva'
 import type { ExportOptions, ExportResult, Layer, LayerOrderAction, MediaAssetSummary, TemplateDefinition, Work, WorkDocument } from '../../shared/types'
+import ContextMenu from './ContextMenu'
 import TextInputDialog from './TextInputDialog'
 import { errorMessage, previewUrl, thumbnailUrl } from './helpers'
 
@@ -24,6 +25,8 @@ export default function Editor(props: EditorProps) {
   const [templateDialogOpen, setTemplateDialogOpen] = useState(false)
   const [textFocusToken, setTextFocusToken] = useState(0)
   const [editingText, setEditingText] = useState<{ id: string; original: string } | null>(null)
+  const [contextMenu, setContextMenu] = useState<{ x: number; y: number; layerId: string | null } | null>(null)
+  const [zoom, setZoom] = useState(1)
   const [loading, setLoading] = useState(true)
 
   const load = useCallback(async () => {
@@ -71,6 +74,21 @@ export default function Editor(props: EditorProps) {
   const updateText = async (layerId: string, text: string, style: Record<string, unknown>) => {
     previewText(layerId, text)
     try { await window.albumApi.works.updateTextLayer(layerId, text, style) } catch (error) { props.onToast({ kind: 'error', text: errorMessage(error) }); await load() }
+  }
+
+  const updateCanvasSize = async (canvasWidth: number, canvasHeight: number) => {
+    if (!document) return
+    const width = Math.max(256, Math.min(4096, Math.round(canvasWidth)))
+    const height = Math.max(256, Math.min(4096, Math.round(canvasHeight)))
+    setDocument((current) => current ? ({ ...current, work: { ...current.work, canvasWidth: width, canvasHeight: height } }) : current)
+    try { await window.albumApi.works.update(document.work.id, { canvasWidth: width, canvasHeight: height }) } catch (error) { props.onToast({ kind: 'error', text: errorMessage(error) }); await load() }
+  }
+
+  const renameWork = async () => {
+    if (!document) return
+    const name = document.work.name.trim()
+    if (!name) { await load(); return }
+    try { await window.albumApi.works.update(document.work.id, { name }); setDocument((current) => current ? ({ ...current, work: { ...current.work, name } }) : current) } catch (error) { props.onToast({ kind: 'error', text: errorMessage(error) }); await load() }
   }
 
   const updatePageBackground = async (background: string) => {
@@ -148,12 +166,12 @@ export default function Editor(props: EditorProps) {
     } catch (error) { props.onToast({ kind: 'error', text: errorMessage(error) }) }
   }
 
-  const deleteLayers = async () => {
-    if (!document || !activePage || selectedLayerIds.length === 0) return
-    if (!window.confirm(`删除选中的 ${selectedLayerIds.length} 个图层？`)) return
+  const deleteLayers = async (layerIds = selectedLayerIds) => {
+    if (!document || !activePage || layerIds.length === 0) return
+    if (!window.confirm(`删除选中的 ${layerIds.length} 个图层？`)) return
     try {
-      for (const layerId of selectedLayerIds) await window.albumApi.works.deleteLayer(layerId)
-      setDocument({ ...document, pages: document.pages.map((page) => page.id === activePage.id ? { ...page, layers: page.layers.filter((layer) => !selectedLayerIds.includes(layer.id)) } : page) })
+      for (const layerId of layerIds) await window.albumApi.works.deleteLayer(layerId)
+      setDocument({ ...document, pages: document.pages.map((page) => page.id === activePage.id ? { ...page, layers: page.layers.filter((layer) => !layerIds.includes(layer.id)) } : page) })
       setSelectedLayerIds([])
     } catch (error) { props.onToast({ kind: 'error', text: errorMessage(error) }) }
   }
@@ -178,14 +196,15 @@ export default function Editor(props: EditorProps) {
 
   return (
     <div className="editor-shell">
-      <header className="editor-header"><button className="back-button" onClick={() => void props.onBack()}>← 返回相册</button><div className="editor-title"><strong>{document.work.name}</strong><span>{document.work.canvasWidth} × {document.work.canvasHeight} · {document.work.outputMode === 'long_image' ? '长图' : '多页'}</span></div><div className="header-actions"><button className="button secondary" onClick={() => setTemplateDialogOpen(true)}>存为模板</button><button className="button primary" onClick={() => setExportOpen(true)}>导出作品</button></div></header>
+      <header className="editor-header"><button className="back-button" onClick={() => void props.onBack()}>← 返回相册</button><div className="editor-title"><input className="editor-name-input" value={document.work.name} onChange={(event) => setDocument((current) => current ? ({ ...current, work: { ...current.work, name: event.target.value } }) : current)} onBlur={() => void renameWork()} onKeyDown={(event) => { if (event.key === 'Enter') event.currentTarget.blur() }} aria-label="作品名称" /><span>{document.work.canvasWidth} × {document.work.canvasHeight} · {document.work.outputMode === 'long_image' ? '长图' : '多页'}</span></div><div className="header-actions"><button className="button secondary" onClick={() => setTemplateDialogOpen(true)}>存为模板</button><button className="button primary" onClick={() => setExportOpen(true)}>导出作品</button></div></header>
       <div className="editor-workspace">
-        <aside className="editor-left"><div className="panel-heading"><h3>页面</h3><button onClick={() => void addPage()} title="新增页面">＋</button></div><div className="page-list">{document.pages.map((page, index) => <button className={page.id === activePage?.id ? 'active' : ''} key={page.id} onClick={() => { setActivePageId(page.id); setSelectedLayerIds([]) }}><b>{String(index + 1).padStart(2, '0')}</b><span>第 {index + 1} 页</span></button>)}</div>{document.pages.length > 1 && <button className="text-button danger" onClick={() => void deletePage()}>删除当前页面</button>}<div className="panel-heading layer-heading"><h3>图层</h3><span>{activePage?.layers.length ?? 0}</span></div><div className="layer-list">{[...(activePage?.layers ?? [])].sort((a, b) => b.zIndex - a.zIndex).map((layer) => { const active = selectedLayerIds.includes(layer.id); return <div className={`layer-row ${active ? 'active' : ''}`} key={layer.id}><button className="layer-select" onClick={(event) => setSelectedLayerIds((current) => event.ctrlKey || event.metaKey ? (current.includes(layer.id) ? current.filter((id) => id !== layer.id) : [...current, layer.id]) : [layer.id])}><i>{layer.type === 'image' ? '▧' : 'T'}</i><span>{layer.type === 'image' ? fileNameFromLayer(layer, albumAssets) : layer.text || '文字'}</span></button><div className="layer-quick-actions"><button title="置顶" onClick={(event) => { event.stopPropagation(); setSelectedLayerIds([layer.id]); void reorderLayers([layer.id], 'top') }}>⇈</button><button title="置底" onClick={(event) => { event.stopPropagation(); setSelectedLayerIds([layer.id]); void reorderLayers([layer.id], 'bottom') }}>⇊</button></div></div> })}</div><div className="editor-add-row"><button onClick={() => setPickerOpen(true)}>＋ 图片</button><button onClick={() => void addText()}>＋ 文字</button></div></aside>
-        <main className="canvas-area"><Canvas document={document} pageId={activePage?.id ?? null} selectedLayerIds={selectedLayerIds} editingTextId={editingText?.id ?? null} onSelect={(layerId, additive) => setSelectedLayerIds((current) => layerId == null ? [] : additive ? (current.includes(layerId) ? current.filter((id) => id !== layerId) : [...current, layerId]) : [layerId])} onEdit={beginInlineTextEditing} onTextPreview={previewText} onTextCommit={(layerId, value) => { setEditingText(null); void updateText(layerId, value, {}) }} onTextCancel={() => { if (editingText) previewText(editingText.id, editingText.original); setEditingText(null) }} onChange={updateLayer} /></main>
-        <aside className="editor-right"><PageSettings background={activePage?.background ?? document.work.background} onChange={(background) => void updatePageBackground(background)} />{selectedLayers.length > 1 ? <MultiSelectionPanel count={selectedLayers.length} onReorder={(action) => void reorderSelected(action)} onDelete={() => void deleteLayers()} onClear={() => setSelectedLayerIds([])} /> : selectedLayer ? <LayerInspector work={document.work} layer={selectedLayer} asset={albumAssets.find((asset) => asset.id === selectedLayer.assetId)} focusToken={textFocusToken} onPreviewText={previewText} onReorder={(action) => void reorderSelected(action)} onUpdate={(patch) => void updateLayer(selectedLayer.id, patch)} onUpdateText={(text, style) => void updateText(selectedLayer.id, text, style)} onReplace={() => { setReplaceTargetId(selectedLayer.id); setPickerOpen(true) }} onDelete={() => void deleteLayers()} /> : <InspectorEmpty onAddText={() => void addText()} onAddImage={() => { setReplaceTargetId(null); setPickerOpen(true) }} />}</aside>
+        <aside className="editor-left"><div className="panel-heading"><h3>页面</h3><button onClick={() => void addPage()} title="新增页面">＋</button></div><div className="page-list">{document.pages.map((page, index) => <button className={page.id === activePage?.id ? 'active' : ''} key={page.id} onClick={() => { setActivePageId(page.id); setSelectedLayerIds([]) }}><b>{String(index + 1).padStart(2, '0')}</b><span>第 {index + 1} 页</span></button>)}</div>{document.pages.length > 1 && <button className="text-button danger" onClick={() => void deletePage()}>删除当前页面</button>}<div className="panel-heading layer-heading"><h3>图层</h3><span>{activePage?.layers.length ?? 0}</span></div><div className="layer-list">{[...(activePage?.layers ?? [])].sort((a, b) => b.zIndex - a.zIndex).map((layer) => { const active = selectedLayerIds.includes(layer.id); return <div className={`layer-row ${active ? 'active' : ''}`} key={layer.id}><button className="layer-select" onClick={(event) => setSelectedLayerIds((current) => event.ctrlKey || event.metaKey ? (current.includes(layer.id) ? current.filter((id) => id !== layer.id) : [...current, layer.id]) : [layer.id])} onContextMenu={(event) => { event.preventDefault(); setSelectedLayerIds([layer.id]); setContextMenu({ x: event.clientX, y: event.clientY, layerId: layer.id }) }}><i>{layer.type === 'image' ? '▧' : 'T'}</i><span>{layer.type === 'image' ? fileNameFromLayer(layer, albumAssets) : layer.text || '文字'}</span></button><div className="layer-quick-actions"><button title="置顶" onClick={(event) => { event.stopPropagation(); setSelectedLayerIds([layer.id]); void reorderLayers([layer.id], 'top') }}>⇈</button><button title="置底" onClick={(event) => { event.stopPropagation(); setSelectedLayerIds([layer.id]); void reorderLayers([layer.id], 'bottom') }}>⇊</button></div></div> })}</div><div className="editor-add-row"><button onClick={() => setPickerOpen(true)}>＋ 图片</button><button onClick={() => void addText()}>＋ 文字</button></div></aside>
+        <main className="canvas-area"><div className="canvas-toolbar"><button onClick={() => setZoom((value) => Math.max(0.5, value - 0.1))}>−</button><span>{Math.round(zoom * 100)}%</span><button onClick={() => setZoom((value) => Math.min(3, value + 0.1))}>＋</button><button onClick={() => setZoom(1)}>适应</button></div><Canvas zoom={zoom} document={document} pageId={activePage?.id ?? null} selectedLayerIds={selectedLayerIds} editingTextId={editingText?.id ?? null} onContextMenu={(layerId, x, y) => { if (layerId) setSelectedLayerIds([layerId]); setContextMenu({ x, y, layerId }) }} onSelect={(layerId, additive) => setSelectedLayerIds((current) => layerId == null ? [] : additive ? (current.includes(layerId) ? current.filter((id) => id !== layerId) : [...current, layerId]) : [layerId])} onEdit={beginInlineTextEditing} onTextPreview={previewText} onTextCommit={(layerId, value) => { setEditingText(null); void updateText(layerId, value, {}) }} onTextCancel={() => { if (editingText) previewText(editingText.id, editingText.original); setEditingText(null) }} onChange={updateLayer} /></main>
+        <aside className="editor-right"><PageSettings work={document.work} background={activePage?.background ?? document.work.background} onCanvasSize={(width, height) => void updateCanvasSize(width, height)} onChange={(background) => void updatePageBackground(background)} />{selectedLayers.length > 1 ? <MultiSelectionPanel count={selectedLayers.length} onReorder={(action) => void reorderSelected(action)} onDelete={() => void deleteLayers()} onClear={() => setSelectedLayerIds([])} /> : selectedLayer ? <LayerInspector work={document.work} layer={selectedLayer} asset={albumAssets.find((asset) => asset.id === selectedLayer.assetId)} focusToken={textFocusToken} onPreviewText={previewText} onReorder={(action) => void reorderSelected(action)} onUpdate={(patch) => void updateLayer(selectedLayer.id, patch)} onUpdateText={(text, style) => void updateText(selectedLayer.id, text, style)} onReplace={() => { setReplaceTargetId(selectedLayer.id); setPickerOpen(true) }} onDelete={() => void deleteLayers()} /> : <InspectorEmpty onAddText={() => void addText()} onAddImage={() => { setReplaceTargetId(null); setPickerOpen(true) }} />}</aside>
       </div>
       {pickerOpen && <ImagePicker title={replaceTargetId ? '更换图片' : '添加图片'} assets={albumAssets} onClose={() => { setPickerOpen(false); setReplaceTargetId(null) }} onSelect={(assetId) => void (replaceTargetId ? replaceImage(assetId) : addImage(assetId))} />}
       {exportOpen && <ExportDialog work={document} onClose={() => setExportOpen(false)} onToast={props.onToast} />}
+      {contextMenu && <ContextMenu x={contextMenu.x} y={contextMenu.y} onClose={() => setContextMenu(null)} items={contextMenu.layerId ? (() => { const layer = activePage?.layers.find((item) => item.id === contextMenu.layerId); if (!layer) return []; return [ ...(layer.type === 'text' ? [{ label: '就地编辑文字', onClick: () => beginInlineTextEditing(layer.id) }] : [{ label: '更换图片', onClick: () => { setReplaceTargetId(layer.id); setPickerOpen(true) } }]), { label: '置顶', onClick: () => void reorderLayers([layer.id], 'top') }, { label: '上移', onClick: () => void reorderLayers([layer.id], 'up') }, { label: '下移', onClick: () => void reorderLayers([layer.id], 'down') }, { label: '置底', onClick: () => void reorderLayers([layer.id], 'bottom') }, { label: '删除图层', separator: true, danger: true, onClick: () => void deleteLayers([layer.id]) } ] })() : [{ label: '添加图片', onClick: () => { setReplaceTargetId(null); setPickerOpen(true) } }, { label: '添加文字', onClick: () => void addText() }]} />}
       {templateDialogOpen && <TextInputDialog title="保存自定义模板" label="模板名称" initialValue={`${document.work.name} 模板`} confirmLabel="保存模板" onClose={() => setTemplateDialogOpen(false)} onConfirm={saveTemplate} />}
     </div>
   )
@@ -193,6 +212,7 @@ export default function Editor(props: EditorProps) {
 
 function Canvas(props: {
   document: WorkDocument
+  zoom: number
   pageId: string | null
   selectedLayerIds: string[]
   editingTextId: string | null
@@ -201,16 +221,19 @@ function Canvas(props: {
   onTextPreview: (layerId: string, text: string) => void
   onTextCommit: (layerId: string, text: string) => void
   onTextCancel: () => void
+  onContextMenu: (layerId: string | null, x: number, y: number) => void
   onChange: (layerId: string, patch: LayerPatch) => Promise<void>
 }) {
   const page = props.document.pages.find((item) => item.id === props.pageId)
-  const scale = Math.min(820 / props.document.work.canvasWidth, 640 / props.document.work.canvasHeight)
+  const fitScale = Math.min(820 / props.document.work.canvasWidth, 640 / props.document.work.canvasHeight)
+  const scale = fitScale * props.zoom
   const width = Math.round(props.document.work.canvasWidth * scale)
   const height = Math.round(props.document.work.canvasHeight * scale)
   const nodeRefs = useRef(new Map<string, Konva.Node>())
   const transformerRef = useRef<Konva.Transformer>(null)
   const selectionKey = `${props.selectedLayerIds.join('|')}|${props.editingTextId ?? ''}`
   const editingLayer = page?.layers.find((layer) => layer.id === props.editingTextId && layer.type === 'text') ?? null
+  const [guides, setGuides] = useState<{ vertical: number[]; horizontal: number[] }>({ vertical: [], horizontal: [] })
 
   useEffect(() => {
     const nodes = props.selectedLayerIds.filter((id) => id !== props.editingTextId).map((id) => nodeRefs.current.get(id)).filter((node): node is Konva.Node => Boolean(node))
@@ -221,6 +244,26 @@ function Canvas(props: {
   const registerNode = (layerId: string, node: Konva.Node | null) => {
     if (node) nodeRefs.current.set(layerId, node)
     else nodeRefs.current.delete(layerId)
+  }
+
+  const snapDraggedNode = (layer: Layer, node: Konva.Node) => {
+    if (!page) return
+    const threshold = 6
+    const currentWidth = Math.max(1, layer.width * width)
+    const currentHeight = Math.max(1, layer.height * height)
+    const others = page.layers.filter((item) => item.id !== layer.id)
+    const verticalTargets = [0, width / 2, width, ...others.flatMap((item) => [item.x * width, (item.x + item.width / 2) * width, (item.x + item.width) * width])]
+    const horizontalTargets = [0, height / 2, height, ...others.flatMap((item) => [item.y * height, (item.y + item.height / 2) * height, (item.y + item.height) * height])]
+    const verticalAnchors = [{ value: node.x(), offset: 0 }, { value: node.x() + currentWidth / 2, offset: currentWidth / 2 }, { value: node.x() + currentWidth, offset: currentWidth }]
+    const horizontalAnchors = [{ value: node.y(), offset: 0 }, { value: node.y() + currentHeight / 2, offset: currentHeight / 2 }, { value: node.y() + currentHeight, offset: currentHeight }]
+    let nextX = node.x(); let nextY = node.y(); let verticalGuide: number[] = []; let horizontalGuide: number[] = []
+    let bestX = threshold + 1
+    for (const target of verticalTargets) for (const anchor of verticalAnchors) { const diff = Math.abs(anchor.value - target); if (diff < bestX) { bestX = diff; nextX = target - anchor.offset; verticalGuide = [target] } }
+    let bestY = threshold + 1
+    for (const target of horizontalTargets) for (const anchor of horizontalAnchors) { const diff = Math.abs(anchor.value - target); if (diff < bestY) { bestY = diff; nextY = target - anchor.offset; horizontalGuide = [target] } }
+    node.x(bestX <= threshold ? nextX : node.x())
+    node.y(bestY <= threshold ? nextY : node.y())
+    setGuides({ vertical: bestX <= threshold ? verticalGuide : [], horizontal: bestY <= threshold ? horizontalGuide : [] })
   }
 
   const commitSelected = () => {
@@ -238,11 +281,11 @@ function Canvas(props: {
   if (!page) return <div className="canvas-frame"><div className="canvas-empty">这个作品没有页面</div></div>
   return <div className="canvas-frame">
     <div className="canvas-stage-wrap" style={{ width, height }}>
-      <Stage width={width} height={height} onMouseDown={(event) => { if (event.target === event.target.getStage()) { props.onTextCancel(); props.onSelect(null, false) } }}>
+      <Stage width={width} height={height} onMouseDown={(event) => { if (event.target === event.target.getStage()) { props.onTextCancel(); props.onSelect(null, false) } }} onContextMenu={(event) => { event.evt.preventDefault(); if (event.target === event.target.getStage()) props.onContextMenu(null, event.evt.clientX, event.evt.clientY) }}>
         <KonvaLayer><Rect width={width} height={height} fill={page.background || props.document.work.background} listening={false} /></KonvaLayer>
         <KonvaLayer>
-          {[...page.layers].sort((a, b) => a.zIndex - b.zIndex).map((layer) => <EditableNode key={layer.id} layer={layer} stageWidth={width} stageHeight={height} scale={scale} selected={props.selectedLayerIds.includes(layer.id) && layer.id !== props.editingTextId} editing={layer.id === props.editingTextId} onSelect={(additive) => props.onSelect(layer.id, additive)} onChange={(patch) => props.onChange(layer.id, patch)} onEdit={() => props.onEdit(layer.id)} registerNode={registerNode} />)}
-          <Transformer ref={transformerRef} rotateEnabled enabledAnchors={['top-left', 'top-center', 'top-right', 'middle-left', 'middle-right', 'bottom-left', 'bottom-center', 'bottom-right']} borderStroke="#c6653f" anchorStroke="#c6653f" anchorFill="#fffaf2" anchorSize={8} keepRatio={false} onTransformEnd={commitSelected} />
+          {[...page.layers].sort((a, b) => a.zIndex - b.zIndex).map((layer) => <EditableNode key={layer.id} layer={layer} stageWidth={width} stageHeight={height} scale={scale} selected={props.selectedLayerIds.includes(layer.id) && layer.id !== props.editingTextId} editing={layer.id === props.editingTextId} onSelect={(additive) => props.onSelect(layer.id, additive)} onChange={(patch) => props.onChange(layer.id, patch)} onEdit={() => props.onEdit(layer.id)} onContextMenu={(x, y) => props.onContextMenu(layer.id, x, y)} onDragMove={(node) => snapDraggedNode(layer, node)} onDragEnd={() => setGuides({ vertical: [], horizontal: [] })} registerNode={registerNode} />)}
+          {guides.vertical.map((x) => <Line key={`v-${x}`} points={[x, 0, x, height]} stroke="#e14b3b" strokeWidth={1} dash={[5, 4]} listening={false} />)}{guides.horizontal.map((y) => <Line key={`h-${y}`} points={[0, y, width, y]} stroke="#e14b3b" strokeWidth={1} dash={[5, 4]} listening={false} />)}<Transformer ref={transformerRef} rotateEnabled enabledAnchors={['top-left', 'top-center', 'top-right', 'middle-left', 'middle-right', 'bottom-left', 'bottom-center', 'bottom-right']} borderStroke="#c6653f" anchorStroke="#c6653f" anchorFill="#fffaf2" anchorSize={8} keepRatio={false} onTransformEnd={commitSelected} />
         </KonvaLayer>
       </Stage>
       {editingLayer && <textarea
@@ -276,7 +319,7 @@ function Canvas(props: {
   </div>
 }
 
-function EditableNode(props: { layer: Layer; stageWidth: number; stageHeight: number; scale: number; selected: boolean; editing: boolean; onSelect: (additive: boolean) => void; onEdit: () => void; onChange: (patch: LayerPatch) => Promise<void>; registerNode: (layerId: string, node: Konva.Node | null) => void }) {
+function EditableNode(props: { layer: Layer; stageWidth: number; stageHeight: number; scale: number; selected: boolean; editing: boolean; onSelect: (additive: boolean) => void; onEdit: () => void; onContextMenu: (x: number, y: number) => void; onDragMove: (node: Konva.Node) => void; onDragEnd: () => void; onChange: (patch: LayerPatch) => Promise<void>; registerNode: (layerId: string, node: Konva.Node | null) => void }) {
   const shapeRef = useRef<Konva.Node>(null)
   const image = useImage(props.layer.type === 'image' && props.layer.assetId ? previewUrl(props.layer.assetId, 1600) : null)
   const x = props.layer.x * props.stageWidth
@@ -287,12 +330,6 @@ function EditableNode(props: { layer: Layer; stageWidth: number; stageHeight: nu
     props.registerNode(props.layer.id, shapeRef.current)
     return () => props.registerNode(props.layer.id, null)
   }, [props.layer.id, image, props.registerNode])
-  const commit = (node: Konva.Node) => {
-    const scaleX = node.scaleX()
-    const scaleY = node.scaleY()
-    node.scaleX(1); node.scaleY(1)
-    void props.onChange({ x: node.x() / props.stageWidth, y: node.y() / props.stageHeight, width: Math.max(0.02, node.width() * scaleX / props.stageWidth), height: Math.max(0.02, node.height() * scaleY / props.stageHeight), rotation: node.rotation() })
-  }
   const common = {
     x,
     y,
@@ -303,8 +340,9 @@ function EditableNode(props: { layer: Layer; stageWidth: number; stageHeight: nu
     onClick: (event: Konva.KonvaEventObject<MouseEvent>) => { const additive = event.evt.ctrlKey || event.evt.metaKey; props.onSelect(additive); if (props.layer.type === 'text' && props.selected && !additive) props.onEdit() },
     onTap: () => props.onSelect(false),
     onDblClick: (event: Konva.KonvaEventObject<MouseEvent>) => { event.cancelBubble = true; props.onSelect(false); props.onEdit() },
-    onDragEnd: (event: Konva.KonvaEventObject<DragEvent>) => void props.onChange({ x: event.target.x() / props.stageWidth, y: event.target.y() / props.stageHeight }),
-    onTransformEnd: (event: Konva.KonvaEventObject<Event>) => commit(event.target)
+    onContextMenu: (event: Konva.KonvaEventObject<MouseEvent>) => { event.evt.preventDefault(); event.cancelBubble = true; props.onContextMenu(event.evt.clientX, event.evt.clientY) },
+    onDragEnd: (event: Konva.KonvaEventObject<DragEvent>) => { props.onDragEnd(); void props.onChange({ x: event.target.x() / props.stageWidth, y: event.target.y() / props.stageHeight }) },
+    onDragMove: (event: Konva.KonvaEventObject<DragEvent>) => props.onDragMove(event.target)
   }
   if (props.layer.type === 'text') {
     return <KonvaText {...common} visible={!props.editing} ref={shapeRef as React.RefObject<Konva.Text>} text={String(props.layer.text ?? '')} fontSize={numberStyle(props.layer.style.fontSize, 48) * props.scale} fontFamily={stringStyle(props.layer.style.fontFamily, 'Microsoft YaHei')} fontStyle={stringStyle(props.layer.style.fontWeight, 'normal') === 'bold' ? 'bold' : 'normal'} fill={stringStyle(props.layer.style.color, '#111111')} align={stringStyle(props.layer.style.align, 'left') as 'left' | 'center' | 'right'} letterSpacing={numberStyle(props.layer.style.letterSpacing)} lineHeight={numberStyle(props.layer.style.lineHeight, 1.2)} />
@@ -354,17 +392,31 @@ function useImage(url: string | null): HTMLImageElement | null {
   return image
 }
 
-function PageSettings(props: { background: string; onChange: (background: string) => void }) {
+function PageSettings(props: { work: Work; background: string; onChange: (background: string) => void; onCanvasSize: (width: number, height: number) => void }) {
+  const [width, setWidth] = useState(String(props.work.canvasWidth))
+  const [height, setHeight] = useState(String(props.work.canvasHeight))
+  useEffect(() => { setWidth(String(props.work.canvasWidth)); setHeight(String(props.work.canvasHeight)) }, [props.work.canvasWidth, props.work.canvasHeight])
   const presets = ['#ffffff', '#f4f1ea', '#111111', '#000000']
+  const applySize = () => props.onCanvasSize(Number(width), Number(height))
+  const setRatio = (ratioWidth: number, ratioHeight: number) => {
+    const nextWidth = props.work.canvasWidth
+    const nextHeight = Math.round(nextWidth * ratioHeight / ratioWidth)
+    setWidth(String(nextWidth)); setHeight(String(nextHeight)); props.onCanvasSize(nextWidth, nextHeight)
+  }
   return <section className="page-settings">
-    <div className="page-settings-head"><div><span>当前页面</span><strong>背景颜色</strong></div><input type="color" value={props.background} onChange={(event) => props.onChange(event.target.value)} /></div>
+    <div className="page-settings-head"><div><span>当前页面</span><strong>页面设置</strong></div><input type="color" value={props.background} onChange={(event) => props.onChange(event.target.value)} /></div>
     <div className="background-presets">{presets.map((color) => <button key={color} title={color} className={props.background.toLowerCase() === color ? 'active' : ''} style={{ background: color }} onClick={() => props.onChange(color)} />)}</div>
+    <div className="settings-divider" />
+    <label>画布尺寸<div className="canvas-size-grid"><input type="number" min="256" max="4096" value={width} onChange={(event) => setWidth(event.target.value)} onBlur={applySize} /><span>×</span><input type="number" min="256" max="4096" value={height} onChange={(event) => setHeight(event.target.value)} onBlur={applySize} /></div></label>
+    <div className="ratio-grid"><button onClick={() => setRatio(3, 4)}>3 : 4</button><button onClick={() => setRatio(1, 1)}>1 : 1</button><button onClick={() => setRatio(4, 5)}>4 : 5</button><button onClick={() => setRatio(9, 16)}>9 : 16</button></div>
   </section>
 }
 
 function LayerInspector(props: { work: Work; layer: Layer; asset?: MediaAssetSummary; focusToken: number; onPreviewText: (layerId: string, text: string) => void; onUpdate: (patch: LayerPatch) => void; onUpdateText: (text: string, style: Record<string, unknown>) => void; onReplace: () => void; onDelete: () => void; onReorder: (action: LayerOrderAction) => void }) {
   const [text, setText] = useState(props.layer.text ?? '')
   const [dirty, setDirty] = useState(false)
+  const [ratioFeedback, setRatioFeedback] = useState(false)
+  const ratioTimerRef = useRef<number | null>(null)
   const dirtyRef = useRef(false)
   const layerIdRef = useRef(props.layer.id)
   const originalTextRef = useRef(props.layer.text ?? '')
@@ -379,6 +431,7 @@ function LayerInspector(props: { work: Work; layer: Layer; asset?: MediaAssetSum
     }
     layerIdRef.current = props.layer.id
   }, [props.layer.id, props.layer.text])
+  useEffect(() => () => { if (ratioTimerRef.current) window.clearTimeout(ratioTimerRef.current) }, [])
   useEffect(() => {
     if (props.layer.type !== 'text' || props.focusToken === 0) return
     const frame = requestAnimationFrame(() => { textareaRef.current?.focus(); textareaRef.current?.select() })
@@ -411,6 +464,9 @@ function LayerInspector(props: { work: Work; layer: Layer; asset?: MediaAssetSum
     const imageRatio = props.asset.width / props.asset.height
     const nextHeight = props.layer.width * props.work.canvasWidth / imageRatio / props.work.canvasHeight
     props.onUpdate({ height: Math.min(0.98, Math.max(0.02, nextHeight)) })
+    setRatioFeedback(true)
+    if (ratioTimerRef.current) window.clearTimeout(ratioTimerRef.current)
+    ratioTimerRef.current = window.setTimeout(() => setRatioFeedback(false), 1400)
   }
   return (
     <div className="inspector">
@@ -441,8 +497,9 @@ function LayerInspector(props: { work: Work; layer: Layer; asset?: MediaAssetSum
       </section> : <section className="inspector-section">
         <div className="section-title"><h4>图片</h4><small>{props.asset ? `${props.asset.width} × ${props.asset.height}` : '缺失图片'}</small></div>
         <button className="button secondary full" onClick={props.onReplace}>更换图片</button>
-        <div className="inspector-grid"><label>显示方式<select value={stringStyle(style.fit, 'contain')} onChange={(event) => props.onUpdate({ style: { ...style, fit: event.target.value } })}><option value="contain">完整显示（保持比例）</option><option value="cover">裁剪填满</option><option value="stretch">拉伸填满（可变形）</option></select></label><label>圆角<input type="number" min="0" value={numberStyle(style.radius)} onChange={(event) => props.onUpdate({ style: { ...style, radius: Number(event.target.value) } })} /></label></div>
-        <button className="button secondary full" disabled={!props.asset} onClick={restoreImageAspect}>按原图比例调整高度</button>
+        <label>显示方式<select value={stringStyle(style.fit, 'contain')} onChange={(event) => props.onUpdate({ style: { ...style, fit: event.target.value } })}><option value="contain">完整显示（保持比例）</option><option value="cover">裁剪填满</option><option value="stretch">拉伸填满（可变形）</option></select></label>
+        <label>圆角<div className="range-control"><input type="range" min="0" max="200" step="1" value={Math.min(200, numberStyle(style.radius))} onChange={(event) => props.onUpdate({ style: { ...style, radius: Number(event.target.value) } })} /><div><input type="number" min="0" step="1" value={numberStyle(style.radius)} onChange={(event) => props.onUpdate({ style: { ...style, radius: Math.max(0, Number(event.target.value)) } })} /><em>px</em></div></div></label>
+        <button className={`button secondary full ${ratioFeedback ? 'success' : ''}`} disabled={!props.asset} onClick={restoreImageAspect}>{ratioFeedback ? '✓ 已按原图比例调整' : '按原图比例调整高度'}</button>
         <p>拖动四角可自由拉伸；需要不变形时选择“完整显示”，需要裁切时选择“裁剪填满”。</p>
       </section>}
     </div>

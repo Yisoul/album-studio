@@ -65,6 +65,18 @@ describe('LibraryScanner', () => {
     expect(db.listAlbumAssets(album.id)[0].assetId).toBe(secondAsset!.id)
     expect(db.listMediaLocations(secondAsset!.id)).toHaveLength(2)
   })
+  it('skips unchanged files on subsequent scans', async () => {
+    await writeFile(join(rootDir, 'unchanged.jpg'), await sharp({ create: { width: 80, height: 80, channels: 3, background: '#456789' } }).jpeg().toBuffer())
+    const source = db.createSourceRoot(rootDir)
+    const first = await scanner.scanRoot(source)
+    const second = await scanner.scanRoot(source)
+
+    expect(first.indexed).toBe(1)
+    expect(second.discovered).toBe(1)
+    expect(second.indexed).toBe(0)
+    expect(db.searchAssets({ limit: 10, offset: 0 }).total).toBe(1)
+  })
+
   it('does not scan source roots that are disabled', async () => {
     await writeFile(join(rootDir, 'disabled.jpg'), await sharp({ create: { width: 80, height: 80, channels: 3, background: '#123456' } }).jpeg().toBuffer())
     const source = db.createSourceRoot(rootDir)

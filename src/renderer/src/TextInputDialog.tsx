@@ -18,9 +18,12 @@ export default function TextInputDialog(props: TextInputDialogProps) {
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    inputRef.current?.focus()
-    inputRef.current?.select()
-  }, [])
+    const frame = requestAnimationFrame(() => {
+      inputRef.current?.focus()
+      if (props.initialValue) inputRef.current?.select()
+    })
+    return () => cancelAnimationFrame(frame)
+  }, [props.initialValue])
 
   const submit = async () => {
     const normalized = value.trim()
@@ -46,7 +49,7 @@ export default function TextInputDialog(props: TextInputDialogProps) {
         <header><h2>{props.title}</h2><button aria-label="关闭" disabled={busy} onClick={props.onClose}>×</button></header>
         <div className="modal-body">
           <form className="form-stack" onSubmit={(event) => { event.preventDefault(); void submit() }}>
-            <label>{props.label}<input ref={inputRef} value={value} onChange={(event) => { setValue(event.target.value); setError(null) }} /></label>
+            <label>{props.label}<input ref={inputRef} autoFocus value={value} onChange={(event) => { setValue(event.target.value); setError(null) }} /></label>
             {error && <p className="dialog-error" role="alert">{error}</p>}
             <div className="dialog-actions"><button type="button" className="button secondary" disabled={busy} onClick={props.onClose}>取消</button><button type="submit" className="button primary" disabled={busy}>{busy ? '处理中…' : props.confirmLabel ?? '确认'}</button></div>
           </form>

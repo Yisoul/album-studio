@@ -672,7 +672,6 @@ export class AppDatabase {
       clauses.push(`EXISTS (
         SELECT 1 FROM media_locations l
         WHERE l.asset_id = a.id
-          AND l.status = 'available'
           AND (l.absolute_path LIKE ? OR l.relative_path LIKE ?)
       )`)
       const term = `%${filters.text.trim()}%`
@@ -691,13 +690,13 @@ export class AppDatabase {
       params.push(filters.orientation)
     }
     if (filters.cameraModel?.trim()) {
-      clauses.push('(a.camera_make LIKE ? OR a.camera_model LIKE ?)')
-      const term = `%${filters.cameraModel.trim()}%`
-      params.push(term, term)
+      const terms = expandCameraSearch(filters.cameraModel.trim())
+      clauses.push(`(${terms.map(() => "(LOWER(COALESCE(a.camera_make, '')) LIKE ? OR LOWER(COALESCE(a.camera_model, '')) LIKE ? OR LOWER(COALESCE(a.camera_make, '') || ' ' || COALESCE(a.camera_model, '')) LIKE ?)").join(' OR ')})`)
+      for (const term of terms) { const pattern = `%${term.toLowerCase()}%`; params.push(pattern, pattern, pattern) }
     }
     if (filters.lens?.trim()) {
-      clauses.push('a.lens LIKE ?')
-      params.push(`%${filters.lens.trim()}%`)
+      clauses.push("LOWER(COALESCE(a.lens, '')) LIKE ?")
+      params.push(`%${filters.lens.trim().toLowerCase()}%`)
     }
     if (filters.isoMin != null) {
       clauses.push('a.iso >= ?')
@@ -749,20 +748,17 @@ export class AppDatabase {
     const totalRow = this.db.prepare(`SELECT COUNT(*) AS count FROM media_assets a WHERE ${where}`).get(...params) as Row
     const rows = this.db.prepare(`
       SELECT a.*,
-        (
-          SELECT absolute_path FROM media_locations l
-          WHERE l.asset_id = a.id AND l.status = 'available'
-          ORDER BY preferred DESC, absolute_path LIMIT 1
+        COALESCE(
+          (SELECT absolute_path FROM media_locations l WHERE l.asset_id = a.id AND l.status = 'available' ORDER BY preferred DESC, absolute_path LIMIT 1),
+          (SELECT absolute_path FROM media_locations l WHERE l.asset_id = a.id ORDER BY preferred DESC, absolute_path LIMIT 1)
         ) AS primary_path,
-        (
-          SELECT root_id FROM media_locations l
-          WHERE l.asset_id = a.id AND l.status = 'available'
-          ORDER BY preferred DESC, absolute_path LIMIT 1
+        COALESCE(
+          (SELECT root_id FROM media_locations l WHERE l.asset_id = a.id AND l.status = 'available' ORDER BY preferred DESC, absolute_path LIMIT 1),
+          (SELECT root_id FROM media_locations l WHERE l.asset_id = a.id ORDER BY preferred DESC, absolute_path LIMIT 1)
         ) AS primary_root_id,
-        (
-          SELECT directory_path FROM media_locations l
-          WHERE l.asset_id = a.id AND l.status = 'available'
-          ORDER BY preferred DESC, absolute_path LIMIT 1
+        COALESCE(
+          (SELECT directory_path FROM media_locations l WHERE l.asset_id = a.id AND l.status = 'available' ORDER BY preferred DESC, absolute_path LIMIT 1),
+          (SELECT directory_path FROM media_locations l WHERE l.asset_id = a.id ORDER BY preferred DESC, absolute_path LIMIT 1)
         ) AS primary_directory_path,
         (
           SELECT COUNT(*) FROM media_locations l WHERE l.asset_id = a.id
@@ -883,6 +879,29 @@ export class AppDatabase {
   getLocation(locationId: string): MediaLocation | null {
     const row = this.db.prepare('SELECT * FROM media_locations WHERE id = ?').get(locationId) as Row | undefined
     return row ? this.mapMediaLocation(row) : null
+  }
+
+  getLocationByPath(absolutePath: string): MediaLocation | null {
+    const row = this.db.prepare('SELECT * FROM media_locations WHERE absolute_path = ?').get(absolutePath) as Row | undefined
+    return row ? this.mapMediaLocation(row) : null
+  }
+
+  markLocationsAvailable(locations: Array<{ id: string; assetId: string }>): void {
+    if (locations.length === 0) return
+    const updateLocation = this.db.prepare("UPDATE media_locations SET status = 'available', updated_at = ? WHERE id = ?")
+    const updateAsset = this.db.prepare('UPDATE media_assets SET missing = 0, updated_at = ? WHERE id = ?')
+    const now = Date.now()
+    this.db.exec('BEGIN')
+    try {
+      for (const location of locations) {
+        updateLocation.run(now, location.id)
+        updateAsset.run(now, location.assetId)
+      }
+      this.db.exec('COMMIT')
+    } catch (error) {
+      this.db.exec('ROLLBACK')
+      throw error
+    }
   }
 
   setPreferredLocation(assetId: string, locationId: string): void {
@@ -1256,4 +1275,21 @@ function arrangeLayerOrder(layers: Layer[], selected: Set<string>, action: Layer
     }
   }
   return ordered
+}
+
+function expandCameraSearch(value: string): string[] {
+  const normalized = value.trim().toLowerCase()
+  const aliases: Record<string, string[]> = {
+    '尼康': ['nikon'], '佳能': ['canon'], '索尼': ['sony'], '富士': ['fujifilm', 'fuji'], '松下': ['panasonic', 'lumix'],
+    '徕卡': ['leica'], '奥林巴斯': ['olympus'], '宾得': ['pentax'], '适马': ['sigma'], '哈苏': ['hasselblad']
+  }
+  const englishAliases: Record<string, string> = Object.fromEntries(Object.entries(aliases).flatMap(([chinese, values]) => values.map((english) => [english, chinese])))
+  const terms = [normalized]
+  for (const [chinese, values] of Object.entries(aliases)) {
+    if (normalized.includes(chinese) || values.some((english) => normalized.includes(english))) terms.push(chinese, ...values)
+  }
+  for (const [english, chinese] of Object.entries(englishAliases)) {
+    if (normalized.includes(english)) terms.push(chinese, english)
+  }
+  return [...new Set(terms.filter(Boolean))]
 }
