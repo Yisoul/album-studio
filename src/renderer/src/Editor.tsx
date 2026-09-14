@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type Konva from 'konva'
 import { Group as KonvaGroup, Image as KonvaImage, Layer as KonvaLayer, Line, Rect, Stage, Text as KonvaText, Transformer } from 'react-konva'
-import type { ExportOptions, ExportResult, Layer, LayerOrderAction, MediaAssetSummary, TemplateDefinition, Work, WorkDocument } from '../../shared/types'
+import type { CustomFont, ExportOptions, ExportResult, Layer, LayerOrderAction, MediaAssetSummary, TemplateDefinition, Work, WorkDocument } from '../../shared/types'
 import ContextMenu from './ContextMenu'
 import TextInputDialog from './TextInputDialog'
 import { errorMessage, previewUrl, thumbnailUrl } from './helpers'
@@ -27,6 +27,7 @@ export default function Editor(props: EditorProps) {
   const [editingText, setEditingText] = useState<{ id: string; original: string } | null>(null)
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number; layerId: string | null } | null>(null)
   const [zoom, setZoom] = useState(1)
+  const [customFonts, setCustomFonts] = useState<CustomFont[]>([])
   const [loading, setLoading] = useState(true)
 
   const load = useCallback(async () => {
@@ -47,6 +48,7 @@ export default function Editor(props: EditorProps) {
     if (!document) return
     void window.albumApi.albums.listAssets(document.work.albumId).then(setAlbumAssets)
   }, [document?.work.albumId])
+  useEffect(() => { void loadCustomFonts().then(setCustomFonts).catch(() => undefined) }, [])
   useEffect(() => {
     const clearSelection = (event: KeyboardEvent) => { if (event.key === 'Escape') setSelectedLayerIds([]) }
     window.addEventListener('keydown', clearSelection)
@@ -74,6 +76,16 @@ export default function Editor(props: EditorProps) {
   const updateText = async (layerId: string, text: string, style: Record<string, unknown>) => {
     previewText(layerId, text)
     try { await window.albumApi.works.updateTextLayer(layerId, text, style) } catch (error) { props.onToast({ kind: 'error', text: errorMessage(error) }); await load() }
+  }
+
+  const importFonts = async () => {
+    try {
+      const imported = await window.albumApi.fonts.import()
+      if (imported.length === 0) return
+      await registerCustomFonts(imported)
+      setCustomFonts((current) => [...current.filter((font) => !imported.some((item) => item.id === font.id)), ...imported])
+      props.onToast({ kind: 'info', text: `已导入 ${imported.length} 个字体` })
+    } catch (error) { props.onToast({ kind: 'error', text: errorMessage(error) }) }
   }
 
   const updateCanvasSize = async (canvasWidth: number, canvasHeight: number) => {
@@ -200,7 +212,7 @@ export default function Editor(props: EditorProps) {
       <div className="editor-workspace">
         <aside className="editor-left"><div className="panel-heading"><h3>页面</h3><button onClick={() => void addPage()} title="新增页面">＋</button></div><div className="page-list">{document.pages.map((page, index) => <button className={page.id === activePage?.id ? 'active' : ''} key={page.id} onClick={() => { setActivePageId(page.id); setSelectedLayerIds([]) }}><b>{String(index + 1).padStart(2, '0')}</b><span>第 {index + 1} 页</span></button>)}</div>{document.pages.length > 1 && <button className="text-button danger" onClick={() => void deletePage()}>删除当前页面</button>}<div className="panel-heading layer-heading"><h3>图层</h3><span>{activePage?.layers.length ?? 0}</span></div><div className="layer-list">{[...(activePage?.layers ?? [])].sort((a, b) => b.zIndex - a.zIndex).map((layer) => { const active = selectedLayerIds.includes(layer.id); return <div className={`layer-row ${active ? 'active' : ''}`} key={layer.id}><button className="layer-select" onClick={(event) => setSelectedLayerIds((current) => event.ctrlKey || event.metaKey ? (current.includes(layer.id) ? current.filter((id) => id !== layer.id) : [...current, layer.id]) : [layer.id])} onContextMenu={(event) => { event.preventDefault(); setSelectedLayerIds([layer.id]); setContextMenu({ x: event.clientX, y: event.clientY, layerId: layer.id }) }}><i>{layer.type === 'image' ? '▧' : 'T'}</i><span>{layer.type === 'image' ? fileNameFromLayer(layer, albumAssets) : layer.text || '文字'}</span></button><div className="layer-quick-actions"><button title="置顶" onClick={(event) => { event.stopPropagation(); setSelectedLayerIds([layer.id]); void reorderLayers([layer.id], 'top') }}>⇈</button><button title="置底" onClick={(event) => { event.stopPropagation(); setSelectedLayerIds([layer.id]); void reorderLayers([layer.id], 'bottom') }}>⇊</button></div></div> })}</div><div className="editor-add-row"><button onClick={() => setPickerOpen(true)}>＋ 图片</button><button onClick={() => void addText()}>＋ 文字</button></div></aside>
         <main className="canvas-area"><div className="canvas-toolbar"><button onClick={() => setZoom((value) => Math.max(0.5, value - 0.1))}>−</button><span>{Math.round(zoom * 100)}%</span><button onClick={() => setZoom((value) => Math.min(3, value + 0.1))}>＋</button><button onClick={() => setZoom(1)}>适应</button></div><Canvas zoom={zoom} document={document} pageId={activePage?.id ?? null} selectedLayerIds={selectedLayerIds} editingTextId={editingText?.id ?? null} onContextMenu={(layerId, x, y) => { if (layerId) setSelectedLayerIds([layerId]); setContextMenu({ x, y, layerId }) }} onSelect={(layerId, additive) => setSelectedLayerIds((current) => layerId == null ? [] : additive ? (current.includes(layerId) ? current.filter((id) => id !== layerId) : [...current, layerId]) : [layerId])} onEdit={beginInlineTextEditing} onTextPreview={previewText} onTextCommit={(layerId, value) => { setEditingText(null); void updateText(layerId, value, {}) }} onTextCancel={() => { if (editingText) previewText(editingText.id, editingText.original); setEditingText(null) }} onChange={updateLayer} /></main>
-        <aside className="editor-right"><PageSettings work={document.work} background={activePage?.background ?? document.work.background} onCanvasSize={(width, height) => void updateCanvasSize(width, height)} onChange={(background) => void updatePageBackground(background)} />{selectedLayers.length > 1 ? <MultiSelectionPanel count={selectedLayers.length} onReorder={(action) => void reorderSelected(action)} onDelete={() => void deleteLayers()} onClear={() => setSelectedLayerIds([])} /> : selectedLayer ? <LayerInspector work={document.work} layer={selectedLayer} asset={albumAssets.find((asset) => asset.id === selectedLayer.assetId)} focusToken={textFocusToken} onPreviewText={previewText} onReorder={(action) => void reorderSelected(action)} onUpdate={(patch) => void updateLayer(selectedLayer.id, patch)} onUpdateText={(text, style) => void updateText(selectedLayer.id, text, style)} onReplace={() => { setReplaceTargetId(selectedLayer.id); setPickerOpen(true) }} onDelete={() => void deleteLayers()} /> : <InspectorEmpty onAddText={() => void addText()} onAddImage={() => { setReplaceTargetId(null); setPickerOpen(true) }} />}</aside>
+        <aside className="editor-right"><PageSettings work={document.work} background={activePage?.background ?? document.work.background} onCanvasSize={(width, height) => void updateCanvasSize(width, height)} onChange={(background) => void updatePageBackground(background)} />{selectedLayers.length > 1 ? <MultiSelectionPanel count={selectedLayers.length} onReorder={(action) => void reorderSelected(action)} onDelete={() => void deleteLayers()} onClear={() => setSelectedLayerIds([])} /> : selectedLayer ? <LayerInspector work={document.work} layer={selectedLayer} customFonts={customFonts} onImportFont={() => void importFonts()} asset={albumAssets.find((asset) => asset.id === selectedLayer.assetId)} focusToken={textFocusToken} onPreviewText={previewText} onReorder={(action) => void reorderSelected(action)} onUpdate={(patch) => void updateLayer(selectedLayer.id, patch)} onUpdateText={(text, style) => void updateText(selectedLayer.id, text, style)} onReplace={() => { setReplaceTargetId(selectedLayer.id); setPickerOpen(true) }} onDelete={() => void deleteLayers()} /> : <InspectorEmpty onAddText={() => void addText()} onAddImage={() => { setReplaceTargetId(null); setPickerOpen(true) }} />}</aside>
       </div>
       {pickerOpen && <ImagePicker title={replaceTargetId ? '更换图片' : '添加图片'} assets={albumAssets} onClose={() => { setPickerOpen(false); setReplaceTargetId(null) }} onSelect={(assetId) => void (replaceTargetId ? replaceImage(assetId) : addImage(assetId))} />}
       {exportOpen && <ExportDialog work={document} onClose={() => setExportOpen(false)} onToast={props.onToast} />}
@@ -412,7 +424,7 @@ function PageSettings(props: { work: Work; background: string; onChange: (backgr
   </section>
 }
 
-function LayerInspector(props: { work: Work; layer: Layer; asset?: MediaAssetSummary; focusToken: number; onPreviewText: (layerId: string, text: string) => void; onUpdate: (patch: LayerPatch) => void; onUpdateText: (text: string, style: Record<string, unknown>) => void; onReplace: () => void; onDelete: () => void; onReorder: (action: LayerOrderAction) => void }) {
+function LayerInspector(props: { work: Work; layer: Layer; customFonts: CustomFont[]; onImportFont: () => void; asset?: MediaAssetSummary; focusToken: number; onPreviewText: (layerId: string, text: string) => void; onUpdate: (patch: LayerPatch) => void; onUpdateText: (text: string, style: Record<string, unknown>) => void; onReplace: () => void; onDelete: () => void; onReorder: (action: LayerOrderAction) => void }) {
   const [text, setText] = useState(props.layer.text ?? '')
   const [dirty, setDirty] = useState(false)
   const [ratioFeedback, setRatioFeedback] = useState(false)
@@ -489,8 +501,11 @@ function LayerInspector(props: { work: Work; layer: Layer; asset?: MediaAssetSum
         <h4>文字内容</h4>
         <textarea ref={textareaRef} value={text} onChange={(event) => { const value = event.target.value; setText(value); setDirty(true); dirtyRef.current = true; props.onPreviewText(props.layer.id, value) }} onBlur={commitText} onKeyDown={(event) => { if (event.key === 'Enter' && (event.ctrlKey || event.metaKey)) { event.preventDefault(); commitText() } if (event.key === 'Escape') { event.preventDefault(); cancelText(); event.currentTarget.blur() } }} placeholder="输入文字，支持换行" />
         <div className="text-commit-row"><span>{dirty ? '内容尚未应用' : '内容已保存'}</span><button disabled={!dirty} onMouseDown={(event) => event.preventDefault()} onClick={commitText}>应用文字</button></div>
-        <div className="inspector-grid"><label>字号<input type="number" min="1" value={numberStyle(style.fontSize, 48)} onChange={(event) => props.onUpdateText(text, { fontSize: Number(event.target.value) })} /></label><label>颜色<input type="color" value={stringStyle(style.color, '#111111')} onChange={(event) => props.onUpdateText(text, { color: event.target.value })} /></label></div>
-        <label>字体<input value={stringStyle(style.fontFamily, 'Microsoft YaHei')} onChange={(event) => props.onUpdateText(text, { fontFamily: event.target.value })} /></label>
+        <div className="text-format-grid">
+          <label>字号<div className="font-size-stepper"><button onClick={() => props.onUpdateText(text, { fontSize: Math.max(8, numberStyle(style.fontSize, 48) - 2) })}>−</button><input type="number" min="8" max="240" value={numberStyle(style.fontSize, 48)} onChange={(event) => props.onUpdateText(text, { fontSize: Math.max(8, Math.min(240, Number(event.target.value))) })} /><button onClick={() => props.onUpdateText(text, { fontSize: Math.min(240, numberStyle(style.fontSize, 48) + 2) })}>＋</button></div></label>
+          <label>颜色<div className="text-color-control"><input type="color" value={stringStyle(style.color, '#111111')} onChange={(event) => props.onUpdateText(text, { color: event.target.value })} /><div className="color-swatches">{['#111111', '#ffffff', '#bf5f3c', '#2563eb', '#16a34a', '#dc2626'].map((color) => <button key={color} title={color} style={{ background: color }} className={stringStyle(style.color, '#111111').toLowerCase() === color ? 'active' : ''} onClick={() => props.onUpdateText(text, { color })} />)}</div></div></label>
+        </div>
+        <label className="full-field">字体<div className="font-row"><select value={stringStyle(style.fontFamily, 'Microsoft YaHei')} onChange={(event) => props.onUpdateText(text, { fontFamily: event.target.value })}><option value="Microsoft YaHei">微软雅黑</option><option value="SimSun">宋体</option><option value="SimHei">黑体</option><option value="KaiTi">楷体</option><option value="FangSong">仿宋</option><option value="Arial">Arial</option><option value="Georgia">Georgia</option>{props.customFonts.length > 0 && <optgroup label="导入字体">{props.customFonts.map((font) => <option key={font.id} value={font.family}>{font.name}</option>)}</optgroup>}</select><button className="button secondary compact" onClick={props.onImportFont}>导入字体</button></div></label>
         <div className="inspector-grid"><label>对齐<select value={stringStyle(style.align, 'left')} onChange={(event) => props.onUpdateText(text, { align: event.target.value })}><option value="left">左对齐</option><option value="center">居中</option><option value="right">右对齐</option></select></label><label>字重<select value={stringStyle(style.fontWeight, 'normal')} onChange={(event) => props.onUpdateText(text, { fontWeight: event.target.value })}><option value="normal">常规</option><option value="bold">加粗</option></select></label></div>
         <div className="inspector-grid"><label>行距<input type="number" min="0.8" max="3" step="0.1" value={numberStyle(style.lineHeight, 1.2)} onChange={(event) => props.onUpdateText(text, { lineHeight: Number(event.target.value) })} /></label><label>字距<input type="number" step="0.5" value={numberStyle(style.letterSpacing)} onChange={(event) => props.onUpdateText(text, { letterSpacing: Number(event.target.value) })} /></label></div>
         <p>双击画布上的文字可直接就地编辑；支持 {'{{album}}'}、{'{{camera}}'}、{'{{lens}}'}、{'{{date}}'} 等变量。</p>
@@ -544,6 +559,21 @@ function imageFrameFor(asset?: MediaAssetSummary): { x: number; y: number; width
     width = height * ratio
   }
   return { x: (1 - width) / 2, y: (1 - height) / 2, width, height }
+}
+
+async function loadCustomFonts(): Promise<CustomFont[]> {
+  const fonts = await window.albumApi.fonts.list()
+  await registerCustomFonts(fonts)
+  return fonts
+}
+
+async function registerCustomFonts(fonts: CustomFont[]): Promise<void> {
+  await Promise.all(fonts.map(async (font) => {
+    try {
+      const face = await new FontFace(font.family, `url("album-font://${encodeURIComponent(font.id)}")`).load()
+      document.fonts.add(face)
+    } catch { /* A broken font should not block the editor. */ }
+  }))
 }
 
 function numberStyle(value: unknown, fallback = 0): number { return typeof value === 'number' && Number.isFinite(value) ? value : fallback }

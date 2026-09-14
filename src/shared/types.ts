@@ -188,6 +188,12 @@ export interface ExportResult {
 
 export type AppTheme = 'warm' | 'ocean' | 'forest' | 'rose'
 
+export interface CustomFont {
+  id: string
+  name: string
+  family: string
+}
+
 export interface AppSettings {
   thumbnailCacheLimitGb: number
   autoWatch: boolean

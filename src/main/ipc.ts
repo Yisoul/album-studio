@@ -1,8 +1,9 @@
-import { dialog, ipcMain, shell, type BrowserWindow } from 'electron'
+import { clipboard, dialog, ipcMain, shell, type BrowserWindow, type OpenDialogOptions } from 'electron'
 import { z } from 'zod'
 import { BUILT_IN_TEMPLATES } from '../shared/templates'
 import type { AppSettings, LayerOrderAction, OutputMode, Page, SearchFilters, SourceRemovalMode, TemplateDefinition } from '../shared/types'
 import type { BackupService } from './backup'
+import type { FontService } from './fonts'
 import type { AppDatabase } from './database'
 import type { WorkExporter } from './exporter'
 import type { LibraryScanner } from './scanner'
@@ -16,6 +17,7 @@ interface IpcContext {
   backups: BackupService
   settings: SettingsService
   thumbnails: ThumbnailService
+  fonts: FontService
   getWindow: () => BrowserWindow | null
 }
 
@@ -69,6 +71,17 @@ export function registerIpcHandlers(context: IpcContext): () => void {
     await scanAll(context)
   })
   handle('app:backup-now', () => context.backups.createBackup())
+  handle('fonts:list', () => context.fonts.list())
+  handle('fonts:import', async () => {
+    const owner = context.getWindow()
+    const options: OpenDialogOptions = { title: '导入字体', properties: ['openFile', 'multiSelections'], filters: [{ name: '字体文件', extensions: ['ttf', 'otf', 'woff', 'woff2'] }] }
+    const result = owner ? await dialog.showOpenDialog(owner, options) : await dialog.showOpenDialog(options)
+    return result.canceled ? [] : context.fonts.import(result.filePaths)
+  })
+  handle('fonts:remove', (_event, id: string) => context.fonts.remove(z.string().uuid().parse(id)))
+
+  handle('app:read-clipboard', () => clipboard.readText())
+  handle('app:write-clipboard', (_event, text: string) => clipboard.writeText(z.string().parse(text)))
 
   handle('library:list-roots', () => context.db.listSourceRoots())
   handle('library:add-roots', async (_event, paths: string[]) => {

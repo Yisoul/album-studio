@@ -4,16 +4,15 @@ import { pathToFileURL } from 'node:url'
 import { BackupService } from './backup'
 import { AppDatabase } from './database'
 import { WorkExporter } from './exporter'
+import { FontService } from './fonts'
 import { registerIpcHandlers, seedTemplates } from './ipc'
 import { LibraryScanner } from './scanner'
 import { SettingsService } from './settings'
 import { ThumbnailService } from './thumbnails'
 
 protocol.registerSchemesAsPrivileged([
-  {
-    scheme: 'album-media',
-    privileges: { standard: true, secure: true, supportFetchAPI: true, stream: true }
-  }
+  { scheme: 'album-media', privileges: { standard: true, secure: true, supportFetchAPI: true, stream: true } },
+  { scheme: 'album-font', privileges: { standard: true, secure: true, supportFetchAPI: true, stream: true } }
 ])
 
 let mainWindow: BrowserWindow | null = null
@@ -56,6 +55,7 @@ async function initialize(): Promise<void> {
   const userData = app.getPath('userData')
   const databasePath = join(userData, 'library.sqlite')
   const thumbnailDirectory = join(userData, 'thumbnails')
+  const fontDirectory = join(userData, 'fonts')
   const backupDirectory = join(userData, 'backups')
 
   database = new AppDatabase(databasePath)
@@ -65,8 +65,22 @@ async function initialize(): Promise<void> {
   const backups = new BackupService(database, databasePath, backupDirectory, 7)
   const settings = new SettingsService(join(userData, 'settings.json'))
   const thumbnails = new ThumbnailService(database, thumbnailDirectory)
+  const fonts = new FontService(fontDirectory, join(fontDirectory, 'fonts.json'))
   scanner = new LibraryScanner(database)
-  const exporter = new WorkExporter(database)
+  const exporter = new WorkExporter(database, fonts)
+
+  protocol.handle('album-font', async (request) => {
+    try {
+      const url = new URL(request.url)
+      const id = decodeURIComponent(url.hostname || url.pathname.replace(/^\/+/, ''))
+      const filePath = await fonts.getPath(id)
+      if (!filePath) return new Response('Font not found', { status: 404 })
+      const response = await net.fetch(pathToFileURL(filePath).toString())
+      return new Response(await response.arrayBuffer(), { headers: { 'content-type': await fonts.mimeType(id) } })
+    } catch {
+      return new Response('Font not found', { status: 404 })
+    }
+  })
 
   protocol.handle('album-media', async (request) => {
     try {
@@ -90,6 +104,7 @@ async function initialize(): Promise<void> {
     backups,
     settings,
     thumbnails,
+    fonts,
     getWindow: () => mainWindow
   })
 

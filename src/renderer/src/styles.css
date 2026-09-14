@@ -344,6 +344,18 @@ input:focus, select:focus, textarea:focus { border-color: #ce8c71; box-shadow: 0
 .inspector-actions button, .reorder-grid button { padding: 7px 6px; border: 1px solid #ddd5ca; border-radius: 8px; color: #655e55; background: #fff; font-size: 11px; }
 .inspector-actions button:hover, .reorder-grid button:hover { border-color: #c98e73; color: #8e3f26; }
 .reorder-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+.text-format-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+.font-size-stepper { display: grid; grid-template-columns: 34px minmax(0, 1fr) 34px; overflow: hidden; border: 1px solid var(--line); border-radius: 9px; background: #fff; }
+.font-size-stepper button { border: 0; color: var(--accent-dark); background: #f7f1eb; font-size: 18px; }
+.font-size-stepper input { min-width: 0; border: 0; border-radius: 0; text-align: center; appearance: textfield; }
+.font-size-stepper input::-webkit-inner-spin-button, .font-size-stepper input::-webkit-outer-spin-button { appearance: none; }
+.text-color-control { display: flex; align-items: center; gap: 9px; }
+.text-color-control > input[type="color"] { flex: 0 0 auto; width: 44px; height: 36px; padding: 3px; }
+.color-swatches { display: flex; flex: 1; gap: 6px; }
+.font-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
+.font-row select { min-width: 0; }
+.color-swatches button { width: 26px; height: 26px; border: 1px solid #d1c9be; border-radius: 7px; }
+.color-swatches button.active { outline: 2px solid var(--accent); outline-offset: 2px; }
 .text-commit-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; color: var(--muted); font-size: 11px; }
 .text-commit-row button { padding: 6px 9px; border: 1px solid #d4a18b; border-radius: 8px; color: #8e3f26; background: #fff7f2; font-size: 11px; }
 .text-commit-row button:disabled { border-color: #e1ddd6; color: #aaa298; background: #f3f0eb; cursor: default; }

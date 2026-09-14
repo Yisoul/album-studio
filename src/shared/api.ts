@@ -1,5 +1,5 @@
 import type {
-  Album, AppSettings, DuplicateGroup, ExportOptions, FolderSummary, ExportResult, Layer, MediaAssetSummary,
+  Album, AppSettings, CustomFont, DuplicateGroup, ExportOptions, FolderSummary, ExportResult, Layer, MediaAssetSummary,
   ImageFit, LayerOrderAction, MediaLocation, OutputMode, Page, ScanProgress, SearchFilters, SourceRemovalMode, SourceRemovalResult, SourceRoot, SourceRootImpact, TemplateDefinition, Work, WorkDocument
 } from './types'
 
@@ -58,6 +58,8 @@ export interface AlbumStudioApi {
     chooseExportDirectory(): Promise<string | null>
     scanAll(): Promise<void>
     backupNow(): Promise<string>
+    readClipboardText(): Promise<string>
+    writeClipboardText(text: string): Promise<void>
     onScanProgress(callback: (progress: ScanProgress) => void): () => void
   }
   library: {
@@ -104,6 +106,11 @@ export interface AlbumStudioApi {
     replaceImageLayerAsset(layerId: string, assetId: string): Promise<void>
     updateTextLayer(layerId: string, text: string, style: Record<string, unknown>): Promise<void>
     deleteLayer(layerId: string): Promise<void>
+  }
+  fonts: {
+    list(): Promise<CustomFont[]>
+    import(): Promise<CustomFont[]>
+    remove(id: string): Promise<void>
   }
   templates: {
     list(): Promise<TemplateDefinition[]>

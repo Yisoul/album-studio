@@ -11,6 +11,8 @@ const api: AlbumStudioApi = {
     chooseExportDirectory: () => ipcRenderer.invoke('app:choose-export-directory'),
     scanAll: () => ipcRenderer.invoke('app:scan-all'),
     backupNow: () => ipcRenderer.invoke('app:backup-now'),
+    readClipboardText: () => ipcRenderer.invoke('app:read-clipboard'),
+    writeClipboardText: (text: string) => ipcRenderer.invoke('app:write-clipboard', text),
     onScanProgress: (callback: (progress: ScanProgress) => void) => {
       const listener = (_event: Electron.IpcRendererEvent, progress: ScanProgress): void => callback(progress)
       ipcRenderer.on('app:scan-progress', listener)
@@ -61,6 +63,11 @@ const api: AlbumStudioApi = {
     replaceImageLayerAsset: (layerId: string, assetId: string) => ipcRenderer.invoke('works:replace-image-layer-asset', layerId, assetId),
     updateTextLayer: (layerId: string, text: string, style: Record<string, unknown>) => ipcRenderer.invoke('works:update-text-layer', layerId, text, style),
     deleteLayer: (layerId: string) => ipcRenderer.invoke('works:delete-layer', layerId)
+  },
+  fonts: {
+    list: () => ipcRenderer.invoke('fonts:list'),
+    import: () => ipcRenderer.invoke('fonts:import'),
+    remove: (id: string) => ipcRenderer.invoke('fonts:remove', id)
   },
   templates: {
     list: () => ipcRenderer.invoke('templates:list'),

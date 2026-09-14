@@ -1,7 +1,9 @@
 import { mkdir } from 'node:fs/promises'
 import { join } from 'node:path'
+import fontkit from 'fontkit'
 import sharp from 'sharp'
 import type { AppDatabase, Layer, Page, Work } from './database'
+import type { FontService } from './fonts'
 
 export interface ExportOptions {
   directory: string
@@ -25,7 +27,7 @@ interface CompositeLayer {
 }
 
 export class WorkExporter {
-  constructor(private readonly db: AppDatabase) {}
+  constructor(private readonly db: AppDatabase, private readonly fonts?: FontService) {}
 
   async exportWork(workId: string, options: ExportOptions): Promise<ExportResult> {
     const document = this.db.getWorkDocument(workId)
@@ -97,7 +99,8 @@ export class WorkExporter {
       }
 
       if (layer.type === 'text' && layer.text) {
-        const textBuffer = renderTextLayer(layer, layerWidth, layerHeight, albumName, width / work.canvasWidth)
+        const customFontPath = await this.fonts?.getPathForFamily(stringStyle(layer.style.fontFamily, 'Microsoft YaHei'))
+        const textBuffer = await renderTextLayer(layer, layerWidth, layerHeight, albumName, width / work.canvasWidth, customFontPath ?? undefined)
         let output = textBuffer
         if (layer.rotation) {
           output = await sharp(output).rotate(layer.rotation, { background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toBuffer()
@@ -131,7 +134,7 @@ export class WorkExporter {
   }
 }
 
-function renderTextLayer(layer: Layer, width: number, height: number, albumName: string, scale: number): Buffer {
+async function renderTextLayer(layer: Layer, width: number, height: number, albumName: string, scale: number, customFontPath?: string): Promise<Buffer> {
   const style = layer.style
   const fontSize = Math.max(1, numberStyle(style.fontSize, 48) * scale)
   const lineHeight = numberStyle(style.lineHeight, 1.2) * fontSize
@@ -139,10 +142,41 @@ function renderTextLayer(layer: Layer, width: number, height: number, albumName:
   const fontFamily = stringStyle(style.fontFamily, 'Microsoft YaHei')
   const fontWeight = stringStyle(style.fontWeight, 'normal')
   const align = stringStyle(style.align, 'left')
-  const anchor = align === 'center' ? 'middle' : align === 'right' ? 'end' : 'start'
   const x = align === 'center' ? width / 2 : align === 'right' ? width : 0
   const variableText = String(layer.text ?? '').replaceAll('{{album}}', albumName)
   const lines = wrapText(variableText, width, fontSize)
+
+  if (customFontPath) {
+    try {
+      const opened = fontkit.openSync(customFontPath) as { fonts?: Array<{ unitsPerEm?: number; layout?: (text: string) => { advanceWidth: number; glyphs: Array<{ xOffset?: number; yOffset?: number; advanceWidth: number; path?: { toSVG(): string } }> } }>; unitsPerEm?: number; layout?: (text: string) => { advanceWidth: number; glyphs: Array<{ xOffset?: number; yOffset?: number; advanceWidth: number; path?: { toSVG(): string } }> } }
+      const font = opened.fonts?.[0] ?? opened
+      if (font.unitsPerEm && font.layout) {
+        const fontScale = fontSize / font.unitsPerEm
+        const paths: string[] = []
+        lines.forEach((line, index) => {
+          const run = font.layout!(line)
+          const lineWidth = run.advanceWidth * fontScale
+          let cursor = align === 'center' ? x - lineWidth / 2 : align === 'right' ? x - lineWidth : x
+          const baseline = fontSize + index * lineHeight
+          for (const glyph of run.glyphs) {
+            const glyphPath = glyph.path?.toSVG()
+            if (glyphPath) {
+              const glyphX = cursor + (glyph.xOffset ?? 0) * fontScale
+              const glyphY = baseline - (glyph.yOffset ?? 0) * fontScale
+              const transform = `translate(${glyphX} ${glyphY}) scale(${fontScale} ${-fontScale})`
+              paths.push(`<path d="${glyphPath}" transform="${transform}" fill="${escapeXml(color)}" stroke="${fontWeight === 'bold' ? escapeXml(color) : 'none'}" stroke-width="${fontWeight === 'bold' ? Math.max(0.4, fontSize * 0.018) : 0}" />`)
+            }
+            cursor += glyph.advanceWidth * fontScale
+          }
+        })
+        return Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">${paths.join('')}</svg>`)
+      }
+    } catch {
+      // Fall back to system text if the imported font cannot be parsed.
+    }
+  }
+
+  const anchor = align === 'center' ? 'middle' : align === 'right' ? 'end' : 'start'
   const tspans = lines.map((line, index) => `<tspan x="${x}" dy="${index === 0 ? 0 : lineHeight}">${escapeXml(line)}</tspan>`).join('')
   const svg = `
     <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
