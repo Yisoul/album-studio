@@ -133,7 +133,7 @@ input:focus, select:focus, textarea:focus { border-color: #ce8c71; box-shadow: 0
 .segmented button.active { color: #fff; background: #3f403a; }
 .library-browser { display: grid; grid-template-columns: 218px minmax(0, 1fr); gap: 18px; align-items: stretch; }
 .library-content { min-width: 0; }
-.folder-sidebar { position: sticky; top: 0; align-self: stretch; overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: var(--panel-translucent); box-shadow: 0 8px 24px rgba(55,45,36,.06); }
+.folder-sidebar { position: sticky; top: 16px; align-self: start; height: fit-content; max-height: calc(100vh - 132px); overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: var(--panel-translucent); box-shadow: 0 8px 24px rgba(55,45,36,.06); }
 .folder-sidebar-head { display: flex; align-items: center; justify-content: space-between; padding: 12px 13px; border-bottom: 1px solid #e6e0d6; }
 .folder-sidebar-head strong { font-size: 13px; }
 .folder-sidebar-head span { color: var(--muted); font-size: 11px; }
