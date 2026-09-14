@@ -321,12 +321,14 @@ input:focus, select:focus, textarea:focus { border-color: #ce8c71; box-shadow: 0
 .inspector-head span { color: var(--accent); font-size: 10px; font-weight: 700; letter-spacing: .12em; }
 .inspector-head strong { font-size: 16px; }
 .icon-danger { padding: 6px 8px; border: 0; color: var(--danger); background: transparent; font-size: 12px; }
-.inspector-section { display: grid; min-width: 0; gap: 11px; padding: 13px; border: 1px solid #e1dbd1; border-radius: 12px; background: #fffdfa; }
+.inspector-section { display: grid; min-width: 0; gap: 11px; overflow: hidden; padding: 13px; border: 1px solid #e1dbd1; border-radius: 12px; background: #fffdfa; }
 .inspector-section h4 { margin: 0; font-size: 12px; }
 .inspector-section small, .inspector-section p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.6; }
 .multi-inspector { align-content: start; }
 .inspector-empty { display: grid; gap: 8px; margin-top: 60px; color: var(--muted); text-align: center; }
 .inspector-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.inspector-grid > label { min-width: 0; }
+.inspector-grid input, .inspector-grid select { width: 100%; min-width: 0; }
 .inspector textarea { min-height: 116px; resize: vertical; padding: 10px; border: 1px solid var(--line); border-radius: 9px; line-height: 1.55; }
 .section-title { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
 .section-title small { color: var(--muted); font-size: 10px; }
