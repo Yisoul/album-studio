@@ -106,8 +106,22 @@ input:focus, select:focus, textarea:focus { border-color: #ce8c71; box-shadow: 0
 .section-heading { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
 .section-heading h2 { margin: 0; font-size: 20px; }
 .work-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 14px; }
-.work-card { display: grid; gap: 5px; padding: 12px; border: 1px solid var(--line); border-radius: 15px; color: var(--ink); background: var(--paper); text-align: left; }
+.folder-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 12px 0 4px; }
+.segmented { display: flex; padding: 3px; border-radius: 10px; background: #e9e3d9; }
+.segmented button { padding: 7px 12px; border: 0; border-radius: 8px; color: var(--muted); background: transparent; }
+.segmented button.active { color: #fff; background: #3f403a; }
+.folder-chips { display: flex; gap: 7px; overflow-x: auto; padding-bottom: 3px; }
+.folder-chips button { flex: 0 0 auto; padding: 6px 10px; border: 1px solid var(--line); border-radius: 20px; color: #5f5a52; background: #fff; font-size: 12px; }
+.folder-chips button.active { border-color: #c66c49; color: #8e3f26; background: #fff3ec; }
+.folder-sections { display: grid; gap: 30px; }
+.folder-section > header { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin: 0 0 12px; padding-bottom: 9px; border-bottom: 1px solid var(--line); }
+.folder-section > header div { display: grid; gap: 3px; min-width: 0; }
+.folder-section > header span { overflow: hidden; color: var(--muted); font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+.folder-section > header b { color: var(--accent); font-size: 12px; }
+.picker-toolbar { margin-bottom: 10px; }.work-card { position: relative; display: grid; gap: 5px; padding: 12px; border: 1px solid var(--line); border-radius: 15px; color: var(--ink); background: var(--paper); text-align: left; }
 .work-card:hover { border-color: #caa18f; }
+.work-open { display: grid; gap: 5px; padding: 0; border: 0; color: inherit; background: transparent; text-align: left; }
+.work-delete { justify-self: start; padding: 4px 0; border: 0; color: var(--danger); background: transparent; font-size: 12px; }
 .work-preview { display: grid; height: 128px; place-items: center; border-radius: 10px; background: linear-gradient(135deg, #36342f, #8d8171); color: #fff; }
 .work-card small { color: var(--muted); }
 
@@ -170,7 +184,10 @@ input:focus, select:focus, textarea:focus { border-color: #ce8c71; box-shadow: 0
 .picker-grid.simple img { width: 100%; height: 140px; object-fit: cover; }
 .picker-grid.simple span { display: block; padding: 8px; overflow: hidden; font-size: 12px; text-overflow: ellipsis; white-space: nowrap; }
 .detail-layout { display: grid; grid-template-columns: minmax(320px, 1.3fr) minmax(280px, .7fr); gap: 24px; }
-.detail-preview { display: grid; min-height: 440px; place-items: center; border-radius: 14px; background: #262620; }
+.detail-preview { position: relative; }
+.fullscreen-button { position: absolute; top: 12px; right: 12px; z-index: 2; padding: 7px 11px; border: 1px solid rgba(255,255,255,.35); border-radius: 9px; color: #fff; background: rgba(20,20,18,.55); backdrop-filter: blur(6px); }
+.detail-preview:fullscreen { display: grid; width: 100vw; height: 100vh; place-items: center; background: #111; }
+.detail-preview:fullscreen img { width: 100%; height: 100%; max-height: none; object-fit: contain; }.detail-preview { display: grid; min-height: 440px; place-items: center; border-radius: 14px; background: #262620; }
 .detail-preview img { max-height: 72vh; object-fit: contain; }
 .detail-info dl { display: grid; grid-template-columns: auto 1fr; gap: 8px 16px; margin-top: 0; }
 .detail-info dt { color: var(--muted); }
@@ -184,7 +201,7 @@ input:focus, select:focus, textarea:focus { border-color: #ce8c71; box-shadow: 0
 .editor-header { display: grid; grid-template-columns: 180px 1fr auto; align-items: center; gap: 20px; padding: 0 22px; border-bottom: 1px solid #d4cec3; background: #fffdf8; }
 .editor-title { display: grid; justify-self: center; text-align: center; }
 .editor-title span { margin-top: 3px; color: var(--muted); font-size: 11px; }
-.editor-workspace { display: grid; grid-template-columns: 220px minmax(500px, 1fr) 260px; min-height: 0; }
+.editor-workspace { display: grid; grid-template-columns: 230px minmax(500px, 1fr) 320px; min-height: 0; }
 .editor-left, .editor-right { min-height: 0; overflow: auto; padding: 16px; border-right: 1px solid #d8d2c8; background: #f7f4ee; }
 .editor-right { border-right: 0; border-left: 1px solid #d8d2c8; }
 .panel-heading { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
@@ -203,6 +220,15 @@ input:focus, select:focus, textarea:focus { border-color: #ce8c71; box-shadow: 0
 .canvas-frame { display: grid; place-items: center; padding: 12px; background: #fff; box-shadow: 0 28px 70px rgba(55,48,39,.22); }
 .canvas-empty { width: 400px; padding: 80px; color: var(--muted); text-align: center; }
 .inspector { display: grid; gap: 14px; }
+.inspector-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 12px; border-bottom: 1px solid #ded7cc; }
+.inspector-head div { display: grid; gap: 4px; }
+.inspector-head span { color: var(--accent); font-size: 10px; font-weight: 700; letter-spacing: .12em; }
+.inspector-head strong { font-size: 16px; }
+.icon-danger { padding: 6px 8px; border: 0; color: var(--danger); background: transparent; font-size: 12px; }
+.inspector-section { display: grid; gap: 11px; padding: 13px; border: 1px solid #e1dbd1; border-radius: 12px; background: #fffdfa; }
+.inspector-section h4 { margin: 0; font-size: 12px; }
+.inspector-section small, .inspector-section p { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.6; }
+.multi-inspector { align-content: start; }
 .inspector-empty { display: grid; gap: 8px; margin-top: 60px; color: var(--muted); text-align: center; }
 .inspector-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .inspector textarea { min-height: 100px; resize: vertical; }

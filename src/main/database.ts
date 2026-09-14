@@ -1,6 +1,7 @@
 import { randomUUID } from 'node:crypto'
+import { dirname } from 'node:path'
 import { DatabaseSync } from 'node:sqlite'
-import type { SourceRemovalMode, SourceRemovalResult, SourceRootImpact } from '../shared/types'
+import type { FolderSummary, SourceRemovalMode, SourceRemovalResult, SourceRootImpact } from '../shared/types'
 
 export type Orientation = 'landscape' | 'portrait' | 'square'
 export type OutputMode = 'pages' | 'long_image'
@@ -15,6 +16,7 @@ export interface SourceRoot {
 
 export interface MediaLocationInput {
   rootId: string
+  directoryPath?: string
   absolutePath: string
   relativePath: string
   contentHash: string
@@ -57,6 +59,9 @@ export interface SearchFilters {
   isoMax?: number
   favorite?: boolean
   albumId?: string
+  rootIds?: string[]
+  folderPaths?: string[]
+  sort?: 'captured_desc' | 'captured_asc' | 'added_desc' | 'added_asc' | 'filename_asc' | 'filename_desc'
   limit: number
   offset: number
 }
@@ -79,6 +84,8 @@ export interface MediaAssetSummary {
   favorite: boolean
   missing: boolean
   primaryPath: string | null
+  primaryRootId: string | null
+  primaryDirectoryPath: string | null
   locationCount: number
 }
 export interface Album {
@@ -311,8 +318,19 @@ export class AppDatabase {
 
       INSERT OR IGNORE INTO schema_migrations(version, applied_at) VALUES (1, unixepoch() * 1000);
     `)
+    this.ensureDirectoryPathColumn()
   }
 
+  private ensureDirectoryPathColumn(): void {
+    const columns = this.db.prepare('PRAGMA table_info(media_locations)').all() as Row[]
+    if (!columns.some((column) => asString(column.name) === 'directory_path')) {
+      this.db.exec("ALTER TABLE media_locations ADD COLUMN directory_path TEXT NOT NULL DEFAULT ''")
+    }
+    const rows = this.db.prepare("SELECT id, absolute_path FROM media_locations WHERE directory_path = ''").all() as Row[]
+    const update = this.db.prepare('UPDATE media_locations SET directory_path = ? WHERE id = ?')
+    for (const row of rows) update.run(dirname(asString(row.absolute_path)), asString(row.id))
+    this.db.prepare('INSERT OR IGNORE INTO schema_migrations(version, applied_at) VALUES (2, unixepoch() * 1000)').run()
+  }
   close(): void {
     this.db.close()
   }
@@ -338,6 +356,7 @@ export class AppDatabase {
 
   upsertMediaLocation(input: MediaLocationInput): { assetId: string; locationId: string } {
     const now = Date.now()
+    const directoryPath = input.directoryPath ?? dirname(input.absolutePath)
     const existingLocation = this.db.prepare('SELECT id, asset_id FROM media_locations WHERE absolute_path = ?').get(input.absolutePath) as Row | undefined
     const hashAsset = this.db.prepare('SELECT id FROM media_assets WHERE content_hash = ?').get(input.contentHash) as Row | undefined
 
@@ -410,17 +429,17 @@ export class AppDatabase {
 
     if (existingLocation) {
       this.db.prepare(`
-        UPDATE media_locations SET asset_id = ?, root_id = ?, relative_path = ?, size_bytes = ?, modified_at = ?,
+        UPDATE media_locations SET asset_id = ?, root_id = ?, relative_path = ?, directory_path = ?, size_bytes = ?, modified_at = ?,
           status = 'available', preferred = ?, updated_at = ? WHERE id = ?
-      `).run(assetId, input.rootId, input.relativePath, input.sizeBytes, input.modifiedAt, preferred ? 1 : 0, now, locationId)
+      `).run(assetId, input.rootId, input.relativePath, directoryPath, input.sizeBytes, input.modifiedAt, preferred ? 1 : 0, now, locationId)
     } else {
       this.db.prepare(`
         INSERT INTO media_locations(
-          id, asset_id, root_id, absolute_path, relative_path, size_bytes, modified_at,
+          id, asset_id, root_id, absolute_path, relative_path, directory_path, size_bytes, modified_at,
           status, preferred, created_at, updated_at
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, 'available', ?, ?, ?)
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'available', ?, ?, ?)
       `).run(
-        locationId, assetId, input.rootId, input.absolutePath, input.relativePath, input.sizeBytes,
+        locationId, assetId, input.rootId, input.absolutePath, input.relativePath, directoryPath, input.sizeBytes,
         input.modifiedAt, preferred ? 1 : 0, now, now
       )
     }
@@ -616,6 +635,20 @@ export class AppDatabase {
     }))
   }
 
+  listFolders(): FolderSummary[] {
+    const rows = this.db.prepare(`
+      SELECT directory_path, COUNT(DISTINCT asset_id) AS asset_count
+      FROM media_locations
+      WHERE status = 'available' AND directory_path != ''
+      GROUP BY directory_path
+      ORDER BY directory_path COLLATE NOCASE
+    `).all() as Row[]
+    return rows.map((row) => {
+      const path = asString(row.directory_path)
+      return { path, name: path.split(/[\\/]/).filter(Boolean).pop() || path, assetCount: asNumber(row.asset_count) }
+    })
+  }
+
   markRootLocationsMissing(rootId: string): void {
     const now = Date.now()
     this.db.prepare("UPDATE media_locations SET status = 'missing', updated_at = ? WHERE root_id = ?").run(now, rootId)
@@ -679,8 +712,36 @@ export class AppDatabase {
       clauses.push('EXISTS (SELECT 1 FROM album_items ai WHERE ai.album_id = ? AND ai.asset_id = a.id)')
       params.push(filters.albumId)
     }
+    if (filters.rootIds?.length) {
+      const placeholders = filters.rootIds.map(() => '?').join(', ')
+      clauses.push(`EXISTS (
+        SELECT 1 FROM media_locations folder_filter
+        WHERE folder_filter.asset_id = a.id
+          AND folder_filter.status = 'available'
+          AND folder_filter.root_id IN (${placeholders})
+      )`)
+      params.push(...filters.rootIds)
+    }
+    if (filters.folderPaths?.length) {
+      const placeholders = filters.folderPaths.map(() => '?').join(', ')
+      clauses.push(`EXISTS (
+        SELECT 1 FROM media_locations directory_filter
+        WHERE directory_filter.asset_id = a.id
+          AND directory_filter.status = 'available'
+          AND directory_filter.directory_path IN (${placeholders})
+      )`)
+      params.push(...filters.folderPaths)
+    }
 
     const where = clauses.join(' AND ')
+    const orderBy = {
+      captured_desc: "COALESCE(a.captured_at, '') DESC, a.created_at DESC",
+      captured_asc: "COALESCE(a.captured_at, '9999') ASC, a.created_at ASC",
+      added_desc: 'a.created_at DESC',
+      added_asc: 'a.created_at ASC',
+      filename_asc: "lower(COALESCE(primary_path, '')) ASC",
+      filename_desc: "lower(COALESCE(primary_path, '')) DESC"
+    }[filters.sort ?? 'captured_desc']
     const totalRow = this.db.prepare(`SELECT COUNT(*) AS count FROM media_assets a WHERE ${where}`).get(...params) as Row
     const rows = this.db.prepare(`
       SELECT a.*,
@@ -690,11 +751,21 @@ export class AppDatabase {
           ORDER BY preferred DESC, absolute_path LIMIT 1
         ) AS primary_path,
         (
+          SELECT root_id FROM media_locations l
+          WHERE l.asset_id = a.id AND l.status = 'available'
+          ORDER BY preferred DESC, absolute_path LIMIT 1
+        ) AS primary_root_id,
+        (
+          SELECT directory_path FROM media_locations l
+          WHERE l.asset_id = a.id AND l.status = 'available'
+          ORDER BY preferred DESC, absolute_path LIMIT 1
+        ) AS primary_directory_path,
+        (
           SELECT COUNT(*) FROM media_locations l WHERE l.asset_id = a.id
         ) AS location_count
       FROM media_assets a
       WHERE ${where}
-      ORDER BY COALESCE(a.captured_at, '') DESC, a.created_at DESC
+      ORDER BY ${orderBy}
       LIMIT ? OFFSET ?
     `).all(...params, filters.limit, filters.offset) as Row[]
 
@@ -718,6 +789,8 @@ export class AppDatabase {
         favorite: Boolean(row.favorite),
         missing: Boolean(row.missing),
         primaryPath: asNullableString(row.primary_path),
+        primaryRootId: asNullableString(row.primary_root_id),
+      primaryDirectoryPath: asNullableString(row.primary_directory_path),
         locationCount: asNumber(row.location_count)
       }))
     }
@@ -778,6 +851,16 @@ export class AppDatabase {
           WHERE l.asset_id = a.id AND l.status = 'available'
           ORDER BY preferred DESC, absolute_path LIMIT 1
         ) AS primary_path,
+        (
+          SELECT root_id FROM media_locations l
+          WHERE l.asset_id = a.id AND l.status = 'available'
+          ORDER BY preferred DESC, absolute_path LIMIT 1
+        ) AS primary_root_id,
+        (
+          SELECT directory_path FROM media_locations l
+          WHERE l.asset_id = a.id AND l.status = 'available'
+          ORDER BY preferred DESC, absolute_path LIMIT 1
+        ) AS primary_directory_path,
         (SELECT COUNT(*) FROM media_locations l WHERE l.asset_id = a.id) AS location_count
       FROM media_assets a WHERE a.id = ?
     `).get(assetId) as Row | undefined
@@ -901,6 +984,14 @@ export class AppDatabase {
     )
   }
 
+  replaceImageLayerAsset(layerId: string, assetId: string): void {
+    const layer = this.db.prepare("SELECT type FROM layers WHERE id = ?").get(layerId) as Row | undefined
+    if (!layer) throw new Error('图层不存在')
+    if (asString(layer.type) !== 'image') throw new Error('只有图片图层可以更换图片')
+    const asset = this.db.prepare('SELECT id FROM media_assets WHERE id = ?').get(assetId) as Row | undefined
+    if (!asset) throw new Error('照片不存在')
+    this.db.prepare('UPDATE layers SET asset_id = ?, updated_at = ? WHERE id = ?').run(assetId, Date.now(), layerId)
+  }
   updateTextLayer(layerId: string, text: string, style: Record<string, unknown>): void {
     const row = this.db.prepare('SELECT * FROM layers WHERE id = ?').get(layerId) as Row | undefined
     if (!row) throw new Error('文字图层不存在')
@@ -1044,6 +1135,8 @@ export class AppDatabase {
       favorite: Boolean(row.favorite),
       missing: Boolean(row.missing),
       primaryPath: asNullableString(row.primary_path),
+      primaryRootId: asNullableString(row.primary_root_id),
+      primaryDirectoryPath: asNullableString(row.primary_directory_path),
       locationCount: asNumber(row.location_count)
     }
   }

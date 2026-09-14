@@ -1,5 +1,6 @@
 export type Orientation = 'landscape' | 'portrait' | 'square'
 export type SourceRemovalMode = 'disable' | 'library' | 'all'
+export type SearchSort = 'captured_desc' | 'captured_asc' | 'added_desc' | 'added_asc' | 'filename_asc' | 'filename_desc'
 
 export interface SourceRootImpact {
   assetCount: number
@@ -54,6 +55,8 @@ export interface MediaAssetSummary {
   favorite: boolean
   missing: boolean
   primaryPath: string | null
+  primaryRootId: string | null
+  primaryDirectoryPath: string | null
   locationCount: number
 }
 
@@ -68,8 +71,17 @@ export interface SearchFilters {
   isoMax?: number
   favorite?: boolean
   albumId?: string
+  rootIds?: string[]
+  folderPaths?: string[]
+  sort?: SearchSort
   limit: number
   offset: number
+}
+
+export interface FolderSummary {
+  path: string
+  name: string
+  assetCount: number
 }
 
 export interface DuplicateGroup {

@@ -68,6 +68,21 @@ describe('work document persistence', () => {
     db.updateLayer(imageLayer.id, { x: 0.05, y: 0.04, width: 0.9, height: 0.5, rotation: 5 })
     expect(db.getWorkDocument(workId)?.pages[0].layers[0]).toMatchObject({ x: 0.05, y: 0.04, rotation: 5 })
 
+    const replacementRoot = db.createSourceRoot('C:\\photos-replace')
+    const replacementAsset = db.upsertMediaLocation({
+      rootId: replacementRoot.id,
+      absolutePath: 'C:\\photos-replace\\replacement.jpg',
+      relativePath: 'replacement.jpg',
+      contentHash: 'replacement-photo',
+      sizeBytes: 100,
+      modifiedAt: 1,
+      width: 1200,
+      height: 800,
+      format: 'jpeg',
+      orientation: 'landscape'
+    }).assetId
+    db.replaceImageLayerAsset(imageLayer.id, replacementAsset)
+    expect(db.getWorkDocument(workId)?.pages[0].layers[0].assetId).toBe(replacementAsset)
     db.deleteLayer(textLayer.id)
     expect(db.getWorkDocument(workId)?.pages[0].layers).toHaveLength(1)
     expect(db.listWorks(document!.work.albumId)).toHaveLength(1)

@@ -27,6 +27,7 @@ const api: AlbumStudioApi = {
     search: (filters: SearchFilters) => ipcRenderer.invoke('library:search', filters),
     get: (assetId: string) => ipcRenderer.invoke('library:get-asset', assetId),
     listDuplicates: () => ipcRenderer.invoke('library:list-duplicates'),
+    listFolders: () => ipcRenderer.invoke('library:list-folders'),
     listLocations: (assetId: string) => ipcRenderer.invoke('library:list-locations', assetId),
     setPreferredLocation: (assetId: string, locationId: string) => ipcRenderer.invoke('library:set-preferred-location', assetId, locationId),
     setFavorite: (assetId: string, favorite: boolean) => ipcRenderer.invoke('library:set-favorite', assetId, favorite),
@@ -55,6 +56,7 @@ const api: AlbumStudioApi = {
     createImageLayer: (pageId: string, input) => ipcRenderer.invoke('works:create-image-layer', pageId, input),
     createTextLayer: (pageId: string, input) => ipcRenderer.invoke('works:create-text-layer', pageId, input),
     updateLayer: (layerId: string, changes: Record<string, unknown>) => ipcRenderer.invoke('works:update-layer', layerId, changes),
+    replaceImageLayerAsset: (layerId: string, assetId: string) => ipcRenderer.invoke('works:replace-image-layer-asset', layerId, assetId),
     updateTextLayer: (layerId: string, text: string, style: Record<string, unknown>) => ipcRenderer.invoke('works:update-text-layer', layerId, text, style),
     deleteLayer: (layerId: string) => ipcRenderer.invoke('works:delete-layer', layerId)
   },

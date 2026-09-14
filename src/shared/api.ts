@@ -1,5 +1,5 @@
 import type {
-  Album, AppSettings, DuplicateGroup, ExportOptions, ExportResult, Layer, MediaAssetSummary,
+  Album, AppSettings, DuplicateGroup, ExportOptions, FolderSummary, ExportResult, Layer, MediaAssetSummary,
   MediaLocation, OutputMode, Page, ScanProgress, SearchFilters, SourceRemovalMode, SourceRemovalResult, SourceRoot, SourceRootImpact, TemplateDefinition, Work, WorkDocument
 } from './types'
 
@@ -70,6 +70,7 @@ export interface AlbumStudioApi {
     search(filters: SearchFilters): Promise<{ items: MediaAssetSummary[]; total: number }>
     get(assetId: string): Promise<MediaAssetSummary | null>
     listDuplicates(): Promise<DuplicateGroup[]>
+    listFolders(): Promise<FolderSummary[]>
     listLocations(assetId: string): Promise<MediaLocation[]>
     setPreferredLocation(assetId: string, locationId: string): Promise<void>
     setFavorite(assetId: string, favorite: boolean): Promise<void>
@@ -98,6 +99,7 @@ export interface AlbumStudioApi {
     createImageLayer(pageId: string, input: ImageLayerRequest): Promise<Layer>
     createTextLayer(pageId: string, input: TextLayerRequest): Promise<Layer>
     updateLayer(layerId: string, changes: Record<string, unknown>): Promise<void>
+    replaceImageLayerAsset(layerId: string, assetId: string): Promise<void>
     updateTextLayer(layerId: string, text: string, style: Record<string, unknown>): Promise<void>
     deleteLayer(layerId: string): Promise<void>
   }

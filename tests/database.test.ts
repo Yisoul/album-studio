@@ -109,6 +109,60 @@ describe('AppDatabase', () => {
     expect(db.getAsset(asset.assetId)?.missing).toBe(true)
     expect(db.countAssets()).toBe(1)
   })
+  it('sorts library results by capture time or file name', () => {
+    const root = db.createSourceRoot('C:\\sort-photos')
+    db.upsertMediaLocation({
+      rootId: root.id, absolutePath: 'C:\\sort-photos\\b.jpg', relativePath: 'b.jpg', contentHash: 'sort-b',
+      sizeBytes: 10, modifiedAt: 1, width: 100, height: 100, format: 'jpeg', capturedAt: '2026-02-01T00:00:00.000Z', orientation: 'square'
+    })
+    db.upsertMediaLocation({
+      rootId: root.id, absolutePath: 'C:\\sort-photos\\a.jpg', relativePath: 'a.jpg', contentHash: 'sort-a',
+      sizeBytes: 10, modifiedAt: 1, width: 100, height: 100, format: 'jpeg', capturedAt: '2026-01-01T00:00:00.000Z', orientation: 'square'
+    })
+
+    expect(db.searchAssets({ limit: 20, offset: 0, sort: 'captured_desc' }).items.map((item) => item.primaryPath)).toEqual(['C:\\sort-photos\\b.jpg', 'C:\\sort-photos\\a.jpg'])
+    expect(db.searchAssets({ limit: 20, offset: 0, sort: 'filename_asc' }).items.map((item) => item.primaryPath)).toEqual(['C:\\sort-photos\\a.jpg', 'C:\\sort-photos\\b.jpg'])
+  })
+  it('lists physical folders and filters photos by selected folder', () => {
+    const root = db.createSourceRoot('I:\\folder-tree')
+    db.upsertMediaLocation({ rootId: root.id, absolutePath: 'I:\\folder-tree\\one\\a.jpg', relativePath: 'one\\a.jpg', contentHash: 'dir-one', sizeBytes: 10, modifiedAt: 1, width: 100, height: 100, format: 'jpeg', orientation: 'square' })
+    db.upsertMediaLocation({ rootId: root.id, absolutePath: 'I:\\folder-tree\\two\\b.jpg', relativePath: 'two\\b.jpg', contentHash: 'dir-two', sizeBytes: 10, modifiedAt: 1, width: 100, height: 100, format: 'jpeg', orientation: 'square' })
+
+    const folders = db.listFolders()
+    expect(folders.map((folder) => folder.name)).toEqual(['one', 'two'])
+    expect(db.searchAssets({ limit: 20, offset: 0, folderPaths: ['I:\\folder-tree\\two'] }).items[0].primaryDirectoryPath).toBe('I:\\folder-tree\\two')
+  })
+  it('can limit library searches to selected source folders', () => {
+    const firstRoot = db.createSourceRoot('C:\\folder-a')
+    const secondRoot = db.createSourceRoot('C:\\folder-b')
+    db.upsertMediaLocation({
+      rootId: firstRoot.id,
+      absolutePath: 'C:\\folder-a\\one.jpg',
+      relativePath: 'one.jpg',
+      contentHash: 'folder-a-photo',
+      sizeBytes: 10,
+      modifiedAt: 1,
+      width: 100,
+      height: 100,
+      format: 'jpeg',
+      orientation: 'square'
+    })
+    db.upsertMediaLocation({
+      rootId: secondRoot.id,
+      absolutePath: 'C:\\folder-b\\two.jpg',
+      relativePath: 'two.jpg',
+      contentHash: 'folder-b-photo',
+      sizeBytes: 10,
+      modifiedAt: 1,
+      width: 100,
+      height: 100,
+      format: 'jpeg',
+      orientation: 'square'
+    })
+
+    expect(db.searchAssets({ limit: 20, offset: 0, rootIds: [firstRoot.id] }).total).toBe(1)
+    expect(db.searchAssets({ limit: 20, offset: 0, rootIds: [firstRoot.id, secondRoot.id] }).total).toBe(2)
+  })
   it('keeps photos searchable while a source root is only disabled', () => {
     const root = db.createSourceRoot('E:\\disabled\\photos')
     const asset = db.upsertMediaLocation({

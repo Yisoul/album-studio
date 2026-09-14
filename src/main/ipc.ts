@@ -30,6 +30,9 @@ const searchSchema = z.object({
   isoMax: z.number().optional(),
   favorite: z.boolean().optional(),
   albumId: z.string().optional(),
+  rootIds: z.array(z.string().uuid()).optional(),
+  folderPaths: z.array(z.string()).optional(),
+  sort: z.enum(['captured_desc', 'captured_asc', 'added_desc', 'added_asc', 'filename_asc', 'filename_desc']).optional(),
   limit: z.number().int().min(1).max(500).default(120),
   offset: z.number().int().min(0).default(0)
 })
@@ -91,6 +94,7 @@ export function registerIpcHandlers(context: IpcContext): () => void {
   })
   handle('library:search', (_event, filters: SearchFilters) => context.db.searchAssets(searchSchema.parse(filters)))
   handle('library:get-asset', (_event, assetId: string) => context.db.getAsset(assetId))
+  handle('library:list-folders', () => context.db.listFolders())
   handle('library:list-duplicates', () => context.db.listDuplicateAssets())
   handle('library:list-locations', (_event, assetId: string) => context.db.listMediaLocations(z.string().uuid().parse(assetId)))
   handle('library:set-preferred-location', (_event, assetId: string, locationId: string) => {
@@ -148,6 +152,7 @@ export function registerIpcHandlers(context: IpcContext): () => void {
   handle('works:create-image-layer', (_event, pageId: string, input: Record<string, unknown>) => context.db.createImageLayer(pageId, input as unknown as Parameters<AppDatabase['createImageLayer']>[1]))
   handle('works:create-text-layer', (_event, pageId: string, input: Record<string, unknown>) => context.db.createTextLayer(pageId, input as unknown as Parameters<AppDatabase['createTextLayer']>[1]))
   handle('works:update-layer', (_event, layerId: string, changes: Record<string, unknown>) => context.db.updateLayer(layerId, changes as Parameters<AppDatabase['updateLayer']>[1]))
+  handle('works:replace-image-layer-asset', (_event, layerId: string, assetId: string) => context.db.replaceImageLayerAsset(layerId, assetId))
   handle('works:update-text-layer', (_event, layerId: string, text: string, style: Record<string, unknown>) => context.db.updateTextLayer(layerId, text, style))
   handle('works:delete-layer', (_event, layerId: string) => context.db.deleteLayer(layerId))
 

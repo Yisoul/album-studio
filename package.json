@@ -1,6 +1,6 @@
 {
   "name": "album-studio",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "private": true,
   "description": "本地摄影相册与社交作品排版工具",
   "main": "./out/main/index.js",
