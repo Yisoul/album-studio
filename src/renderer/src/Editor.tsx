@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import type Konva from 'konva'
 import { Image as KonvaImage, Layer as KonvaLayer, Rect, Stage, Text as KonvaText, Transformer } from 'react-konva'
 import type { ExportOptions, ExportResult, Layer, MediaAssetSummary, TemplateDefinition, WorkDocument } from '../../shared/types'
+import TextInputDialog from './TextInputDialog'
 import { errorMessage, previewUrl, thumbnailUrl } from './helpers'
 
 interface EditorProps {
@@ -19,6 +20,7 @@ export default function Editor(props: EditorProps) {
   const [selectedLayerId, setSelectedLayerId] = useState<string | null>(null)
   const [pickerOpen, setPickerOpen] = useState(false)
   const [exportOpen, setExportOpen] = useState(false)
+  const [templateDialogOpen, setTemplateDialogOpen] = useState(false)
   const [loading, setLoading] = useState(true)
 
   const load = useCallback(async () => {
@@ -109,27 +111,27 @@ export default function Editor(props: EditorProps) {
     } catch (error) { props.onToast({ kind: 'error', text: errorMessage(error) }) }
   }
 
-  const saveTemplate = async () => {
-    if (!document || !activePage) return
-    const name = window.prompt('自定义模板名称', `${document.work.name} 模板`)
-    if (!name?.trim()) return
+  const saveTemplate = async (name: string) => {
+    if (!document || !activePage) throw new Error('当前作品没有可保存的页面')
     const payload: TemplateDefinition = {
       id: `custom:${crypto.randomUUID()}`,
-      name: name.trim(),
+      name,
       category: document.work.outputMode,
       canvasWidth: document.work.canvasWidth,
       canvasHeight: document.work.canvasHeight,
       background: activePage.background,
       layers: activePage.layers.map((layer) => ({ type: layer.type, x: layer.x, y: layer.y, width: layer.width, height: layer.height, rotation: layer.rotation, zIndex: layer.zIndex, style: layer.style, text: layer.type === 'text' ? layer.text ?? '' : undefined }))
     }
-    try { await window.albumApi.templates.save(name.trim(), payload); props.onToast({ kind: 'info', text: '模板已保存' }) } catch (error) { props.onToast({ kind: 'error', text: errorMessage(error) }) }
+    await window.albumApi.templates.save(name, payload)
+    setTemplateDialogOpen(false)
+    props.onToast({ kind: 'info', text: '模板已保存' })
   }
 
   if (loading || !document) return <div className="editor-loading">正在打开作品…</div>
 
   return (
     <div className="editor-shell">
-      <header className="editor-header"><button className="back-button" onClick={() => void props.onBack()}>← 返回相册</button><div className="editor-title"><strong>{document.work.name}</strong><span>{document.work.canvasWidth} × {document.work.canvasHeight} · {document.work.outputMode === 'long_image' ? '长图' : '多页'}</span></div><div className="header-actions"><button className="button secondary" onClick={() => void saveTemplate()}>存为模板</button><button className="button primary" onClick={() => setExportOpen(true)}>导出作品</button></div></header>
+      <header className="editor-header"><button className="back-button" onClick={() => void props.onBack()}>← 返回相册</button><div className="editor-title"><strong>{document.work.name}</strong><span>{document.work.canvasWidth} × {document.work.canvasHeight} · {document.work.outputMode === 'long_image' ? '长图' : '多页'}</span></div><div className="header-actions"><button className="button secondary" onClick={() => setTemplateDialogOpen(true)}>存为模板</button><button className="button primary" onClick={() => setExportOpen(true)}>导出作品</button></div></header>
       <div className="editor-workspace">
         <aside className="editor-left"><div className="panel-heading"><h3>页面</h3><button onClick={() => void addPage()} title="新增页面">＋</button></div><div className="page-list">{document.pages.map((page, index) => <button className={page.id === activePage?.id ? 'active' : ''} key={page.id} onClick={() => { setActivePageId(page.id); setSelectedLayerId(null) }}><b>{String(index + 1).padStart(2, '0')}</b><span>第 {index + 1} 页</span></button>)}</div>{document.pages.length > 1 && <button className="text-button danger" onClick={() => void deletePage()}>删除当前页面</button>}<div className="panel-heading layer-heading"><h3>图层</h3><span>{activePage?.layers.length ?? 0}</span></div><div className="layer-list">{[...(activePage?.layers ?? [])].sort((a, b) => b.zIndex - a.zIndex).map((layer) => <button key={layer.id} className={layer.id === selectedLayerId ? 'active' : ''} onClick={() => setSelectedLayerId(layer.id)}><i>{layer.type === 'image' ? '▧' : 'T'}</i><span>{layer.type === 'image' ? fileNameFromLayer(layer, albumAssets) : layer.text || '文字'}</span></button>)}</div><div className="editor-add-row"><button onClick={() => setPickerOpen(true)}>＋ 图片</button><button onClick={() => void addText()}>＋ 文字</button></div></aside>
         <main className="canvas-area"><Canvas document={document} pageId={activePage?.id ?? null} selectedLayerId={selectedLayerId} onSelect={setSelectedLayerId} onChange={updateLayer} /></main>
@@ -137,6 +139,7 @@ export default function Editor(props: EditorProps) {
       </div>
       {pickerOpen && <ImagePicker assets={albumAssets} onClose={() => setPickerOpen(false)} onSelect={(assetId) => void addImage(assetId)} />}
       {exportOpen && <ExportDialog work={document} onClose={() => setExportOpen(false)} onToast={props.onToast} />}
+      {templateDialogOpen && <TextInputDialog title="保存自定义模板" label="模板名称" initialValue={`${document.work.name} 模板`} confirmLabel="保存模板" onClose={() => setTemplateDialogOpen(false)} onConfirm={saveTemplate} />}
     </div>
   )
 }

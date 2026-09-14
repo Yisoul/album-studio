@@ -1,6 +1,6 @@
 import type {
   Album, AppSettings, DuplicateGroup, ExportOptions, ExportResult, Layer, MediaAssetSummary,
-  MediaLocation, OutputMode, Page, ScanProgress, SearchFilters, SourceRoot, TemplateDefinition, Work, WorkDocument
+  MediaLocation, OutputMode, Page, ScanProgress, SearchFilters, SourceRemovalMode, SourceRemovalResult, SourceRoot, SourceRootImpact, TemplateDefinition, Work, WorkDocument
 } from './types'
 
 export interface AppStats {
@@ -63,7 +63,9 @@ export interface AlbumStudioApi {
   library: {
     listRoots(): Promise<SourceRoot[]>
     addRoots(paths: string[]): Promise<SourceRoot[]>
-    removeRoot(rootId: string): Promise<void>
+    removeRoot(rootId: string, mode: SourceRemovalMode): Promise<SourceRemovalResult>
+    setRootEnabled(rootId: string, enabled: boolean): Promise<SourceRoot>
+    getRootImpact(rootId: string): Promise<SourceRootImpact>
     scanRoot(rootId: string): Promise<{ discovered: number; indexed: number; errors: string[] }>
     search(filters: SearchFilters): Promise<{ items: MediaAssetSummary[]; total: number }>
     get(assetId: string): Promise<MediaAssetSummary | null>

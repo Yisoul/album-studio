@@ -1,4 +1,19 @@
 export type Orientation = 'landscape' | 'portrait' | 'square'
+export type SourceRemovalMode = 'disable' | 'library' | 'all'
+
+export interface SourceRootImpact {
+  assetCount: number
+  locationCount: number
+}
+
+export interface SourceRemovalResult {
+  mode: SourceRemovalMode
+  affectedAssets: number
+  removedLocations: number
+  removedAssets: number
+  removedAlbumItems: number
+  removedLayers: number
+}
 export type OutputMode = 'pages' | 'long_image'
 export type LayerType = 'image' | 'text'
 

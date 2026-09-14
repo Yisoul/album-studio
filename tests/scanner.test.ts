@@ -65,6 +65,16 @@ describe('LibraryScanner', () => {
     expect(db.listAlbumAssets(album.id)[0].assetId).toBe(secondAsset!.id)
     expect(db.listMediaLocations(secondAsset!.id)).toHaveLength(2)
   })
+  it('does not scan source roots that are disabled', async () => {
+    await writeFile(join(rootDir, 'disabled.jpg'), await sharp({ create: { width: 80, height: 80, channels: 3, background: '#123456' } }).jpeg().toBuffer())
+    const source = db.createSourceRoot(rootDir)
+    const disabled = db.setSourceRootEnabled(source.id, false)
+
+    const results = await scanner.scanAll([disabled])
+
+    expect(results).toHaveLength(0)
+    expect(db.searchAssets({ limit: 10, offset: 0 }).total).toBe(0)
+  })
   it('does not mark indexed files missing while an offline source root is unavailable', async () => {
     const filePath = join(rootDir, 'offline.jpg')
     const jpeg = await sharp({ create: { width: 120, height: 120, channels: 3, background: '#334455' } }).jpeg().toBuffer()

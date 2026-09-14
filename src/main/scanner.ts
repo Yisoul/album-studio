@@ -106,6 +106,7 @@ export class LibraryScanner {
 
   watchRoot(root: SourceRoot, onChanged?: (root: SourceRoot) => void): void {
     this.unwatchRoot(root.id)
+    if (!root.enabled) return
     const watcher = watch(root.path, {
       ignoreInitial: true,
       persistent: true,

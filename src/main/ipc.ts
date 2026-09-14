@@ -1,7 +1,7 @@
 import { dialog, ipcMain, shell, type BrowserWindow } from 'electron'
 import { z } from 'zod'
 import { BUILT_IN_TEMPLATES } from '../shared/templates'
-import type { AppSettings, OutputMode, SearchFilters, TemplateDefinition } from '../shared/types'
+import type { AppSettings, OutputMode, SearchFilters, SourceRemovalMode, TemplateDefinition } from '../shared/types'
 import type { BackupService } from './backup'
 import type { AppDatabase } from './database'
 import type { WorkExporter } from './exporter'
@@ -73,10 +73,17 @@ export function registerIpcHandlers(context: IpcContext): () => void {
     await configureWatchers(context)
     return roots
   })
-  handle('library:remove-root', async (_event, rootId: string) => {
-    context.db.removeSourceRoot(z.string().uuid().parse(rootId))
+  handle('library:remove-root', async (_event, rootId: string, mode: SourceRemovalMode) => {
+    const result = context.db.removeSourceRoot(z.string().uuid().parse(rootId), z.enum(['disable', 'library', 'all']).parse(mode))
     await configureWatchers(context)
+    return result
   })
+  handle('library:set-root-enabled', async (_event, rootId: string, enabled: boolean) => {
+    const root = context.db.setSourceRootEnabled(z.string().uuid().parse(rootId), Boolean(enabled))
+    await configureWatchers(context)
+    return root
+  })
+  handle('library:get-root-impact', (_event, rootId: string) => context.db.getSourceRootImpact(z.string().uuid().parse(rootId)))
   handle('library:scan-root', async (_event, rootId: string) => {
     const root = context.db.listSourceRoots().find((item) => item.id === rootId)
     if (!root) throw new Error('来源目录不存在')
@@ -164,7 +171,7 @@ async function configureWatchers(context: IpcContext): Promise<void> {
   await context.scanner.close()
   const settings = await context.settings.get()
   if (!settings.autoWatch) return
-  for (const root of context.db.listSourceRoots()) context.scanner.watchRoot(root)
+  for (const root of context.db.listSourceRoots().filter((item) => item.enabled)) context.scanner.watchRoot(root)
 }
 
 async function scanAll(context: IpcContext): Promise<void> {

@@ -1,5 +1,6 @@
 import { randomUUID } from 'node:crypto'
 import { DatabaseSync } from 'node:sqlite'
+import type { SourceRemovalMode, SourceRemovalResult, SourceRootImpact } from '../shared/types'
 
 export type Orientation = 'landscape' | 'portrait' | 'square'
 export type OutputMode = 'pages' | 'long_image'
@@ -318,11 +319,16 @@ export class AppDatabase {
 
   createSourceRoot(path: string): SourceRoot {
     const existing = this.db.prepare('SELECT * FROM source_roots WHERE path = ?').get(path) as Row | undefined
-    if (existing) return this.mapSourceRoot(existing)
+    if (existing) {
+      this.db.prepare('UPDATE source_roots SET enabled = 1 WHERE id = ?').run(asString(existing.id))
+      this.clearIgnoredPathsUnder(path)
+      return this.mapSourceRoot({ ...existing, enabled: 1 })
+    }
 
     const id = randomUUID()
     const createdAt = Date.now()
     this.db.prepare('INSERT INTO source_roots(id, path, enabled, created_at) VALUES (?, ?, 1, ?)').run(id, path, createdAt)
+    this.clearIgnoredPathsUnder(path)
     return { id, path, enabled: true, createdAt }
   }
 
@@ -622,7 +628,7 @@ export class AppDatabase {
   }
 
   searchAssets(filters: SearchFilters): { items: MediaAssetSummary[]; total: number } {
-    const clauses: string[] = ['1 = 1']
+    const clauses: string[] = ["EXISTS (SELECT 1 FROM media_locations availability WHERE availability.asset_id = a.id AND availability.status = 'available')"]
     const params: Array<string | number> = []
 
     if (filters.text?.trim()) {
@@ -751,9 +757,12 @@ export class AppDatabase {
   }
 
   getStats(): { assets: number; duplicateGroups: number; missing: number; roots: number } {
-    const assets = this.db.prepare('SELECT COUNT(*) AS count FROM media_assets').get() as Row
+    const assets = this.db.prepare(`
+      SELECT COUNT(*) AS count FROM media_assets a
+      WHERE EXISTS (SELECT 1 FROM media_locations l WHERE l.asset_id = a.id AND l.status = 'available')
+    `).get() as Row
     const missing = this.db.prepare('SELECT COUNT(*) AS count FROM media_assets WHERE missing = 1').get() as Row
-    const roots = this.db.prepare('SELECT COUNT(*) AS count FROM source_roots').get() as Row
+    const roots = this.db.prepare('SELECT COUNT(*) AS count FROM source_roots WHERE enabled = 1').get() as Row
     return {
       assets: asNumber(assets.count),
       duplicateGroups: this.listDuplicateAssets().length,
@@ -933,18 +942,89 @@ export class AppDatabase {
     return id
   }
 
-  removeSourceRoot(rootId: string): void {
-    const assetRows = this.db.prepare('SELECT DISTINCT asset_id FROM media_locations WHERE root_id = ?').all(rootId) as Row[]
-    this.db.prepare('DELETE FROM source_roots WHERE id = ?').run(rootId)
-    const update = this.db.prepare(`
-      UPDATE media_assets SET missing = CASE WHEN NOT EXISTS (
-        SELECT 1 FROM media_locations WHERE asset_id = media_assets.id AND status = 'available'
-      ) THEN 1 ELSE 0 END, updated_at = ? WHERE id = ?
-    `)
-    const now = Date.now()
-    for (const row of assetRows) update.run(now, asString(row.asset_id))
+  getSourceRootImpact(rootId: string): SourceRootImpact {
+    const row = this.db.prepare(`
+      SELECT COUNT(DISTINCT asset_id) AS asset_count, COUNT(*) AS location_count
+      FROM media_locations WHERE root_id = ?
+    `).get(rootId) as Row
+    return { assetCount: asNumber(row.asset_count), locationCount: asNumber(row.location_count) }
   }
 
+  setSourceRootEnabled(rootId: string, enabled: boolean): SourceRoot {
+    const row = this.db.prepare('SELECT * FROM source_roots WHERE id = ?').get(rootId) as Row | undefined
+    if (!row) throw new Error('来源目录不存在')
+    this.db.prepare('UPDATE source_roots SET enabled = ? WHERE id = ?').run(enabled ? 1 : 0, rootId)
+    return this.mapSourceRoot({ ...row, enabled: enabled ? 1 : 0 })
+  }
+
+  removeSourceRoot(rootId: string, mode: SourceRemovalMode = 'library'): SourceRemovalResult {
+    const root = this.db.prepare('SELECT * FROM source_roots WHERE id = ?').get(rootId) as Row | undefined
+    if (!root) throw new Error('来源目录不存在')
+    const locations = this.db.prepare('SELECT id, asset_id, absolute_path FROM media_locations WHERE root_id = ?').all(rootId) as Row[]
+    const affectedAssets = new Set(locations.map((location) => asString(location.asset_id)))
+    const result: SourceRemovalResult = {
+      mode,
+      affectedAssets: affectedAssets.size,
+      removedLocations: 0,
+      removedAssets: 0,
+      removedAlbumItems: 0,
+      removedLayers: 0
+    }
+
+    if (mode === 'disable') {
+      this.db.prepare('UPDATE source_roots SET enabled = 0 WHERE id = ?').run(rootId)
+      return result
+    }
+
+    const rememberIgnored = this.db.prepare('INSERT OR REPLACE INTO ignored_paths(path, ignored_at) VALUES (?, ?)')
+    const now = Date.now()
+    this.db.exec('BEGIN')
+    try {
+      if (mode === 'library') {
+        for (const location of locations) rememberIgnored.run(asString(location.absolute_path), now)
+        result.removedLocations = locations.length
+        this.db.prepare('DELETE FROM source_roots WHERE id = ?').run(rootId)
+        const updateMissing = this.db.prepare(`
+          UPDATE media_assets SET missing = CASE WHEN NOT EXISTS (
+            SELECT 1 FROM media_locations WHERE asset_id = media_assets.id AND status = 'available'
+          ) THEN 1 ELSE 0 END, updated_at = ? WHERE id = ?
+        `)
+        for (const assetId of affectedAssets) updateMissing.run(now, assetId)
+      } else {
+        for (const assetId of affectedAssets) {
+          const assetLocations = this.db.prepare('SELECT absolute_path FROM media_locations WHERE asset_id = ?').all(assetId) as Row[]
+          for (const location of assetLocations) rememberIgnored.run(asString(location.absolute_path), now)
+          result.removedLocations += assetLocations.length
+
+          const layerCount = this.db.prepare('SELECT COUNT(*) AS count FROM layers WHERE asset_id = ?').get(assetId) as Row
+          const albumCount = this.db.prepare('SELECT COUNT(*) AS count FROM album_items WHERE asset_id = ?').get(assetId) as Row
+          result.removedLayers += asNumber(layerCount.count)
+          result.removedAlbumItems += asNumber(albumCount.count)
+
+          this.db.prepare('DELETE FROM layers WHERE asset_id = ?').run(assetId)
+          this.db.prepare('DELETE FROM album_items WHERE asset_id = ?').run(assetId)
+          this.db.prepare('DELETE FROM media_assets WHERE id = ?').run(assetId)
+          result.removedAssets += 1
+        }
+        this.db.prepare('DELETE FROM source_roots WHERE id = ?').run(rootId)
+      }
+      this.db.exec('COMMIT')
+    } catch (error) {
+      this.db.exec('ROLLBACK')
+      throw error
+    }
+    return result
+  }
+
+
+  private clearIgnoredPathsUnder(path: string): void {
+    const normalized = path.replace(/[\\/]+$/, '')
+    this.db.prepare('DELETE FROM ignored_paths WHERE path = ? OR path LIKE ? OR path LIKE ?').run(
+      normalized,
+      `${normalized}\\%`,
+      `${normalized}/%`
+    )
+  }
   mapAssetSummary(row: Row): MediaAssetSummary {
     return {
       id: asString(row.id),

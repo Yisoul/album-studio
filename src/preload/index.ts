@@ -1,6 +1,6 @@
 import { contextBridge, ipcRenderer } from 'electron'
 import type { AlbumStudioApi } from '../shared/api'
-import type { AppSettings, ExportOptions, ScanProgress, SearchFilters, TemplateDefinition } from '../shared/types'
+import type { AppSettings, ExportOptions, ScanProgress, SearchFilters, SourceRemovalMode, TemplateDefinition } from '../shared/types'
 
 const api: AlbumStudioApi = {
   app: {
@@ -20,7 +20,9 @@ const api: AlbumStudioApi = {
   library: {
     listRoots: () => ipcRenderer.invoke('library:list-roots'),
     addRoots: (paths: string[]) => ipcRenderer.invoke('library:add-roots', paths),
-    removeRoot: (rootId: string) => ipcRenderer.invoke('library:remove-root', rootId),
+    removeRoot: (rootId: string, mode: SourceRemovalMode) => ipcRenderer.invoke('library:remove-root', rootId, mode),
+    setRootEnabled: (rootId: string, enabled: boolean) => ipcRenderer.invoke('library:set-root-enabled', rootId, enabled),
+    getRootImpact: (rootId: string) => ipcRenderer.invoke('library:get-root-impact', rootId),
     scanRoot: (rootId: string) => ipcRenderer.invoke('library:scan-root', rootId),
     search: (filters: SearchFilters) => ipcRenderer.invoke('library:search', filters),
     get: (assetId: string) => ipcRenderer.invoke('library:get-asset', assetId),
