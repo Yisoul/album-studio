@@ -67,6 +67,13 @@ describe('work document persistence', () => {
 
     db.updateLayer(imageLayer.id, { x: 0.05, y: 0.04, width: 0.9, height: 0.5, rotation: 5 })
     expect(db.getWorkDocument(workId)?.pages[0].layers[0]).toMatchObject({ x: 0.05, y: 0.04, rotation: 5 })
+    db.updateTextLayer(textLayer.id, '新的标题', { fontSize: 72, lineHeight: 1.5 })
+    expect(db.listLayers(pageId).find((layer) => layer.id === textLayer.id)).toMatchObject({ text: '新的标题', style: { fontSize: 72, lineHeight: 1.5 } })
+
+    const movedFirst = db.reorderLayers(pageId, [textLayer.id], 'bottom')
+    expect(movedFirst.map((layer) => layer.id)).toEqual([textLayer.id, imageLayer.id])
+    const movedTop = db.reorderLayers(pageId, [textLayer.id], 'top')
+    expect(movedTop.map((layer) => layer.id)).toEqual([imageLayer.id, textLayer.id])
 
     const replacementRoot = db.createSourceRoot('C:\\photos-replace')
     const replacementAsset = db.upsertMediaLocation({

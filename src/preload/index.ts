@@ -1,6 +1,6 @@
 import { contextBridge, ipcRenderer } from 'electron'
 import type { AlbumStudioApi } from '../shared/api'
-import type { AppSettings, ExportOptions, ScanProgress, SearchFilters, SourceRemovalMode, TemplateDefinition } from '../shared/types'
+import type { AppSettings, ExportOptions, LayerOrderAction, ScanProgress, SearchFilters, SourceRemovalMode, TemplateDefinition } from '../shared/types'
 
 const api: AlbumStudioApi = {
   app: {
@@ -56,6 +56,7 @@ const api: AlbumStudioApi = {
     createImageLayer: (pageId: string, input) => ipcRenderer.invoke('works:create-image-layer', pageId, input),
     createTextLayer: (pageId: string, input) => ipcRenderer.invoke('works:create-text-layer', pageId, input),
     updateLayer: (layerId: string, changes: Record<string, unknown>) => ipcRenderer.invoke('works:update-layer', layerId, changes),
+    reorderLayers: (pageId: string, layerIds: string[], action: LayerOrderAction) => ipcRenderer.invoke('works:reorder-layers', pageId, layerIds, action),
     replaceImageLayerAsset: (layerId: string, assetId: string) => ipcRenderer.invoke('works:replace-image-layer-asset', layerId, assetId),
     updateTextLayer: (layerId: string, text: string, style: Record<string, unknown>) => ipcRenderer.invoke('works:update-text-layer', layerId, text, style),
     deleteLayer: (layerId: string) => ipcRenderer.invoke('works:delete-layer', layerId)

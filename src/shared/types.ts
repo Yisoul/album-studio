@@ -1,6 +1,8 @@
 export type Orientation = 'landscape' | 'portrait' | 'square'
 export type SourceRemovalMode = 'disable' | 'library' | 'all'
 export type SearchSort = 'captured_desc' | 'captured_asc' | 'added_desc' | 'added_asc' | 'filename_asc' | 'filename_desc'
+export type LayerOrderAction = 'top' | 'up' | 'down' | 'bottom'
+export type ImageFit = 'cover' | 'contain' | 'stretch'
 
 export interface SourceRootImpact {
   assetCount: number

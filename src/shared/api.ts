@@ -1,6 +1,6 @@
 import type {
   Album, AppSettings, DuplicateGroup, ExportOptions, FolderSummary, ExportResult, Layer, MediaAssetSummary,
-  MediaLocation, OutputMode, Page, ScanProgress, SearchFilters, SourceRemovalMode, SourceRemovalResult, SourceRoot, SourceRootImpact, TemplateDefinition, Work, WorkDocument
+  ImageFit, LayerOrderAction, MediaLocation, OutputMode, Page, ScanProgress, SearchFilters, SourceRemovalMode, SourceRemovalResult, SourceRoot, SourceRootImpact, TemplateDefinition, Work, WorkDocument
 } from './types'
 
 export interface AppStats {
@@ -18,7 +18,7 @@ export interface ImageLayerRequest {
   height: number
   rotation: number
   zIndex: number
-  fit: 'cover' | 'contain'
+  fit: ImageFit
   radius: number
 }
 
@@ -99,6 +99,7 @@ export interface AlbumStudioApi {
     createImageLayer(pageId: string, input: ImageLayerRequest): Promise<Layer>
     createTextLayer(pageId: string, input: TextLayerRequest): Promise<Layer>
     updateLayer(layerId: string, changes: Record<string, unknown>): Promise<void>
+    reorderLayers(pageId: string, layerIds: string[], action: LayerOrderAction): Promise<Layer[]>
     replaceImageLayerAsset(layerId: string, assetId: string): Promise<void>
     updateTextLayer(layerId: string, text: string, style: Record<string, unknown>): Promise<void>
     deleteLayer(layerId: string): Promise<void>

@@ -135,7 +135,7 @@ function NavButton(props: { icon: string; label: string; count?: number; active:
 
 function LibraryPage(props: { roots: SourceRoot[]; albums: Album[]; onAddRoots: () => Promise<void>; onScanAll: () => Promise<void>; onRefreshStats: () => Promise<void>; onToast: (toast: { kind: 'info' | 'error'; text: string }) => void }) {
   const pageSize = 120
-  const [filters, setFilters] = useState<Omit<SearchFilters, 'limit' | 'offset'>>({})
+  const [filters, setFilters] = useState<Omit<SearchFilters, 'limit' | 'offset'>>({ sort: 'captured_desc' })
   const [page, setPage] = useState(0)
   const [viewMode, setViewMode] = useState<'folders' | 'all'>('folders')
   const [folders, setFolders] = useState<FolderSummary[]>([])
@@ -205,57 +205,88 @@ function LibraryPage(props: { roots: SourceRoot[]; albums: Album[]; onAddRoots: 
       {props.roots.every((root) => !root.enabled) ? <EmptyState title="还没有启用的照片来源" text="添加一个包含 JPG 或 PNG 的文件夹，或重新启用已停用的目录。" action="选择照片文件夹" onAction={() => void props.onAddRoots()} /> : (
         <>
           <div className="toolbar filter-bar">
-            <input className="search-input" placeholder="搜索文件名、路径、相机或镜头" value={filters.text ?? ''} onChange={(event) => updateFilters({ text: event.target.value })} />
+            <input className="search-input" placeholder="搜索文件名或文件夹路径" value={filters.text ?? ''} onChange={(event) => updateFilters({ text: event.target.value || undefined })} />
             <select value={filters.orientation ?? ''} onChange={(event) => updateFilters({ orientation: (event.target.value || undefined) as SearchFilters['orientation'] })}><option value="">全部方向</option><option value="landscape">横图</option><option value="portrait">竖图</option><option value="square">方图</option></select>
-            <input placeholder="相机" value={filters.cameraModel ?? ''} onChange={(event) => updateFilters({ cameraModel: event.target.value || undefined })} />
-            <input placeholder="镜头" value={filters.lens ?? ''} onChange={(event) => updateFilters({ lens: event.target.value || undefined })} />
-            <label className="check-label"><input type="checkbox" checked={filters.favorite ?? false} onChange={(event) => updateFilters({ favorite: event.target.checked || undefined })} /> 仅收藏</label><select value={filters.sort ?? ''} onChange={(event) => updateFilters({ sort: (event.target.value || undefined) as SearchFilters['sort'] })}><option value="">默认排序</option><option value="captured_desc">拍摄时间：新到旧</option><option value="captured_asc">拍摄时间：旧到新</option><option value="added_desc">导入时间：新到旧</option><option value="added_asc">导入时间：旧到新</option><option value="filename_asc">文件名：A-Z</option><option value="filename_desc">文件名：Z-A</option></select>
+            <input placeholder="相机品牌或型号" value={filters.cameraModel ?? ''} onChange={(event) => updateFilters({ cameraModel: event.target.value || undefined })} />
+            <input placeholder="镜头型号" value={filters.lens ?? ''} onChange={(event) => updateFilters({ lens: event.target.value || undefined })} />
+            <label className="check-label"><input type="checkbox" checked={filters.favorite ?? false} onChange={(event) => updateFilters({ favorite: event.target.checked || undefined })} /> 仅收藏</label><select value={filters.sort ?? 'captured_desc'} onChange={(event) => updateFilters({ sort: event.target.value as SearchFilters['sort'] })}><option value="captured_desc">拍摄时间：新到旧（默认）</option><option value="captured_asc">拍摄时间：旧到新</option><option value="added_desc">导入时间：新到旧</option><option value="added_asc">导入时间：旧到新</option><option value="filename_asc">文件名：A-Z</option><option value="filename_desc">文件名：Z-A</option></select>
           </div>
-          <FolderToolbar folders={folders} viewMode={viewMode} selectedFolderPaths={filters.folderPaths ?? []} onViewModeChange={(mode) => { setViewMode(mode); if (mode === 'all') updateFilters({ folderPaths: undefined }) }} onSelectedFolderPathsChange={(folderPaths) => updateFilters({ folderPaths: folderPaths.length ? folderPaths : undefined })} />
-          <div className="selection-bar">
-            <span>共 {total.toLocaleString()} 张{selected.size > 0 ? `，已选 ${selected.size} 张` : ''}</span>
-            {selected.size > 0 && <><select defaultValue="" onChange={(event) => { void addToAlbum(event.target.value); event.target.value = '' }}><option value="" disabled>加入相册…</option>{props.albums.map((album) => <option key={album.id} value={album.id}>{album.name}</option>)}</select><button className="text-button" onClick={() => setSelected(new Set())}>取消选择</button></>}
-          </div>
-          {loading && photos.length === 0 ? <div className="loading">正在读取图库…</div> : <PhotoCollection photos={photos} folders={folders} viewMode={viewMode} renderPhoto={(photo) => <PhotoCard key={photo.id} asset={photo} selected={selected.has(photo.id)} onToggle={() => setSelected((current) => toggleSet(current, photo.id))} onOpen={() => setDetail(photo)} />} />}
-          {photos.length === 0 && !loading && <EmptyState title="没有匹配的照片" text="换个关键词或清空筛选条件。" />}
-          {photos.length > 0 && <div className="load-more" ref={sentinelRef}>{hasMore ? <button className="button secondary" disabled={loadingMore} onClick={() => setPage((current) => current + 1)}>{loadingMore ? '正在加载…' : '加载更多'}</button> : <span>已显示全部 {total.toLocaleString()} 张</span>}</div>}
+          <FolderBrowser folders={folders} viewMode={viewMode} selectedFolderPaths={filters.folderPaths ?? []} onViewModeChange={(mode) => { setViewMode(mode); if (mode === 'all') updateFilters({ folderPaths: undefined }) }} onSelectedFolderPathsChange={(folderPaths) => updateFilters({ folderPaths: folderPaths.length ? folderPaths : undefined })}>
+            <div className="selection-bar">
+              <span>共 {total.toLocaleString()} 张{selected.size > 0 ? `，已选 ${selected.size} 张` : ''}</span>
+              {selected.size > 0 && <><select defaultValue="" onChange={(event) => { void addToAlbum(event.target.value); event.target.value = '' }}><option value="" disabled>加入相册…</option>{props.albums.map((album) => <option key={album.id} value={album.id}>{album.name}</option>)}</select><button className="text-button" onClick={() => setSelected(new Set())}>取消选择</button></>}
+            </div>
+            {loading && photos.length === 0 ? <div className="loading">正在读取图库…</div> : <PhotoCollection photos={photos} folders={folders} viewMode={viewMode} renderPhoto={(photo) => <PhotoCard key={photo.id} asset={photo} selected={selected.has(photo.id)} onToggle={() => setSelected((current) => toggleSet(current, photo.id))} onOpen={() => setDetail(photo)} />} />}
+            {photos.length === 0 && !loading && <EmptyState title="没有匹配的照片" text="换个关键词或清空筛选条件。" />}
+            {photos.length > 0 && <div className="load-more" ref={sentinelRef}>{hasMore ? <button className="button secondary" disabled={loadingMore} onClick={() => setPage((current) => current + 1)}>{loadingMore ? '正在加载…' : '加载更多'}</button> : <span>已显示全部 {total.toLocaleString()} 张</span>}</div>}
+          </FolderBrowser>
         </>
       )}
-      {detail && <PhotoDetail asset={detail} onClose={() => setDetail(null)} onToast={props.onToast} />}
+      {detail && <PhotoDetail asset={detail} assets={photos} onChange={setDetail} onClose={() => setDetail(null)} onToast={props.onToast} />}
     </section>
   )
 }
-function FolderToolbar(props: {
+
+function FolderBrowser(props: {
   folders: FolderSummary[]
   viewMode: 'folders' | 'all'
   selectedFolderPaths: string[]
   onViewModeChange: (mode: 'folders' | 'all') => void
   onSelectedFolderPathsChange: (folderPaths: string[]) => void
+  children: React.ReactNode
 }) {
+  const selected = new Set(props.selectedFolderPaths)
   const toggleFolder = (folderPath: string) => {
-    const next = props.selectedFolderPaths.includes(folderPath)
+    const next = selected.has(folderPath)
       ? props.selectedFolderPaths.filter((path) => path !== folderPath)
       : [...props.selectedFolderPaths, folderPath]
     props.onSelectedFolderPathsChange(next)
   }
   return (
-    <div className="folder-toolbar">
-      <div className="segmented">
-        <button className={props.viewMode === 'folders' ? 'active' : ''} onClick={() => props.onViewModeChange('folders')}>按文件夹</button>
-        <button className={props.viewMode === 'all' ? 'active' : ''} onClick={() => props.onViewModeChange('all')}>全部图片</button>
+    <>
+      <div className="folder-toolbar">
+        <div className="segmented">
+          <button className={props.viewMode === 'folders' ? 'active' : ''} onClick={() => props.onViewModeChange('folders')}>按文件夹</button>
+          <button className={props.viewMode === 'all' ? 'active' : ''} onClick={() => props.onViewModeChange('all')}>全部图片</button>
+        </div>
+        <span className="folder-summary">{props.viewMode === 'all' ? '当前按图片顺序展示' : props.selectedFolderPaths.length ? `已选 ${props.selectedFolderPaths.length} 个文件夹，可继续多选` : '左侧可选择多个文件夹'}</span>
       </div>
-      {props.viewMode === 'folders' && <div className="folder-chips"><button className={props.selectedFolderPaths.length === 0 ? 'active' : ''} onClick={() => props.onSelectedFolderPathsChange([])}>全部文件夹</button>{props.folders.map((folder) => <button key={folder.path} title={folder.path} className={props.selectedFolderPaths.includes(folder.path) ? 'active' : ''} onClick={() => toggleFolder(folder.path)}>{folder.name} <small>{folder.assetCount}</small></button>)}</div>}
-    </div>
+      {props.viewMode === 'folders' ? <div className="library-browser">
+        <aside className="folder-sidebar">
+          <div className="folder-sidebar-head"><strong>文件夹</strong><span>{props.folders.length} 个</span></div>
+          <div className="folder-list">
+            <button className={props.selectedFolderPaths.length === 0 ? 'active' : ''} onClick={() => props.onSelectedFolderPathsChange([])}>
+              <i>{props.selectedFolderPaths.length === 0 ? '✓' : ''}</i><span><strong>全部文件夹</strong><small>显示所有照片</small></span>
+            </button>
+            {props.folders.map((folder) => <button key={folder.path} title={folder.path} className={selected.has(folder.path) ? 'active' : ''} onClick={() => toggleFolder(folder.path)}>
+              <i>{selected.has(folder.path) ? '✓' : ''}</i><span><strong>{folder.name}</strong><small>{folder.path}</small></span><b>{folder.assetCount}</b>
+            </button>)}
+          </div>
+        </aside>
+        <div className="library-content">{props.children}</div>
+      </div> : <div className="library-content">{props.children}</div>}
+    </>
   )
 }
 
 function PhotoCollection(props: { photos: MediaAssetSummary[]; folders: FolderSummary[]; viewMode: 'folders' | 'all'; renderPhoto: (photo: MediaAssetSummary) => React.ReactNode }) {
   if (props.viewMode === 'all') return <div className="photo-grid">{props.photos.map(props.renderPhoto)}</div>
-  const known = new Set(props.folders.map((folder) => folder.path))
-  const groups = props.folders.map((folder) => ({ folder, photos: props.photos.filter((photo) => photo.primaryDirectoryPath === folder.path) })).filter((group) => group.photos.length > 0)
-  const ungrouped = props.photos.filter((photo) => !photo.primaryDirectoryPath || !known.has(photo.primaryDirectoryPath))
-  return <div className="folder-sections">{groups.map((group) => <section className="folder-section" key={group.folder.path}><header><div><strong>{group.folder.name}</strong><span>{group.folder.path}</span></div><b>{group.photos.length}</b></header><div className="photo-grid">{group.photos.map(props.renderPhoto)}</div></section>)}{ungrouped.length > 0 && <section className="folder-section"><header><div><strong>其他</strong><span>未归入可用文件夹</span></div><b>{ungrouped.length}</b></header><div className="photo-grid">{ungrouped.map(props.renderPhoto)}</div></section>}</div>
+  const known = new Map(props.folders.map((folder) => [folder.path, folder]))
+  const groups = new Map<string, { folder: FolderSummary; photos: MediaAssetSummary[] }>()
+  const ungrouped: MediaAssetSummary[] = []
+  for (const photo of props.photos) {
+    const folder = photo.primaryDirectoryPath ? known.get(photo.primaryDirectoryPath) : undefined
+    if (!folder) {
+      ungrouped.push(photo)
+      continue
+    }
+    const group = groups.get(folder.path) ?? { folder, photos: [] }
+    group.photos.push(photo)
+    groups.set(folder.path, group)
+  }
+  return <div className="folder-sections">{[...groups.values()].map((group) => <section className="folder-section" key={group.folder.path}><header><div><strong>{group.folder.name}</strong><span>{group.folder.path}</span></div><b>{group.photos.length}</b></header><div className="photo-grid">{group.photos.map(props.renderPhoto)}</div></section>)}{ungrouped.length > 0 && <section className="folder-section"><header><div><strong>其他</strong><span>未归入可用文件夹</span></div><b>{ungrouped.length}</b></header><div className="photo-grid">{ungrouped.map(props.renderPhoto)}</div></section>}</div>
 }
+
 function PhotoCard(props: { asset: MediaAssetSummary; selected: boolean; onToggle: () => void; onOpen: () => void }) {
   const [imageFailed, setImageFailed] = useState(false)
   useEffect(() => setImageFailed(false), [props.asset.id])
@@ -274,16 +305,39 @@ function PhotoCard(props: { asset: MediaAssetSummary; selected: boolean; onToggl
   )
 }
 
-function PhotoDetail(props: { asset: MediaAssetSummary; onClose: () => void; onToast: (toast: { kind: 'info' | 'error'; text: string }) => void }) {
+function PhotoDetail(props: { asset: MediaAssetSummary; assets: MediaAssetSummary[]; onChange: (asset: MediaAssetSummary) => void; onClose: () => void; onToast: (toast: { kind: 'info' | 'error'; text: string }) => void }) {
   const [locations, setLocations] = useState<MediaLocation[]>([])
   const [fullscreen, setFullscreen] = useState(false)
   const previewRef = useRef<HTMLDivElement>(null)
+  const lastNavigationRef = useRef(0)
+  const currentIndex = Math.max(0, props.assets.findIndex((asset) => asset.id === props.asset.id))
+  const multiple = props.assets.length > 1
+  const navigate = useCallback((delta: number) => {
+    if (props.assets.length === 0) return
+    const index = Math.max(0, props.assets.findIndex((asset) => asset.id === props.asset.id))
+    const nextIndex = (index + delta + props.assets.length) % props.assets.length
+    if (nextIndex !== index) props.onChange(props.assets[nextIndex])
+  }, [props.asset.id, props.assets, props.onChange])
   useEffect(() => { void window.albumApi.library.listLocations(props.asset.id).then(setLocations) }, [props.asset.id])
   useEffect(() => {
     const update = () => setFullscreen(document.fullscreenElement === previewRef.current)
     document.addEventListener('fullscreenchange', update)
     return () => document.removeEventListener('fullscreenchange', update)
   }, [])
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement || event.target instanceof HTMLSelectElement) return
+      const delta = event.key === 'ArrowLeft' || event.key === 'ArrowUp' ? -1 : event.key === 'ArrowRight' || event.key === 'ArrowDown' ? 1 : 0
+      if (!delta || !multiple) return
+      const now = Date.now()
+      if (event.repeat && now - lastNavigationRef.current < 90) return
+      lastNavigationRef.current = now
+      event.preventDefault()
+      navigate(delta)
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [multiple, navigate])
   const toggleFullscreen = async () => {
     try {
       if (document.fullscreenElement) await document.exitFullscreen()
@@ -297,8 +351,11 @@ function PhotoDetail(props: { asset: MediaAssetSummary; onClose: () => void; onT
     <Modal title={fileName(props.asset.primaryPath)} onClose={props.onClose} wide>
       <div className="detail-layout">
         <div className="detail-preview" ref={previewRef}>
+          <div className="preview-counter">{currentIndex + 1} / {props.assets.length}</div>
           <button className="fullscreen-button" onClick={() => void toggleFullscreen()}>{fullscreen ? '退出全屏' : '全屏查看'}</button>
+          {multiple && <><button className="preview-nav previous" aria-label="上一张" onClick={() => navigate(-1)}>‹</button><button className="preview-nav next" aria-label="下一张" onClick={() => navigate(1)}>›</button></>}
           <img src={previewUrl(props.asset.id)} alt="照片预览" onDoubleClick={() => void toggleFullscreen()} />
+          <div className="preview-hint">← ↑ 上一张 · → ↓ 下一张</div>
         </div>
         <div className="detail-info"><dl><dt>拍摄时间</dt><dd>{formatDate(props.asset.capturedAt)}</dd><dt>尺寸</dt><dd>{props.asset.width} × {props.asset.height}</dd><dt>拍摄参数</dt><dd>{formatCamera(props.asset)}</dd></dl><button className="button secondary" onClick={() => void favorite()}>{props.asset.favorite ? '取消收藏' : '加入收藏'}</button><h3>文件位置</h3>{locations.map((location) => <div className={`location-row ${location.status === 'missing' ? 'missing' : ''}`} key={location.id}><span title={location.absolutePath}>{location.absolutePath}</span>{location.status === 'available' && <button className="text-button" onClick={() => void window.albumApi.library.showInFolder(location.id)}>定位</button>}</div>)}</div>
       </div>
@@ -363,7 +420,7 @@ function WorkCreateDialog(props: { album: Album; existingWorks: Work[]; template
 
 function AssetPicker(props: { title: string; onClose: () => void; onConfirm: (ids: string[]) => Promise<void> }) {
   const pageSize = 120
-  const [filters, setFilters] = useState<Omit<SearchFilters, 'limit' | 'offset'>>({})
+  const [filters, setFilters] = useState<Omit<SearchFilters, 'limit' | 'offset'>>({ sort: 'captured_desc' })
   const [viewMode, setViewMode] = useState<'folders' | 'all'>('folders')
   const [folders, setFolders] = useState<FolderSummary[]>([])
   const [page, setPage] = useState(0)
@@ -406,16 +463,17 @@ function AssetPicker(props: { title: string; onClose: () => void; onConfirm: (id
 
   return (
     <Modal title={props.title} onClose={props.onClose} wide>
-      <input className="search-input full" placeholder="搜索照片" value={filters.text ?? ''} onChange={(event) => updateFilters({ text: event.target.value })} />
+      <input className="search-input full" placeholder="搜索文件名或文件夹路径" value={filters.text ?? ''} onChange={(event) => updateFilters({ text: event.target.value || undefined })} />
       <div className="toolbar picker-toolbar">
-        <select value={filters.sort ?? ''} onChange={(event) => updateFilters({ sort: (event.target.value || undefined) as SearchFilters['sort'] })}><option value="">默认排序</option><option value="captured_desc">拍摄时间：新到旧</option><option value="captured_asc">拍摄时间：旧到新</option><option value="added_desc">导入时间：新到旧</option><option value="added_asc">导入时间：旧到新</option><option value="filename_asc">文件名：A-Z</option><option value="filename_desc">文件名：Z-A</option></select>
+        <select value={filters.sort ?? 'captured_desc'} onChange={(event) => updateFilters({ sort: event.target.value as SearchFilters['sort'] })}><option value="captured_desc">拍摄时间：新到旧（默认）</option><option value="captured_asc">拍摄时间：旧到新</option><option value="added_desc">导入时间：新到旧</option><option value="added_asc">导入时间：旧到新</option><option value="filename_asc">文件名：A-Z</option><option value="filename_desc">文件名：Z-A</option></select>
         <span>共 {total.toLocaleString()} 张</span>
       </div>
-      <FolderToolbar folders={folders} viewMode={viewMode} selectedFolderPaths={filters.folderPaths ?? []} onViewModeChange={(mode) => { setViewMode(mode); if (mode === 'all') updateFilters({ folderPaths: undefined }) }} onSelectedFolderPathsChange={(folderPaths) => updateFilters({ folderPaths: folderPaths.length ? folderPaths : undefined })} />
-      <PhotoCollection photos={assets} folders={folders} viewMode={viewMode} renderPhoto={(asset) => <PhotoCard key={asset.id} asset={asset} selected={selected.has(asset.id)} onToggle={() => setSelected((current) => toggleSet(current, asset.id))} onOpen={() => setDetail(asset)} />} />
-      {assets.length > 0 && <div className="load-more" ref={sentinelRef}>{hasMore ? <button className="button secondary" disabled={loadingMore} onClick={() => setPage((current) => current + 1)}>{loadingMore ? '正在加载…' : '加载更多'}</button> : <span>已显示全部 {total.toLocaleString()} 张</span>}</div>}
+      <FolderBrowser folders={folders} viewMode={viewMode} selectedFolderPaths={filters.folderPaths ?? []} onViewModeChange={(mode) => { setViewMode(mode); if (mode === 'all') updateFilters({ folderPaths: undefined }) }} onSelectedFolderPathsChange={(folderPaths) => updateFilters({ folderPaths: folderPaths.length ? folderPaths : undefined })}>
+        <PhotoCollection photos={assets} folders={folders} viewMode={viewMode} renderPhoto={(asset) => <PhotoCard key={asset.id} asset={asset} selected={selected.has(asset.id)} onToggle={() => setSelected((current) => toggleSet(current, asset.id))} onOpen={() => setDetail(asset)} />} />
+        {assets.length > 0 && <div className="load-more" ref={sentinelRef}>{hasMore ? <button className="button secondary" disabled={loadingMore} onClick={() => setPage((current) => current + 1)}>{loadingMore ? '正在加载…' : '加载更多'}</button> : <span>已显示全部 {total.toLocaleString()} 张</span>}</div>}
+      </FolderBrowser>
       <div className="modal-actions"><span>已选 {selected.size} 张，双击照片可看大图</span><button className="button primary" disabled={!selected.size} onClick={() => void props.onConfirm([...selected])}>确认加入</button></div>
-      {detail && <PhotoDetail asset={detail} onClose={() => setDetail(null)} onToast={() => undefined} />}
+      {detail && <PhotoDetail asset={detail} assets={assets} onChange={setDetail} onClose={() => setDetail(null)} onToast={() => undefined} />}
     </Modal>
   )
 }

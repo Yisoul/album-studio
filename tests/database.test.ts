@@ -120,9 +120,32 @@ describe('AppDatabase', () => {
       sizeBytes: 10, modifiedAt: 1, width: 100, height: 100, format: 'jpeg', capturedAt: '2026-01-01T00:00:00.000Z', orientation: 'square'
     })
 
-    expect(db.searchAssets({ limit: 20, offset: 0, sort: 'captured_desc' }).items.map((item) => item.primaryPath)).toEqual(['C:\\sort-photos\\b.jpg', 'C:\\sort-photos\\a.jpg'])
-    expect(db.searchAssets({ limit: 20, offset: 0, sort: 'filename_asc' }).items.map((item) => item.primaryPath)).toEqual(['C:\\sort-photos\\a.jpg', 'C:\\sort-photos\\b.jpg'])
+    db.upsertMediaLocation({
+      rootId: root.id, absolutePath: 'C:\\sort-photos\\unknown.jpg', relativePath: 'unknown.jpg', contentHash: 'sort-unknown',
+      sizeBytes: 10, modifiedAt: 1, width: 100, height: 100, format: 'jpeg', orientation: 'square'
+    })
+
+    expect(db.searchAssets({ limit: 20, offset: 0, sort: 'captured_desc' }).items.map((item) => item.primaryPath)).toEqual(['C:\\sort-photos\\b.jpg', 'C:\\sort-photos\\a.jpg', 'C:\\sort-photos\\unknown.jpg'])
+    expect(db.searchAssets({ limit: 20, offset: 0 }).items.map((item) => item.primaryPath)[0]).toBe('C:\\sort-photos\\b.jpg')
+    expect(db.searchAssets({ limit: 20, offset: 0, sort: 'filename_asc' }).items.map((item) => item.primaryPath)).toEqual(['C:\\sort-photos\\a.jpg', 'C:\\sort-photos\\b.jpg', 'C:\\sort-photos\\unknown.jpg'])
   })
+  it('filters by file name, camera, and lens independently', () => {
+    const root = db.createSourceRoot('C:\\filter-photos')
+    db.upsertMediaLocation({
+      rootId: root.id, absolutePath: 'C:\\filter-photos\\sunset-a.jpg', relativePath: 'sunset-a.jpg', contentHash: 'filter-a',
+      sizeBytes: 10, modifiedAt: 1, width: 100, height: 100, format: 'jpeg', capturedAt: '2026-03-01T00:00:00.000Z', cameraMake: 'Sony', cameraModel: 'ILCE-7M4', lens: 'FE 24-70mm F2.8 GM II', orientation: 'square'
+    })
+    db.upsertMediaLocation({
+      rootId: root.id, absolutePath: 'C:\\filter-photos\\portrait-b.jpg', relativePath: 'portrait-b.jpg', contentHash: 'filter-b',
+      sizeBytes: 10, modifiedAt: 1, width: 100, height: 100, format: 'jpeg', capturedAt: '2026-02-01T00:00:00.000Z', cameraMake: 'Canon', cameraModel: 'EOS R5', lens: 'RF 50mm F1.2 L USM', orientation: 'square'
+    })
+
+    expect(db.searchAssets({ limit: 20, offset: 0, text: 'sunset' }).items.map((item) => item.primaryPath)).toEqual(['C:\\filter-photos\\sunset-a.jpg'])
+    expect(db.searchAssets({ limit: 20, offset: 0, cameraModel: 'Sony' }).items.map((item) => item.cameraModel)).toEqual(['ILCE-7M4'])
+    expect(db.searchAssets({ limit: 20, offset: 0, cameraModel: '7M4' }).items.map((item) => item.primaryPath)).toEqual(['C:\\filter-photos\\sunset-a.jpg'])
+    expect(db.searchAssets({ limit: 20, offset: 0, lens: 'RF 50mm' }).items.map((item) => item.primaryPath)).toEqual(['C:\\filter-photos\\portrait-b.jpg'])
+  })
+
   it('lists physical folders and filters photos by selected folder', () => {
     const root = db.createSourceRoot('I:\\folder-tree')
     db.upsertMediaLocation({ rootId: root.id, absolutePath: 'I:\\folder-tree\\one\\a.jpg', relativePath: 'one\\a.jpg', contentHash: 'dir-one', sizeBytes: 10, modifiedAt: 1, width: 100, height: 100, format: 'jpeg', orientation: 'square' })

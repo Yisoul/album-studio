@@ -82,7 +82,7 @@ export class WorkExporter {
         const resized = await sharp(location.absolutePath)
           .rotate()
           .resize(layerWidth, layerHeight, {
-            fit: layer.style.fit === 'contain' ? 'contain' : 'cover',
+            fit: layer.style.fit === 'contain' ? 'contain' : layer.style.fit === 'stretch' ? 'fill' : 'cover',
             position: 'centre',
             background: { r: 0, g: 0, b: 0, alpha: 0 }
           })

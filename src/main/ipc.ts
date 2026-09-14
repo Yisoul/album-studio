@@ -1,7 +1,7 @@
 import { dialog, ipcMain, shell, type BrowserWindow } from 'electron'
 import { z } from 'zod'
 import { BUILT_IN_TEMPLATES } from '../shared/templates'
-import type { AppSettings, OutputMode, SearchFilters, SourceRemovalMode, TemplateDefinition } from '../shared/types'
+import type { AppSettings, LayerOrderAction, OutputMode, SearchFilters, SourceRemovalMode, TemplateDefinition } from '../shared/types'
 import type { BackupService } from './backup'
 import type { AppDatabase } from './database'
 import type { WorkExporter } from './exporter'
@@ -152,6 +152,7 @@ export function registerIpcHandlers(context: IpcContext): () => void {
   handle('works:create-image-layer', (_event, pageId: string, input: Record<string, unknown>) => context.db.createImageLayer(pageId, input as unknown as Parameters<AppDatabase['createImageLayer']>[1]))
   handle('works:create-text-layer', (_event, pageId: string, input: Record<string, unknown>) => context.db.createTextLayer(pageId, input as unknown as Parameters<AppDatabase['createTextLayer']>[1]))
   handle('works:update-layer', (_event, layerId: string, changes: Record<string, unknown>) => context.db.updateLayer(layerId, changes as Parameters<AppDatabase['updateLayer']>[1]))
+  handle('works:reorder-layers', (_event, pageId: string, layerIds: string[], action: LayerOrderAction) => context.db.reorderLayers(z.string().uuid().parse(pageId), z.array(z.string().uuid()).min(1).parse(layerIds), z.enum(['top', 'up', 'down', 'bottom']).parse(action)))
   handle('works:replace-image-layer-asset', (_event, layerId: string, assetId: string) => context.db.replaceImageLayerAsset(layerId, assetId))
   handle('works:update-text-layer', (_event, layerId: string, text: string, style: Record<string, unknown>) => context.db.updateTextLayer(layerId, text, style))
   handle('works:delete-layer', (_event, layerId: string) => context.db.deleteLayer(layerId))

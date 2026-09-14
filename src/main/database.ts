@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto'
 import { dirname } from 'node:path'
 import { DatabaseSync } from 'node:sqlite'
-import type { FolderSummary, SourceRemovalMode, SourceRemovalResult, SourceRootImpact } from '../shared/types'
+import type { FolderSummary, ImageFit, LayerOrderAction, SourceRemovalMode, SourceRemovalResult, SourceRootImpact } from '../shared/types'
 
 export type Orientation = 'landscape' | 'portrait' | 'square'
 export type OutputMode = 'pages' | 'long_image'
@@ -138,7 +138,7 @@ export interface ImageLayerInput {
   height: number
   rotation: number
   zIndex: number
-  fit: 'cover' | 'contain'
+  fit: ImageFit
   radius: number
 }
 
@@ -665,16 +665,14 @@ export class AppDatabase {
     const params: Array<string | number> = []
 
     if (filters.text?.trim()) {
-      clauses.push(`(
-        EXISTS (
-          SELECT 1 FROM media_locations l
-          WHERE l.asset_id = a.id
-            AND (l.absolute_path LIKE ? OR l.relative_path LIKE ?)
-        )
-        OR a.camera_model LIKE ? OR a.lens LIKE ?
+      clauses.push(`EXISTS (
+        SELECT 1 FROM media_locations l
+        WHERE l.asset_id = a.id
+          AND l.status = 'available'
+          AND (l.absolute_path LIKE ? OR l.relative_path LIKE ?)
       )`)
       const term = `%${filters.text.trim()}%`
-      params.push(term, term, term, term)
+      params.push(term, term)
     }
     if (filters.capturedFrom) {
       clauses.push('a.captured_at >= ?')
@@ -688,13 +686,14 @@ export class AppDatabase {
       clauses.push('a.orientation = ?')
       params.push(filters.orientation)
     }
-    if (filters.cameraModel) {
-      clauses.push('a.camera_model LIKE ?')
-      params.push(`%${filters.cameraModel}%`)
+    if (filters.cameraModel?.trim()) {
+      clauses.push('(a.camera_make LIKE ? OR a.camera_model LIKE ?)')
+      const term = `%${filters.cameraModel.trim()}%`
+      params.push(term, term)
     }
-    if (filters.lens) {
+    if (filters.lens?.trim()) {
       clauses.push('a.lens LIKE ?')
-      params.push(`%${filters.lens}%`)
+      params.push(`%${filters.lens.trim()}%`)
     }
     if (filters.isoMin != null) {
       clauses.push('a.iso >= ?')
@@ -734,13 +733,14 @@ export class AppDatabase {
     }
 
     const where = clauses.join(' AND ')
+    const filenameOrder = "LOWER(COALESCE(primary_path, ''))"
     const orderBy = {
-      captured_desc: "COALESCE(a.captured_at, '') DESC, a.created_at DESC",
-      captured_asc: "COALESCE(a.captured_at, '9999') ASC, a.created_at ASC",
-      added_desc: 'a.created_at DESC',
-      added_asc: 'a.created_at ASC',
-      filename_asc: "lower(COALESCE(primary_path, '')) ASC",
-      filename_desc: "lower(COALESCE(primary_path, '')) DESC"
+      captured_desc: `CASE WHEN a.captured_at IS NULL OR a.captured_at = '' THEN 1 ELSE 0 END, a.captured_at DESC, a.created_at DESC, ${filenameOrder} ASC`,
+      captured_asc: `CASE WHEN a.captured_at IS NULL OR a.captured_at = '' THEN 1 ELSE 0 END, a.captured_at ASC, a.created_at ASC, ${filenameOrder} ASC`,
+      added_desc: `a.created_at DESC, CASE WHEN a.captured_at IS NULL OR a.captured_at = '' THEN 1 ELSE 0 END, a.captured_at DESC, ${filenameOrder} ASC`,
+      added_asc: `a.created_at ASC, CASE WHEN a.captured_at IS NULL OR a.captured_at = '' THEN 1 ELSE 0 END, a.captured_at ASC, ${filenameOrder} ASC`,
+      filename_asc: `${filenameOrder} ASC`,
+      filename_desc: `${filenameOrder} DESC`
     }[filters.sort ?? 'captured_desc']
     const totalRow = this.db.prepare(`SELECT COUNT(*) AS count FROM media_assets a WHERE ${where}`).get(...params) as Row
     const rows = this.db.prepare(`
@@ -984,6 +984,27 @@ export class AppDatabase {
     )
   }
 
+  reorderLayers(pageId: string, layerIds: string[], action: LayerOrderAction): Layer[] {
+    const layers = this.listLayers(pageId)
+    if (layers.length === 0) throw new Error('页面没有可排序的图层')
+    const selected = new Set(layerIds)
+    if (layerIds.length === 0 || layerIds.some((id) => !layers.some((layer) => layer.id === id))) {
+      throw new Error('选择的图层不属于当前页面')
+    }
+    const ordered = arrangeLayerOrder(layers, selected, action)
+    const now = Date.now()
+    const update = this.db.prepare('UPDATE layers SET z_index = ?, updated_at = ? WHERE id = ?')
+    this.db.exec('BEGIN')
+    try {
+      ordered.forEach((layer, index) => update.run(index + 1, now, layer.id))
+      this.db.exec('COMMIT')
+    } catch (error) {
+      this.db.exec('ROLLBACK')
+      throw error
+    }
+    return ordered.map((layer, index) => ({ ...layer, zIndex: index + 1 }))
+  }
+
   replaceImageLayerAsset(layerId: string, assetId: string): void {
     const layer = this.db.prepare("SELECT type FROM layers WHERE id = ?").get(layerId) as Row | undefined
     if (!layer) throw new Error('图层不存在')
@@ -995,6 +1016,7 @@ export class AppDatabase {
   updateTextLayer(layerId: string, text: string, style: Record<string, unknown>): void {
     const row = this.db.prepare('SELECT * FROM layers WHERE id = ?').get(layerId) as Row | undefined
     if (!row) throw new Error('文字图层不存在')
+    if (asString(row.type) !== 'text') throw new Error('只有文字图层可以编辑文字')
     const currentStyle = JSON.parse(asString(row.style_json)) as Record<string, unknown>
     this.db.prepare('UPDATE layers SET text_content = ?, style_json = ?, updated_at = ? WHERE id = ?').run(
       text, JSON.stringify({ ...currentStyle, ...style }), Date.now(), layerId
@@ -1193,4 +1215,24 @@ export class AppDatabase {
       createdAt: asNumber(row.created_at)
     }
   }
+}
+
+function arrangeLayerOrder(layers: Layer[], selected: Set<string>, action: LayerOrderAction): Layer[] {
+  if (action === 'top') return [...layers.filter((layer) => !selected.has(layer.id)), ...layers.filter((layer) => selected.has(layer.id))]
+  if (action === 'bottom') return [...layers.filter((layer) => selected.has(layer.id)), ...layers.filter((layer) => !selected.has(layer.id))]
+  const ordered = [...layers]
+  if (action === 'up') {
+    for (let index = ordered.length - 2; index >= 0; index -= 1) {
+      if (selected.has(ordered[index].id) && !selected.has(ordered[index + 1].id)) {
+        [ordered[index], ordered[index + 1]] = [ordered[index + 1], ordered[index]]
+      }
+    }
+  } else {
+    for (let index = 1; index < ordered.length; index += 1) {
+      if (selected.has(ordered[index].id) && !selected.has(ordered[index - 1].id)) {
+        [ordered[index], ordered[index - 1]] = [ordered[index - 1], ordered[index]]
+      }
+    }
+  }
+  return ordered
 }
